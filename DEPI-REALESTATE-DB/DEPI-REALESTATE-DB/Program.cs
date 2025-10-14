@@ -1,6 +1,7 @@
 
 using DEPI_REALESTATE_DB.Model;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 using System;
 
 namespace DEPI_REALESTATE_DB
@@ -28,6 +29,13 @@ namespace DEPI_REALESTATE_DB
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.MapScalarApiReference(options =>
+                {
+                    options.Title = "The DEPI-REALESTATE Api";
+                    options.Layout = ScalarLayout.Classic;
+                    options.HideClientButton = true;
+                    options.Theme = ScalarTheme.Saturn;
+                });
             }
 
             app.UseHttpsRedirection();
