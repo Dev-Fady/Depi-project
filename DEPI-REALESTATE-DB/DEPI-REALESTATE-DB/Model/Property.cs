@@ -27,5 +27,11 @@ namespace DEPI_REALESTATE_DB.Model
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
         public Amenity Amenity { get; set; }
+        public ICollection<PropertyGallery> PropertyGalleries { get; set; } = new List<PropertyGallery>();
+        public Guid CompoundId { get; set; }
+        public Compound Compound { get; set; }
+
+        public CommercialProperty CommercialProperty { get; set; }
+
     }
 }

@@ -17,4 +17,5 @@ namespace DEPI_REALESTATE_DB.Model.Config
                    .IsRequired();
         }
     }
+
 }
