@@ -12,5 +12,8 @@ namespace DEPI_REALESTATE_DB.Model
         public Guid RoleId { get; set; }
         public Role Role { get; set; }
         public DateTime DateJoined { get; set; }
+        public ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
     }
 }
