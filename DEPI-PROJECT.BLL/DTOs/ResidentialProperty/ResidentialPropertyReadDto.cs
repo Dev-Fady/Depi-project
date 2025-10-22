@@ -1,4 +1,5 @@
-﻿using DEPI_PROJECT.DAL.Models.Enums;
+﻿using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
+using DEPI_PROJECT.DAL.Models.Enums;
 
 namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
 {
@@ -28,6 +29,6 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
         public int? Floors { get; set; }
         public KitchenType KitchenType { get; set; }
 
-        public List<string> GalleryUrls { get; set; } = new();
+        public List<PropertyGalleryReadDto>? Galleries { get; set; }
     }
 }
