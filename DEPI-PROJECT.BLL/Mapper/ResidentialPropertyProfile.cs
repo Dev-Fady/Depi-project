@@ -11,8 +11,8 @@ namespace DEPI_PROJECT.BLL.Mapper
         {
             CreateMap<ResidentialProperty, ResidentialPropertyReadDto>()
                 .ForMember(dest => dest.AgentName, opt => opt.MapFrom(src => src.Agent.Name))
-                .ForMember(dest => dest.CompoundName, opt => opt.MapFrom(src => src.Compound.Name))
-                .ForMember(dest => dest.GalleryUrls, opt => opt.MapFrom(src => src.PropertyGalleries.Select(g => g.ImageUrl)));
+                .ForMember(dest => dest.CompoundName, opt => opt.MapFrom(src => src.Compound != null ? src.Compound.Name : null))
+                .ForMember(dest => dest.Galleries, opt => opt.MapFrom(src => src.PropertyGalleries));
 
             CreateMap<ResidentialPropertyAddDto, ResidentialProperty>();
 
@@ -20,7 +20,6 @@ namespace DEPI_PROJECT.BLL.Mapper
 
             CreateMap<ResidentialPropertyUpdateDto, ResidentialProperty>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-
 
         }
     }
