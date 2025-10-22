@@ -26,6 +26,7 @@ namespace DEPI_PROJECT.PL
             builder.Services.AddSwaggerGen();
             
             builder.Services.AddResidentialPropertyServices();
+            builder.Services.AddPropertyGalleryServices();
 
 
             var app = builder.Build();
@@ -49,7 +50,8 @@ namespace DEPI_PROJECT.PL
             app.UseRouting();
 
             app.MapControllers();
-            
+
+            app.UseStaticFiles();
             app.Run();
         }
     }
