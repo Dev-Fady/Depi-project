@@ -4,6 +4,7 @@ using DEPI_PROJECT.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEPI_PROJECT.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251022124804_RemoveCommercialRelationFromProperty")]
+    partial class RemoveCommercialRelationFromProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,7 +139,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid?>("CompoundId")
+                    b.Property<Guid>("CompoundId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateListed")
@@ -417,7 +420,8 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.HasOne("DEPI_PROJECT.DAL.Models.Compound", "Compound")
                         .WithMany("Properties")
                         .HasForeignKey("CompoundId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Agent");
 
