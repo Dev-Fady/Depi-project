@@ -30,5 +30,8 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
         public KitchenType KitchenType { get; set; }
 
         public List<PropertyGalleryReadDto>? Galleries { get; set; }
+
+        public AmenityReadDto Amenity { get; set; }
+
     }
 }

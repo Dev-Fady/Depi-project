@@ -24,6 +24,9 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
         public KitchenType? KitchenType { get; set; }
 
         public Guid? CompoundId { get; set; }
+
+        public AmenityAddDto Amenity { get; set; }
+
     }
 
 

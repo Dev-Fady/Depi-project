@@ -28,5 +28,7 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
         public int Bathrooms { get; set; }
         public int? Floors { get; set; }
         public KitchenType KitchenType { get; set; }
+
+        public AmenityAddDto Amenity { get; set; }
     }
 }
