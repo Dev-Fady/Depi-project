@@ -22,6 +22,7 @@ namespace DEPI_PROJECT.DAL.Repository.ResidentialProperties
             var query = context.ResidentialProperties
                 .Include(x => x.Agent)
                 .Include(x => x.Compound)
+                .Include(x=>x.Amenity)
                 .Include(x => x.PropertyGalleries);
 
             var totalCount = query.Count();
@@ -43,6 +44,7 @@ namespace DEPI_PROJECT.DAL.Repository.ResidentialProperties
         public ResidentialProperty? GetResidentialPropertyById(Guid id)
         {
             return context.ResidentialProperties
+                .Include(x=>x.Amenity)
                 .FirstOrDefault(rp => rp.PropertyId == id);
         }
         public void AddResidentialProperty(ResidentialProperty property)
@@ -65,6 +67,21 @@ namespace DEPI_PROJECT.DAL.Repository.ResidentialProperties
             if (existing == null) return;
 
             context.Entry(existing).CurrentValues.SetValues(property);
+            context.SaveChanges();
+        }
+
+        public void AddAmenity(Amenity amenity)
+        {
+            context.Amenities.Add(amenity);
+            context.SaveChanges();
+        }
+
+        public void UpdateAmenity(Amenity amenity)
+        {
+            var existing = context.Amenities.Find(amenity.PropertyId);
+            if (existing == null) return;
+
+            context.Entry(existing).CurrentValues.SetValues(amenity);
             context.SaveChanges();
         }
     }

@@ -15,5 +15,9 @@ namespace DEPI_PROJECT.DAL.Repository.ResidentialProperties
         void AddResidentialProperty(ResidentialProperty property);
         void UpdateResidentialProperty(Guid id,ResidentialProperty property);
         void DeleteResidentialProperty(Guid id);
+
+        void AddAmenity(Amenity amenity);
+        void UpdateAmenity(Amenity amenity);
+
     }
 }
