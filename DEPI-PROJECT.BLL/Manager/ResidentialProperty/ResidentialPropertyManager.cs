@@ -49,6 +49,12 @@ namespace DEPI_PROJECT.BLL.Manager.ResidentialProperty
         {
             var property = _mapper.Map<EntityResidentialProperty>(propertyDto);
             _repo.AddResidentialProperty(property);
+            if (propertyDto.Amenity != null)
+            {
+                var amenity = _mapper.Map<Amenity>(propertyDto.Amenity);
+                amenity.PropertyId = property.PropertyId;
+                _repo.AddAmenity(amenity);
+            }
             return _mapper.Map<ResidentialPropertyReadDto>(property);
         }
 
@@ -69,6 +75,21 @@ namespace DEPI_PROJECT.BLL.Manager.ResidentialProperty
                 return false;
 
             _mapper.Map(propertyDto, existing);
+            if (propertyDto.Amenity != null)
+            {
+                if (existing.Amenity == null)
+                {
+                    existing.Amenity = _mapper.Map<Amenity>(propertyDto.Amenity);
+                    existing.Amenity.PropertyId = existing.PropertyId;
+                    _repo.AddAmenity(existing.Amenity);
+                }
+                else
+                {
+                    _mapper.Map(propertyDto.Amenity, existing.Amenity);
+                    _repo.UpdateAmenity(existing.Amenity);
+                }
+            }
+
             _repo.UpdateResidentialProperty(id, existing);
             
             return true;
