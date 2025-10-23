@@ -19,15 +19,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             _configuration = configuration;
         }
-        public string GenerateToken(JwtCreateDto jwtCreateDto)
+        public string GenerateToken(List<Claim> claims)
         {
-            //Create Claims
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, jwtCreateDto.UserName),
-                new Claim(ClaimTypes.Role, jwtCreateDto.userRole)
-            };
-
+            
             string securityKey = _configuration.GetSection("JWT").GetSection("SecurityKey").Value;
             if(securityKey == null)
             {
@@ -55,9 +49,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return jwtSecurityTokenHandler.WriteToken(jwtSecurityToken);
         }
 
-        public bool InvokeToken()
-        {
-            throw new NotImplementedException();
-        }
+        // public bool InvokeToken()
+        // {
+        //     throw new NotImplementedException();
+        // }
     }
 }

@@ -1,7 +1,12 @@
 
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Claims;
+using System.Security.Principal;
 using DEPI_PROJECT.BLL.DTOs.Authentication;
 using DEPI_PROJECT.BLL.DTOs.Jwt;
+using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
+using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 
@@ -10,26 +15,140 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     public class AuthService : IAuthService
     {
         private readonly IJwtService _jwtService;
-        public AuthService(IJwtService jwtService)
+        private readonly UserManager<User> _userManager;
+        public AuthService(
+            IJwtService jwtService,
+            UserManager<User> userManager
+            )
         {
+            _userManager = userManager;
             _jwtService = jwtService;
         }
-        public AuthResponseDto Register(AuthRegisterDto authRegisterDto)
+        public async Task<ResponseDto<AuthResponseDto>> RegisterAsync(AuthRegisterDto authRegisterDto)
         {
-            string JwtToken = _jwtService.GenerateToken(new JwtCreateDto
+            // Register the new user
+            User user = new User
             {
                 UserName = authRegisterDto.UserName,
-                Password = new PasswordHasher<string>().HashPassword(authRegisterDto.UserName, authRegisterDto.Password),
                 Email = authRegisterDto.Email,
-                userRole = Enum.GetName(typeof(UserRole), authRegisterDto.userRole)
-            });
-
-            return new AuthResponseDto
-            {
-                UserName = authRegisterDto.UserName,
-                userRole = authRegisterDto.userRole,
-                JwtToken = JwtToken
+                PhoneNumber = authRegisterDto.Phone,
             };
+            user.PasswordHash = new PasswordHasher<User>().HashPassword(user, authRegisterDto.Password);
+
+            var identityResult = await _userManager.CreateAsync(user);
+
+            if (!identityResult.Succeeded)
+            {
+                return new ResponseDto<AuthResponseDto>
+                {
+                    message = "An error occured while registering the user. Please try again",
+                    IsSuccess = false
+                };
+            }
+
+            //Create Claims
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Role, Enum.GetName(typeof(UserRole), authRegisterDto.userRole)),
+                new Claim(ClaimTypes.Version, "0"),
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
+            };
+
+
+            string ToeknGenerated = _jwtService.GenerateToken(claims);
+
+            await _userManager.AddClaimsAsync(user, claims);
+
+            var authResponseDto = new AuthResponseDto
+            {
+                UserId = user.UserId,
+                JwtToken = ToeknGenerated
+            };
+
+            return new ResponseDto<AuthResponseDto>
+            {
+                Data = authResponseDto,
+                message = "User Registered Successfully",
+                IsSuccess = true
+            };
+        }
+
+        public async Task<ResponseDto<AuthResponseDto>> LoginAsync(AuthLoginDto authLoginDto)
+        {
+            User? user = await _userManager.FindByNameAsync(authLoginDto.UserName);
+
+            if (user == null)
+            {
+                return new ResponseDto<AuthResponseDto>
+                {
+                    message = "No username match, please try another one",
+                    IsSuccess = false
+                };
+            }
+
+            bool VALID = await _userManager.CheckPasswordAsync(user, authLoginDto.Password);
+            if(!VALID)
+            {
+                return new ResponseDto<AuthResponseDto>
+                {
+                    message = "Password doesn't match the current username",
+                    IsSuccess = false
+                };
+            }
+
+            var claims = await _userManager.GetClaimsAsync(user);
+
+            var token = _jwtService.GenerateToken(claims.ToList());
+
+            var authResponseDto = new AuthResponseDto
+            {
+                UserId = user.UserId,
+                JwtToken = token
+            };
+
+            return new ResponseDto<AuthResponseDto>
+            {
+                Data = authResponseDto,
+                message = "User logged successfully",
+                IsSuccess = true
+            };
+        }
+
+        public async Task<ResponseDto<bool>> LogoutAsync(Guid userId)
+        {
+            User user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                return new ResponseDto<bool>
+                {
+                    message = "No userId match found",
+                    IsSuccess = false
+                };
+            }
+            var claims = await _userManager.GetClaimsAsync(user);
+            var OldClaim = claims.ToList()[2];
+            int newTokenVersion = int.Parse(OldClaim.Value) + 1;
+
+
+            var NewClaim = new Claim(OldClaim.Type, newTokenVersion.ToString());
+            var identityResult = await _userManager.ReplaceClaimAsync(user, OldClaim, NewClaim);
+
+            if (!identityResult.Succeeded)
+            {
+                return new ResponseDto<bool>
+                {
+                    message = "An error occurred while logging out, please try again",
+                    IsSuccess = false
+                };
+            }
+
+            return new ResponseDto<bool>
+            {
+                message = "User successfully logged out",
+                IsSuccess = true
+            };
+
         }
     }
 }
