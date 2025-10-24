@@ -1,4 +1,5 @@
 ﻿using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
+using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,12 @@ namespace DEPI_PROJECT.BLL.Manager.CommercialProperty
 {
     public interface ICommercialPropertyManager
     {
-        PagedResult<CommercialPropertyReadDto> GetAllProperties(int pageNumber, int pageSize);
-        CommercialPropertyReadDto GetPropertyById(Guid id);
+        ResponseDto<PagedResult<CommercialPropertyReadDto>> GetAllProperties(int pageNumber, int pageSize);
+        ResponseDto<CommercialPropertyReadDto> GetPropertyById(Guid id);
 
-        CommercialPropertyReadDto AddProperty(CommercialPropertyAddDto propertyDto);
+        ResponseDto<CommercialPropertyReadDto> AddProperty(CommercialPropertyAddDto propertyDto);
 
-        bool UpdateCommercialProperty(Guid id, CommercialPropertyUpdateDto propertyDto);
-        bool DeleteCommercialProperty(Guid id);
+        ResponseDto<bool> UpdateCommercialProperty(Guid id, CommercialPropertyUpdateDto propertyDto);
+        ResponseDto<bool> DeleteCommercialProperty(Guid id);
     }
 }

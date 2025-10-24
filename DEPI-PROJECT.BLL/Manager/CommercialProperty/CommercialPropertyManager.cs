@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
+using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repository.CommercialProperty;
 using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
@@ -23,34 +24,56 @@ namespace DEPI_PROJECT.BLL.Manager.CommercialProperty
             _repo = repo;
         }
 
-        public PagedResult<CommercialPropertyReadDto> GetAllProperties(int pageNumber, int pageSize)
+        public ResponseDto<PagedResult<CommercialPropertyReadDto>> GetAllProperties(int pageNumber, int pageSize)
         {
             var result = _repo.GetAllProperties(pageNumber, pageSize);
             var mappedData = _mapper.Map<List<CommercialPropertyReadDto>>(result.Data);
-            return new PagedResult<CommercialPropertyReadDto>
+            var pagedResult = new PagedResult<CommercialPropertyReadDto>
             {
                 Data = mappedData,
                 TotalCount = result.TotalCount,
                 TotalPages = result.TotalPages
             };
+
+            return new ResponseDto<PagedResult<CommercialPropertyReadDto>>
+            {
+                IsSuccess = true,
+                Message = "Properties retrieved successfully.",
+                Data = pagedResult
+            };
         }
 
-        public CommercialPropertyReadDto GetPropertyById(Guid id)
+        public ResponseDto<CommercialPropertyReadDto> GetPropertyById(Guid id)
         {
             var property = _repo.GetPropertyById(id);
             if (property == null)
             {
-                throw new Exception("Commercial Property not found");
+                return new ResponseDto<CommercialPropertyReadDto>
+                {
+                    IsSuccess = false,
+                    Message = "Commercial property not found."
+                };
             }
-            return _mapper.Map<CommercialPropertyReadDto>(property);
+            var mapped = _mapper.Map<CommercialPropertyReadDto>(property);
+            return new ResponseDto<CommercialPropertyReadDto>
+            {
+                IsSuccess = true,
+                Message = "Property retrieved successfully.",
+                Data = mapped
+            };
         }
 
-        public bool UpdateCommercialProperty(Guid id, CommercialPropertyUpdateDto propertyDto)
+        public ResponseDto<bool> UpdateCommercialProperty(Guid id, CommercialPropertyUpdateDto propertyDto)
         {
             var existing = _repo.GetPropertyById(id);
             if (existing == null)
             {
-                return false;
+                return new ResponseDto<bool>
+                {
+                    IsSuccess = false,
+                    Message = "Property not found.",
+                    Data = false
+                };
             }
             _mapper.Map(propertyDto, existing);
             if (propertyDto.Amenity != null)
@@ -68,9 +91,14 @@ namespace DEPI_PROJECT.BLL.Manager.CommercialProperty
                 }
             }
             _repo.UpdateCommercialProperty(id, existing);
-            return true;
+            return new ResponseDto<bool>
+            {
+                IsSuccess = true,
+                Message = "Commercial property updated successfully.",
+                Data = true
+            };
         }
-        public CommercialPropertyReadDto AddProperty(CommercialPropertyAddDto propertyDto)
+        public ResponseDto<CommercialPropertyReadDto> AddProperty(CommercialPropertyAddDto propertyDto)
         {
             var property = _mapper.Map<EntityCommercialProperty>(propertyDto);
             _repo.AddCommercialProperty(property);
@@ -80,20 +108,35 @@ namespace DEPI_PROJECT.BLL.Manager.CommercialProperty
                 amenity.PropertyId = property.PropertyId;
                 _repo.AddAmenity(amenity);
             }
-            return _mapper.Map<CommercialPropertyReadDto>(property);
+            return new ResponseDto<CommercialPropertyReadDto>
+            {
+                IsSuccess = true,
+                Message = "Commercial property added successfully.",
+                Data = _mapper.Map<CommercialPropertyReadDto>(property)
+            };
         }
 
-        public bool DeleteCommercialProperty(Guid id)
+        public ResponseDto<bool> DeleteCommercialProperty(Guid id)
         {
             var existing = _repo.GetPropertyById(id);
             if (existing == null)
             {
-                return false;
+                return new ResponseDto<bool>
+                {
+                    IsSuccess = false,
+                    Message = "Property not found.",
+                    Data = false
+                };
             }
 
             _repo.DeleteCommercialProperty(id);
-            return true;
-            
+            return new ResponseDto<bool>
+            {
+                IsSuccess = true,
+                Message = "Property deleted successfully.",
+                Data = true
+            };
+
         }
     }
 }

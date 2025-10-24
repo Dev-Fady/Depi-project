@@ -1,4 +1,5 @@
-﻿using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
+﻿using Azure;
+using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
 using DEPI_PROJECT.BLL.Manager.CommercialProperty;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,27 +32,21 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPost("AddCommercialProperty")]
         public IActionResult AddCommercialProperty([FromBody] CommercialPropertyAddDto propertyDto)
         {
-            var createdProperty = _mangaer.AddProperty(propertyDto);
-            return CreatedAtAction(
-                nameof(GetById),
-                 new { id = createdProperty.PropertyId },
-                propertyDto
-                );
+            var response = _mangaer.AddProperty(propertyDto);
+            return Ok(response);
         }
 
         [HttpDelete("DeleteCommercialProperty/{id}")]
         public IActionResult DeleteCommercialProperty(Guid id)
         {
-            var success = _mangaer.DeleteCommercialProperty(id);
-            if (!success) return NotFound();
-            return Ok("Deleted successfully");
+            var response = _mangaer.DeleteCommercialProperty(id);
+            return Ok(response);
         }
         [HttpPut("UpdateCommercialProperty/{id}")]
         public IActionResult UpdateCommercialProperty(Guid id, [FromBody] CommercialPropertyUpdateDto propertyDto)
         {
-            var success = _mangaer.UpdateCommercialProperty(id, propertyDto);
-            if (!success) return NotFound();
-            return Ok("Updated successfully");
+            var response = _mangaer.UpdateCommercialProperty(id, propertyDto);
+            return Ok(response);
         }
     }
 }
