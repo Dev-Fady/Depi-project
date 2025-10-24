@@ -1,8 +1,13 @@
 ﻿using DEPI_PROJECT.DAL.Models.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
+namespace DEPI_PROJECT.BLL.DTOs.CommercialProperty
 {
-    public class ResidentialPropertyUpdateDto
+    public class CommercialPropertyUpdateDto
     {
         public Guid? PropertyId { get; set; }
 
@@ -18,16 +23,11 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
         public float? Square { get; set; }
         public string? Description { get; set; }
 
-        public int? Bedrooms { get; set; }
-        public int? Bathrooms { get; set; }
-        public int? Floors { get; set; }
-        public KitchenType? KitchenType { get; set; }
-
         public Guid? CompoundId { get; set; }
 
-        public AmenityAddDto? Amenity { get; set; }
-
+        public string? BusinessType { get; set; }
+        public int? FloorNumber { get; set; }
+        public bool? HasStorage { get; set; }
+        public CommercialAmenityAddDto? Amenity { get; set; }
     }
-
-
 }
