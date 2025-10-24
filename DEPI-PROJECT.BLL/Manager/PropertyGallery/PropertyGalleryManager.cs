@@ -1,22 +1,31 @@
 ﻿using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
-using DataModel = DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.DAL.Repository.PropertyGallery;
 using System.Threading.Tasks;
+using DataModel = DEPI_PROJECT.DAL.Models;
 
 namespace DEPI_PROJECT.BLL.Manager.PropertyGallery
 {
     public class PropertyGalleryManager : IPropertyGalleryManager
     {
         private readonly IPropertyGalleryRepo _repo;
+
         public PropertyGalleryManager(IPropertyGalleryRepo repo)
         {
             _repo = repo;
         }
 
-        public async Task Add(PropertyGalleryAddDto dto)
+        public async Task<ResponseDto<string>> Add(PropertyGalleryAddDto dto)
         {
             if (dto.MediaFiles == null || !dto.MediaFiles.Any())
-                throw new ArgumentException("No media files uploaded.");
+            {
+                return new ResponseDto<string>
+                {
+                    IsSuccess = false,
+                    Message = "No media files uploaded.",
+                    Data = null
+                };
+            }
 
             var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
             if (!Directory.Exists(uploadDir))
@@ -31,8 +40,7 @@ namespace DEPI_PROJECT.BLL.Manager.PropertyGallery
                 var filePath = Path.Combine(uploadDir, fileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
-                     await file.CopyToAsync(stream);
-
+                    await file.CopyToAsync(stream);
 
                 var fileUrl = $"/uploads/{fileName}";
 
@@ -52,13 +60,27 @@ namespace DEPI_PROJECT.BLL.Manager.PropertyGallery
             }
 
             _repo.AddRange(galleryList);
+
+            return new ResponseDto<string>
+            {
+                IsSuccess = true,
+                Message = $"{dto.MediaFiles.Count} file(s) uploaded successfully.",
+                Data = "Upload completed."
+            };
         }
 
-        public bool Delete(Guid id)
+        public ResponseDto<bool> Delete(Guid id)
         {
             var gallery = _repo.GetById(id);
             if (gallery == null)
-                return false;
+            {
+                return new ResponseDto<bool>
+                {
+                    IsSuccess = false,
+                    Message = $"Gallery item with id {id} not found.",
+                    Data = false
+                };
+            }
 
             string? filePath = null;
             if (!string.IsNullOrEmpty(gallery.ImageUrl))
@@ -70,12 +92,19 @@ namespace DEPI_PROJECT.BLL.Manager.PropertyGallery
                 File.Delete(filePath);
 
             _repo.Delete(id);
-            return true;
+
+            return new ResponseDto<bool>
+            {
+                IsSuccess = true,
+                Message = "Gallery deleted successfully.",
+                Data = true
+            };
         }
-        public IEnumerable<PropertyGalleryReadDto> GetAll()
+
+        public ResponseDto<IEnumerable<PropertyGalleryReadDto>> GetAll()
         {
             var data = _repo.GetAll();
-            return data.Select(g => new PropertyGalleryReadDto
+            var mapped = data.Select(g => new PropertyGalleryReadDto
             {
                 MediaId = g.MediaId,
                 PropertyId = g.PropertyId,
@@ -83,26 +112,54 @@ namespace DEPI_PROJECT.BLL.Manager.PropertyGallery
                 VideoUrl = g.VideoUrl,
                 UploadedAt = g.UploadedAt
             });
-        }
-        public PropertyGalleryReadDto GetById(Guid id)
-        {
-            var g = _repo.GetById(id);
-            if (g == null)
-                return null;
 
-            return new PropertyGalleryReadDto
+            return new ResponseDto<IEnumerable<PropertyGalleryReadDto>>
             {
-                MediaId = g.MediaId,
-                PropertyId = g.PropertyId,
-                ImageUrl = g.ImageUrl,
-                VideoUrl = g.VideoUrl,
-                UploadedAt = g.UploadedAt
+                IsSuccess = true,
+                Message = "Gallery items retrieved successfully.",
+                Data = mapped
             };
         }
 
-        public IEnumerable<DataModel.PropertyGallery> GetByPropertyId(Guid propertyId)
+        public ResponseDto<PropertyGalleryReadDto> GetById(Guid id)
         {
-            return _repo.GetByPropertyId(propertyId);
+            var g = _repo.GetById(id);
+            if (g == null)
+            {
+                return new ResponseDto<PropertyGalleryReadDto>
+                {
+                    IsSuccess = false,
+                    Message = $"Gallery item with id {id} not found.",
+                    Data = null
+                };
+            }
+
+            return new ResponseDto<PropertyGalleryReadDto>
+            {
+                IsSuccess = true,
+                Message = "Gallery item retrieved successfully.",
+                Data = new PropertyGalleryReadDto
+                {
+                    MediaId = g.MediaId,
+                    PropertyId = g.PropertyId,
+                    ImageUrl = g.ImageUrl,
+                    VideoUrl = g.VideoUrl,
+                    UploadedAt = g.UploadedAt
+                }
+            };
+        }
+
+        public ResponseDto<IEnumerable<DataModel.PropertyGallery>> GetByPropertyId(Guid propertyId)
+        {
+            var data = _repo.GetByPropertyId(propertyId);
+
+            return new ResponseDto<IEnumerable<DataModel.PropertyGallery>>
+            {
+                IsSuccess = true,
+                Message = $"Gallery items for property {propertyId} retrieved successfully.",
+                Data = data
+            };
         }
     }
+
 }
