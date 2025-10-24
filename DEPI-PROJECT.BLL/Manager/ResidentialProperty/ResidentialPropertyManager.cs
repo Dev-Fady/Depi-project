@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
+using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
 using System;
@@ -15,64 +16,84 @@ namespace DEPI_PROJECT.BLL.Manager.ResidentialProperty
     {
         private readonly IResidentialPropertyRepo _repo;
         private readonly IMapper _mapper;
-        public ResidentialPropertyManager(IMapper mapper, IResidentialPropertyRepo repo) {
+        public ResidentialPropertyManager(IMapper mapper, IResidentialPropertyRepo repo)
+        {
             _mapper = mapper;
             _repo = repo;
         }
-
-        public PagedResult<ResidentialPropertyReadDto> GetAllResidentialProperty(int pageNumber, int pageSize)
+        public ResponseDto<PagedResult<ResidentialPropertyReadDto>> GetAllResidentialProperty(int pageNumber, int pageSize)
         {
             var result = _repo.GetAllResidentialProperty(pageNumber, pageSize);
-
             var mappedData = _mapper.Map<List<ResidentialPropertyReadDto>>(result.Data);
 
-            return new PagedResult<ResidentialPropertyReadDto>
+            var pagedResult = new PagedResult<ResidentialPropertyReadDto>
             {
                 Data = mappedData,
                 TotalCount = result.TotalCount,
                 TotalPages = result.TotalPages
             };
+
+            return new ResponseDto<PagedResult<ResidentialPropertyReadDto>>
+            {
+                IsSuccess = true,
+                Message = "Residential properties retrieved successfully.",
+                Data = pagedResult
+            };
         }
 
-
-        public ResidentialPropertyReadDto GetResidentialPropertyById(Guid id)
+        public ResponseDto<ResidentialPropertyReadDto> GetResidentialPropertyById(Guid id)
         {
             var property = _repo.GetResidentialPropertyById(id);
             if (property == null)
             {
-                throw new Exception("Residential Property not found");
+                return new ResponseDto<ResidentialPropertyReadDto>
+                {
+                    IsSuccess = false,
+                    Message = "Residential property not found."
+                };
             }
-            return _mapper.Map<ResidentialPropertyReadDto>(property);
+
+            var mapped = _mapper.Map<ResidentialPropertyReadDto>(property);
+            return new ResponseDto<ResidentialPropertyReadDto>
+            {
+                IsSuccess = true,
+                Message = "Residential property retrieved successfully.",
+                Data = mapped
+            };
         }
 
-        public ResidentialPropertyReadDto AddResidentialProperty(ResidentialPropertyAddDto propertyDto)
+        public ResponseDto<ResidentialPropertyReadDto> AddResidentialProperty(ResidentialPropertyAddDto propertyDto)
         {
             var property = _mapper.Map<EntityResidentialProperty>(propertyDto);
             _repo.AddResidentialProperty(property);
+
             if (propertyDto.Amenity != null)
             {
                 var amenity = _mapper.Map<Amenity>(propertyDto.Amenity);
                 amenity.PropertyId = property.PropertyId;
                 _repo.AddAmenity(amenity);
             }
-            return _mapper.Map<ResidentialPropertyReadDto>(property);
+
+            return new ResponseDto<ResidentialPropertyReadDto>
+            {
+                IsSuccess = true,
+                Message = "Residential property added successfully.",
+                Data = _mapper.Map<ResidentialPropertyReadDto>(property)
+            };
         }
 
-        public bool DeleteResidentialProperty(Guid id)
+        public ResponseDto<bool> UpdateResidentialProperty(Guid id, ResidentialPropertyUpdateDto propertyDto)
         {
             var existing = _repo.GetResidentialPropertyById(id);
             if (existing == null)
-                return false;
-
-            _repo.DeleteResidentialProperty(id);
-            return true;
-        }
-
-        public bool UpdateResidentialProperty(Guid id, ResidentialPropertyUpdateDto propertyDto)
-        {
-            var existing = _repo.GetResidentialPropertyById(id);
-            if (existing == null)
-                return false;
+            {
+                return new ResponseDto<bool>
+                {
+                    IsSuccess = false,
+                    Message = "Residential property not found.",
+                    Data = false
+                };
+            }
 
             _mapper.Map(propertyDto, existing);
             if (propertyDto.Amenity != null)
@@ -91,8 +112,37 @@ namespace DEPI_PROJECT.BLL.Manager.ResidentialProperty
             }
 
             _repo.UpdateResidentialProperty(id, existing);
-            
-            return true;
+
+            return new ResponseDto<bool>
+            {
+                IsSuccess = true,
+                Message = "Residential property updated successfully.",
+                Data = true
+            };
+        }
+
+        public ResponseDto<bool> DeleteResidentialProperty(Guid id)
+        {
+            var existing = _repo.GetResidentialPropertyById(id);
+            if (existing == null)
+            {
+                return new ResponseDto<bool>
+                {
+                    IsSuccess = false,
+                    Message = "Residential property not found.",
+                    Data = false
+                };
+            }
+
+            _repo.DeleteResidentialProperty(id);
+
+            return new ResponseDto<bool>
+            {
+                IsSuccess = true,
+                Message = "Residential property deleted successfully.",
+                Data = true
+            };
         }
     }
+
 }
