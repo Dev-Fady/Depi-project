@@ -1,5 +1,7 @@
-﻿using DEPI_PROJECT.BLL.Manager.ResidentialProperty;
+﻿using DEPI_PROJECT.BLL.Manager.CommercialProperty;
+using DEPI_PROJECT.BLL.Manager.ResidentialProperty;
 using DEPI_PROJECT.BLL.Mapper;
+using DEPI_PROJECT.DAL.Repository.CommercialProperty;
 using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
 
 namespace DEPI_PROJECT.PL.DependencyInjection
@@ -15,6 +17,9 @@ namespace DEPI_PROJECT.PL.DependencyInjection
             // Add AutoMapper
             services.AddAutoMapper(typeof(ResidentialPropertyProfile));
 
+            services.AddScoped<ICommercialPropertyManager, CommercialPropertyManager>();
+            services.AddScoped<ICommercialPropertyRepo, CommercialPropertyRepo>();
+            services.AddAutoMapper(typeof(CommercialPropertyProfile));
             return services;
         }
     }
