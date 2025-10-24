@@ -1,7 +1,9 @@
 ﻿using DEPI_PROJECT.BLL.Manager.CommercialProperty;
+using DEPI_PROJECT.BLL.Manager.Compound;
 using DEPI_PROJECT.BLL.Manager.ResidentialProperty;
 using DEPI_PROJECT.BLL.Mapper;
 using DEPI_PROJECT.DAL.Repository.CommercialProperty;
+using DEPI_PROJECT.DAL.Repository.Compound;
 using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
 
 namespace DEPI_PROJECT.PL.DependencyInjection
@@ -19,6 +21,10 @@ namespace DEPI_PROJECT.PL.DependencyInjection
 
             services.AddScoped<ICommercialPropertyManager, CommercialPropertyManager>();
             services.AddScoped<ICommercialPropertyRepo, CommercialPropertyRepo>();
+           
+            services.AddScoped<ICompoundRepo, CompoundRepo>();
+            services.AddScoped<ICompoundManager, CompoundManager>();
+
             return services;
         }
     }
