@@ -19,7 +19,6 @@ namespace DEPI_PROJECT.PL.DependencyInjection
 
             services.AddScoped<ICommercialPropertyManager, CommercialPropertyManager>();
             services.AddScoped<ICommercialPropertyRepo, CommercialPropertyRepo>();
-            services.AddAutoMapper(typeof(CommercialPropertyProfile));
             return services;
         }
     }
