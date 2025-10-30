@@ -1,5 +1,11 @@
-using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using DEPI_PROJECT.BLL.Manager.ResidentialProperty;
+using DEPI_PROJECT.BLL.Mapper;
 using DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
+using DEPI_PROJECT.PL.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.BLL.Services.Implements;
 using Microsoft.AspNetCore.Identity;
@@ -88,38 +94,7 @@ namespace DEPI_PROJECT.PL
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
-            builder.Services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DEPI Real Estate API", Version = "v1" });
-                
-                // Add JWT Bearer Authentication to Swagger
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\""
-                });
-                
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[] {}
-                    }
-                });
-            });
-
-            // Register
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -129,6 +104,13 @@ namespace DEPI_PROJECT.PL
                 app.MapOpenApi();
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.MapScalarApiReference(options =>
+                {
+                    options.Title = "The DEPI-REALESTATE Api";
+                    options.Layout = ScalarLayout.Classic;
+                    options.HideClientButton = true;
+                    options.Theme = ScalarTheme.Saturn;
+                });
             }
 
             app.UseHttpsRedirection();
@@ -139,7 +121,8 @@ namespace DEPI_PROJECT.PL
             app.UseAuthorization();
 
             app.MapControllers();
-            
+
+            app.UseStaticFiles();
             app.Run();
         }
     }

@@ -1,0 +1,165 @@
+﻿using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
+using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.DAL.Repository.PropertyGallery;
+using System.Threading.Tasks;
+using DataModel = DEPI_PROJECT.DAL.Models;
+
+namespace DEPI_PROJECT.BLL.Manager.PropertyGallery
+{
+    public class PropertyGalleryManager : IPropertyGalleryManager
+    {
+        private readonly IPropertyGalleryRepo _repo;
+
+        public PropertyGalleryManager(IPropertyGalleryRepo repo)
+        {
+            _repo = repo;
+        }
+
+        public async Task<ResponseDto<string>> Add(PropertyGalleryAddDto dto)
+        {
+            if (dto.MediaFiles == null || !dto.MediaFiles.Any())
+            {
+                return new ResponseDto<string>
+                {
+                    IsSuccess = false,
+                    Message = "No media files uploaded.",
+                    Data = null
+                };
+            }
+
+            var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            if (!Directory.Exists(uploadDir))
+                Directory.CreateDirectory(uploadDir);
+
+            var galleryList = new List<DataModel.PropertyGallery>();
+
+            foreach (var file in dto.MediaFiles)
+            {
+                var ext = Path.GetExtension(file.FileName).ToLower();
+                var fileName = $"{Guid.NewGuid()}{ext}";
+                var filePath = Path.Combine(uploadDir, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                    await file.CopyToAsync(stream);
+
+                var fileUrl = $"/uploads/{fileName}";
+
+                var gallery = new DataModel.PropertyGallery
+                {
+                    MediaId = Guid.NewGuid(),
+                    PropertyId = dto.PropertyId,
+                    UploadedAt = DateTime.UtcNow
+                };
+
+                if (ext == ".mp4" || ext == ".mov" || ext == ".avi")
+                    gallery.VideoUrl = fileUrl;
+                else
+                    gallery.ImageUrl = fileUrl;
+
+                galleryList.Add(gallery);
+            }
+
+            _repo.AddRange(galleryList);
+
+            return new ResponseDto<string>
+            {
+                IsSuccess = true,
+                Message = $"{dto.MediaFiles.Count} file(s) uploaded successfully.",
+                Data = "Upload completed."
+            };
+        }
+
+        public ResponseDto<bool> Delete(Guid id)
+        {
+            var gallery = _repo.GetById(id);
+            if (gallery == null)
+            {
+                return new ResponseDto<bool>
+                {
+                    IsSuccess = false,
+                    Message = $"Gallery item with id {id} not found.",
+                    Data = false
+                };
+            }
+
+            string? filePath = null;
+            if (!string.IsNullOrEmpty(gallery.ImageUrl))
+                filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", gallery.ImageUrl.TrimStart('/'));
+            else if (!string.IsNullOrEmpty(gallery.VideoUrl))
+                filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", gallery.VideoUrl.TrimStart('/'));
+
+            if (filePath != null && File.Exists(filePath))
+                File.Delete(filePath);
+
+            _repo.Delete(id);
+
+            return new ResponseDto<bool>
+            {
+                IsSuccess = true,
+                Message = "Gallery deleted successfully.",
+                Data = true
+            };
+        }
+
+        public ResponseDto<IEnumerable<PropertyGalleryReadDto>> GetAll()
+        {
+            var data = _repo.GetAll();
+            var mapped = data.Select(g => new PropertyGalleryReadDto
+            {
+                MediaId = g.MediaId,
+                PropertyId = g.PropertyId,
+                ImageUrl = g.ImageUrl,
+                VideoUrl = g.VideoUrl,
+                UploadedAt = g.UploadedAt
+            });
+
+            return new ResponseDto<IEnumerable<PropertyGalleryReadDto>>
+            {
+                IsSuccess = true,
+                Message = "Gallery items retrieved successfully.",
+                Data = mapped
+            };
+        }
+
+        public ResponseDto<PropertyGalleryReadDto> GetById(Guid id)
+        {
+            var g = _repo.GetById(id);
+            if (g == null)
+            {
+                return new ResponseDto<PropertyGalleryReadDto>
+                {
+                    IsSuccess = false,
+                    Message = $"Gallery item with id {id} not found.",
+                    Data = null
+                };
+            }
+
+            return new ResponseDto<PropertyGalleryReadDto>
+            {
+                IsSuccess = true,
+                Message = "Gallery item retrieved successfully.",
+                Data = new PropertyGalleryReadDto
+                {
+                    MediaId = g.MediaId,
+                    PropertyId = g.PropertyId,
+                    ImageUrl = g.ImageUrl,
+                    VideoUrl = g.VideoUrl,
+                    UploadedAt = g.UploadedAt
+                }
+            };
+        }
+
+        public ResponseDto<IEnumerable<DataModel.PropertyGallery>> GetByPropertyId(Guid propertyId)
+        {
+            var data = _repo.GetByPropertyId(propertyId);
+
+            return new ResponseDto<IEnumerable<DataModel.PropertyGallery>>
+            {
+                IsSuccess = true,
+                Message = $"Gallery items for property {propertyId} retrieved successfully.",
+                Data = data
+            };
+        }
+    }
+
+}
