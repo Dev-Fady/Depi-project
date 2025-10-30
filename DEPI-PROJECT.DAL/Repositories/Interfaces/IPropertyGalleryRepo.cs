@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DataModels = DEPI_PROJECT.DAL.Models;
 
-namespace DEPI_PROJECT.DAL.Repository.PropertyGallery
+namespace DEPI_PROJECT.DAL.Repositories.Interfaces
 {
     public interface IPropertyGalleryRepo
     {

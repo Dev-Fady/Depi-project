@@ -1,6 +1,6 @@
 ﻿using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
 using DEPI_PROJECT.BLL.DTOs.Compound;
-using DEPI_PROJECT.BLL.Manager.Compound;
+using DEPI_PROJECT.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,21 +10,22 @@ namespace DEPI_PROJECT.PL.Controllers
     [ApiController]
     public class CompoundController : ControllerBase
     {
-        private readonly ICompoundManager _manager;
+        private readonly ICompoundService _compundService;
 
-        public CompoundController(ICompoundManager manager)
+        public CompoundController(ICompoundService compoundService)
         {
-            _manager = manager;
+            _compundService = compoundService;
         }
         [HttpGet("GetAll")]
-        public IActionResult GetAll([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10) {
-            var res=_manager.GetAllCompounds(pageNumber, pageSize);
+        public IActionResult GetAll([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            var res = _compundService.GetAllCompounds(pageNumber, pageSize);
             return Ok(res);
         }
         [HttpGet("GetById/{id}")]
         public IActionResult GetById(Guid id)
         {
-            var result = _manager.GetCompoundById(id);
+            var result = _compundService.GetCompoundById(id);
             if (result == null) return NotFound();
             return Ok(result);
         }
@@ -33,20 +34,20 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPost("AddCompound")]
         public IActionResult AddCompound([FromBody] CompoundAddDto Dto)
         {
-            var response = _manager.AddCompound(Dto);
+            var response = _compundService.AddCompound(Dto);
             return Ok(response);
         }
 
         [HttpDelete("DeleteCompound/{id}")]
         public IActionResult DeleteCompound(Guid id)
         {
-            var response = _manager.DeleteCompound(id);
+            var response = _compundService.DeleteCompound(id);
             return Ok(response);
         }
         [HttpPut("UpdateCompound/{id}")]
         public IActionResult UpdateCompound(Guid id, [FromBody] CompoundUpdateDto Dto)
         {
-            var response = _manager.UpdateCompound(id, Dto);
+            var response = _compundService.UpdateCompound(id, Dto);
             return Ok(response);
         }
 

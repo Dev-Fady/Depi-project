@@ -1,24 +1,24 @@
 ﻿using AutoMapper;
 using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
+using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
-using DEPI_PROJECT.DAL.Repository.CommercialProperty;
-using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EntityCommercialProperty = DEPI_PROJECT.DAL.Models.CommercialProperty;
 
-namespace DEPI_PROJECT.BLL.Manager.CommercialProperty
+namespace DEPI_PROJECT.BLL.Services.Implements
 {
-    public class CommercialPropertyManager : ICommercialPropertyManager
+    public class CommercialPropertyService : ICommercialPropertyService
     {
         private readonly IMapper _mapper;
         private readonly ICommercialPropertyRepo _repo;
 
-        public CommercialPropertyManager(IMapper mapper,ICommercialPropertyRepo repo)
+        public CommercialPropertyService(IMapper mapper,ICommercialPropertyRepo repo)
         {
             _mapper = mapper;
             _repo = repo;
@@ -100,7 +100,7 @@ namespace DEPI_PROJECT.BLL.Manager.CommercialProperty
         }
         public ResponseDto<CommercialPropertyReadDto> AddProperty(CommercialPropertyAddDto propertyDto)
         {
-            var property = _mapper.Map<EntityCommercialProperty>(propertyDto);
+            var property = _mapper.Map<CommercialProperty>(propertyDto);
             _repo.AddCommercialProperty(property);
             if (propertyDto.Amenity != null)
             {

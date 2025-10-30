@@ -1,16 +1,17 @@
 ﻿using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
 using DEPI_PROJECT.BLL.DTOs.Response;
-using DEPI_PROJECT.DAL.Repository.PropertyGallery;
+using DEPI_PROJECT.BLL.Services.Interfaces;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using System.Threading.Tasks;
 using DataModel = DEPI_PROJECT.DAL.Models;
 
-namespace DEPI_PROJECT.BLL.Manager.PropertyGallery
+namespace DEPI_PROJECT.BLL.Services.Implements
 {
-    public class PropertyGalleryManager : IPropertyGalleryManager
+    public class PropertyGalleryService : IPropertyGalleryService
     {
         private readonly IPropertyGalleryRepo _repo;
 
-        public PropertyGalleryManager(IPropertyGalleryRepo repo)
+        public PropertyGalleryService(IPropertyGalleryRepo repo)
         {
             _repo = repo;
         }

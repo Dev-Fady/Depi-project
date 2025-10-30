@@ -1,5 +1,5 @@
-﻿using DEPI_PROJECT.BLL.Manager.CommercialProperty;
-using DEPI_PROJECT.BLL.Manager.ResidentialProperty;
+﻿using DEPI_PROJECT.BLL.Services.Implements;
+using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,23 +11,23 @@ namespace DEPI_PROJECT.PL.Controllers
     [ApiController]
     public class AllPropertyController : ControllerBase
     {
-        private readonly ICommercialPropertyManager _commercialManager;
-        private readonly IResidentialPropertyManager _residentialManager;
+        private readonly ICommercialPropertyService _commercialService;
+        private readonly IResidentialPropertyService _residentialService;
 
         public AllPropertyController(
-            ICommercialPropertyManager commercialManager,
-            IResidentialPropertyManager residentialManager)
+            ICommercialPropertyService commercialService,
+            IResidentialPropertyService residentialService)
         {
-            _commercialManager = commercialManager;
-            _residentialManager = residentialManager;
+            _commercialService = commercialService;
+            _residentialService = residentialService;
         }
 
         [HttpGet("GetAllProperties")]
         // [Authorize(Roles = "ADMIN")]
         public IActionResult GetAllProperties([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 5)
         {
-            var commercial = _commercialManager.GetAllProperties(pageNumber, pageSize);
-            var residential = _residentialManager.GetAllResidentialProperty(pageNumber, pageSize);
+            var commercial = _commercialService.GetAllProperties(pageNumber, pageSize);
+            var residential = _residentialService.GetAllResidentialProperty(pageNumber, pageSize);
 
             var allProperties = commercial.Data.Data
                                   .Cast<object>()

@@ -1,15 +1,15 @@
-﻿using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
+﻿using DEPI_PROJECT.BLL.DTOs.Pagination;
+using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
-using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DEPI_PROJECT.BLL.Manager.ResidentialProperty
+namespace DEPI_PROJECT.BLL.Services.Interfaces
 {
-    public interface IResidentialPropertyManager
+    public interface IResidentialPropertyService
     {
         ResponseDto<PagedResult<ResidentialPropertyReadDto>> GetAllResidentialProperty(int pageNumber, int pageSize);
         ResponseDto<ResidentialPropertyReadDto> GetResidentialPropertyById(Guid id);

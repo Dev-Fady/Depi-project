@@ -1,8 +1,6 @@
 using AutoMapper;
-using DEPI_PROJECT.BLL.Manager.ResidentialProperty;
 using DEPI_PROJECT.BLL.Mapper;
 using DEPI_PROJECT.DAL.Models;
-using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
 using DEPI_PROJECT.PL.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;

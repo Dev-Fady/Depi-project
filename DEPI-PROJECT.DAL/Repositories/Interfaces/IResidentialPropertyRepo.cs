@@ -1,11 +1,12 @@
-﻿using DEPI_PROJECT.DAL.Models;
+﻿using DEPI_PROJECT.BLL.DTOs.Pagination;
+using DEPI_PROJECT.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DEPI_PROJECT.DAL.Repository.ResidentialProperties
+namespace DEPI_PROJECT.DAL.Repositories.Interfaces
 {
     public interface IResidentialPropertyRepo
     {

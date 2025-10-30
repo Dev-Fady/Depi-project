@@ -1,5 +1,9 @@
-﻿using DEPI_PROJECT.BLL.Manager.PropertyGallery;
-using DEPI_PROJECT.DAL.Repository.PropertyGallery;
+﻿using DEPI_PROJECT.BLL.Services;
+using DEPI_PROJECT.BLL.Services.Implements;
+using DEPI_PROJECT.BLL.Services.Interfaces;
+using DEPI_PROJECT.DAL.Repositories;
+using DEPI_PROJECT.DAL.Repositories.Implements;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
 
 namespace DEPI_PROJECT.PL.DependencyInjection
 {
@@ -8,7 +12,7 @@ namespace DEPI_PROJECT.PL.DependencyInjection
         public static IServiceCollection AddPropertyGalleryServices(this IServiceCollection services)
         {
             services.AddScoped<IPropertyGalleryRepo, PropertyGalleryRepo>();
-            services.AddScoped<IPropertyGalleryManager, PropertyGalleryManager>();
+            services.AddScoped<IPropertyGalleryService, PropertyGalleryService>();
             return services;
         }
     }

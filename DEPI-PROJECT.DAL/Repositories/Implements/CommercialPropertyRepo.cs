@@ -1,5 +1,6 @@
-﻿using DEPI_PROJECT.DAL.Models;
-using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
+﻿using DEPI_PROJECT.BLL.DTOs.Pagination;
+using DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace DEPI_PROJECT.DAL.Repository.CommercialProperty
+namespace DEPI_PROJECT.DAL.Repositories.Implements
 {
     public class CommercialPropertyRepo : ICommercialPropertyRepo
     {
@@ -18,7 +19,7 @@ namespace DEPI_PROJECT.DAL.Repository.CommercialProperty
         {
             _context = context;
         }
-        public PagedResult<Models.CommercialProperty> GetAllProperties(int pageNumber, int pageSize)
+        public PagedResult<CommercialProperty> GetAllProperties(int pageNumber, int pageSize)
         {
             var query = _context.CommercialProperties
                  .Include(x => x.Agent)
@@ -31,7 +32,7 @@ namespace DEPI_PROJECT.DAL.Repository.CommercialProperty
              .Skip((pageNumber - 1) * pageSize)
              .Take(pageSize)
              .ToList();
-            return new PagedResult<Models.CommercialProperty>
+            return new PagedResult<CommercialProperty>
             {
                 Data = data,
                 TotalCount = totalCount,
@@ -39,7 +40,7 @@ namespace DEPI_PROJECT.DAL.Repository.CommercialProperty
             };
         }
 
-        public Models.CommercialProperty? GetPropertyById(Guid id)
+        public CommercialProperty? GetPropertyById(Guid id)
         {
             return _context.CommercialProperties
                  .Include(p => p.Amenity)
@@ -59,7 +60,7 @@ namespace DEPI_PROJECT.DAL.Repository.CommercialProperty
             _context.SaveChanges();
         }
 
-        public void UpdateCommercialProperty(Guid id, Models.CommercialProperty property)
+        public void UpdateCommercialProperty(Guid id, CommercialProperty property)
         {
             var existing = _context.CommercialProperties
                            .Include(p => p.Amenity)
@@ -78,7 +79,7 @@ namespace DEPI_PROJECT.DAL.Repository.CommercialProperty
             _context.SaveChanges();
         }
 
-        public void AddCommercialProperty(Models.CommercialProperty property)
+        public void AddCommercialProperty(CommercialProperty property)
         {
             _context.CommercialProperties.Add(property);
             _context.SaveChanges();

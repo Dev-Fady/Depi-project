@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DEPI_PROJECT.DAL.Repository.ResidentialProperties
+namespace DEPI_PROJECT.BLL.DTOs.Pagination
 {
     public class PagedResult<T>
     {

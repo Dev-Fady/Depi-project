@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using DEPI_PROJECT.BLL.DTOs.Compound;
+using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Response;
-using DEPI_PROJECT.DAL.Repository.Compound;
-using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using DEPI_PROJECT.BLL.Services.Interfaces;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 using EntityCompound = DEPI_PROJECT.DAL.Models.Compound;
 
 
-namespace DEPI_PROJECT.BLL.Manager.Compound
+namespace DEPI_PROJECT.BLL.Services.Implements
 {
-    public class CompoundManager : ICompoundManager
+    public class CompoundService : ICompoundService
     {
         private readonly ICompoundRepo _repo;
         private readonly IMapper _mapper;
 
-        public CompoundManager(ICompoundRepo repo,IMapper mapper)
+        public CompoundService(ICompoundRepo repo,IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
