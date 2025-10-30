@@ -1,0 +1,704 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\cSharp\\Projects\\RealEstateBroker\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022221504_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RealEstateBroker.DAL\\Migrations\\20251022221504_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\brokerconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\brokerconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\agentconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\agentconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022221134_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RealEstateBroker.DAL\\Migrations\\20251022221134_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022220938_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RealEstateBroker.DAL\\Migrations\\20251022220938_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\wishlistconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\wishlistconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022220212_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RealEstateBroker.DAL\\Migrations\\20251022220212_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\userconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\userconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\compoundconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\compoundconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\propertyconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\propertyconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\commercialproperty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\commercialproperty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\wishlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\wishlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\commentconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\commentconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\amenityconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\amenityconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022214528_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RealEstateBroker.DAL\\Migrations\\20251022214528_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\propertygalleryconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\propertygalleryconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022213813_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RealEstateBroker.DAL\\Migrations\\20251022213813_ADD Schemas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\database contexts\\realestatebrokerdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\database contexts\\realestatebrokerdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022213542_ADD Schema Accounts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RealEstateBroker.DAL\\Migrations\\20251022213542_ADD Schema Accounts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5B994E5-DD59-4395-8532-FF25055EA5B0}|RealEstateBroker.API\\RealEstateBroker.API.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.api\\realestatebroker.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F5B994E5-DD59-4395-8532-FF25055EA5B0}|RealEstateBroker.API\\RealEstateBroker.API.csproj|solutionrelative:realestatebroker.api\\realestatebroker.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5B994E5-DD59-4395-8532-FF25055EA5B0}|RealEstateBroker.API\\RealEstateBroker.API.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F5B994E5-DD59-4395-8532-FF25055EA5B0}|RealEstateBroker.API\\RealEstateBroker.API.csproj|solutionrelative:realestatebroker.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\enums\\roleofuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\enums\\roleofuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\commercialpropertyconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\commercialpropertyconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\configrations\\residentialpropertyconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\configrations\\residentialpropertyconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\residentialproperty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\residentialproperty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\enums\\kitchen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\enums\\kitchen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\property .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\property .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5B994E5-DD59-4395-8532-FF25055EA5B0}|RealEstateBroker.API\\RealEstateBroker.API.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5B994E5-DD59-4395-8532-FF25055EA5B0}|RealEstateBroker.API\\RealEstateBroker.API.csproj|solutionrelative:realestatebroker.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C3C6574-98E1-40F0-A3BD-1598DF2F4FC6}|RealEstateBroker.BLL\\RealEstateBroker.BLL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.bll\\realestatebroker.bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3C3C6574-98E1-40F0-A3BD-1598DF2F4FC6}|RealEstateBroker.BLL\\RealEstateBroker.BLL.csproj|solutionrelative:realestatebroker.bll\\realestatebroker.bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\propertygallery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\propertygallery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\compound.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\compound.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\amenity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\amenity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\agent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\agent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\broker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\broker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\enums\\propertypurpose.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\enums\\propertypurpose.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\enums\\propertystatetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\enums\\propertystatetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\enums\\propertystatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\enums\\propertystatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|e:\\csharp\\projects\\realestatebroker\\realestatebroker.dal\\realestatebroker.dal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CCE096E8-83B1-476E-BEF9-E08168B5ABF9}|RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj|solutionrelative:realestatebroker.dal\\realestatebroker.dal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20251022221504_ADD Schemas.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022221504_ADD Schemas.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Migrations\\20251022221504_ADD Schemas.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022221504_ADD Schemas.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Migrations\\20251022221504_ADD Schemas.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAQwGEAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T22:15:04.646Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20251022221134_ADD Schemas.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022221134_ADD Schemas.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Migrations\\20251022221134_ADD Schemas.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022221134_ADD Schemas.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Migrations\\20251022221134_ADD Schemas.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T22:11:34.75Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "20251022220938_ADD Schemas.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022220938_ADD Schemas.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Migrations\\20251022220938_ADD Schemas.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022220938_ADD Schemas.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Migrations\\20251022220938_ADD Schemas.cs",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T22:09:39.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20251022220212_ADD Schemas.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022220212_ADD Schemas.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Migrations\\20251022220212_ADD Schemas.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022220212_ADD Schemas.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Migrations\\20251022220212_ADD Schemas.cs",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAqwI0AAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T22:02:12.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\UserConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\UserConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\UserConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\UserConfig.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAowDAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:36:29.543Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "WishListConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\WishListConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\WishListConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\WishListConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\WishListConfig.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:41:45.639Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PropertyConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\PropertyConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\PropertyConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\PropertyConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\PropertyConfig.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAowEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:40:32.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AgentConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\AgentConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\AgentConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\AgentConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\AgentConfig.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAiwCMAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:36:54.864Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AmenityConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\AmenityConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\AmenityConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\AmenityConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\AmenityConfig.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAuwA8AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:37:37.177Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BrokerConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\BrokerConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\BrokerConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\BrokerConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\BrokerConfig.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAiwB0AAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:38:53.341Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CommentConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\CommentConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\CommentConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\CommentConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\CommentConfig.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowCAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:39:23.804Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "WishList.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\WishList.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\WishList.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\WishList.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\WishList.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T11:37:21.497Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CommercialProperty.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\CommercialProperty.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\CommercialProperty.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\CommercialProperty.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\CommercialProperty.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T10:58:39.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CompoundConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\CompoundConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\CompoundConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\CompoundConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\CompoundConfig.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwAIAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:40:12.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "20251022214528_ADD Schemas.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022214528_ADD Schemas.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Migrations\\20251022214528_ADD Schemas.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022214528_ADD Schemas.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Migrations\\20251022214528_ADD Schemas.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T21:45:28.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "PropertyGalleryConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\PropertyGalleryConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\PropertyGalleryConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\PropertyGalleryConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\PropertyGalleryConfig.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAADwvx4AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:40:59.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "20251022213813_ADD Schemas.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022213813_ADD Schemas.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Migrations\\20251022213813_ADD Schemas.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022213813_ADD Schemas.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Migrations\\20251022213813_ADD Schemas.cs",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T21:38:14.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "RealEstateBrokerDbContext.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\DataBase Contexts\\RealEstateBrokerDbContext.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\DataBase Contexts\\RealEstateBrokerDbContext.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\DataBase Contexts\\RealEstateBrokerDbContext.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\DataBase Contexts\\RealEstateBrokerDbContext.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAwCMAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:35:22.933Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "20251022213542_ADD Schema Accounts.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022213542_ADD Schema Accounts.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Migrations\\20251022213542_ADD Schema Accounts.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Migrations\\20251022213542_ADD Schema Accounts.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Migrations\\20251022213542_ADD Schema Accounts.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T21:35:42.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "RoleOfUser.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Enums\\RoleOfUser.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Enums\\RoleOfUser.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Enums\\RoleOfUser.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Enums\\RoleOfUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T09:55:01.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "CommercialPropertyConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\CommercialPropertyConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\CommercialPropertyConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\CommercialPropertyConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\CommercialPropertyConfig.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAIwCEAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:39:47.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.API\\appsettings.json",
+              "RelativeDocumentMoniker": "RealEstateBroker.API\\appsettings.json",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.API\\appsettings.json",
+              "RelativeToolTip": "RealEstateBroker.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-18T13:12:56.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "RealEstateBroker.API.csproj",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.API\\RealEstateBroker.API.csproj",
+              "RelativeDocumentMoniker": "RealEstateBroker.API\\RealEstateBroker.API.csproj",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.API\\RealEstateBroker.API.csproj",
+              "RelativeToolTip": "RealEstateBroker.API\\RealEstateBroker.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-18T09:27:44.964Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ResidentialPropertyConfig.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\ResidentialPropertyConfig.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Configrations\\ResidentialPropertyConfig.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Configrations\\ResidentialPropertyConfig.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Configrations\\ResidentialPropertyConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAwwAsAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T12:41:24.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ResidentialProperty.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\ResidentialProperty.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\ResidentialProperty.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\ResidentialProperty.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\ResidentialProperty.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T10:48:41.108Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "User.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\User.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\User.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\User.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAQwAYAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T09:43:47.928Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Kitchen.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Enums\\Kitchen.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Enums\\Kitchen.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Enums\\Kitchen.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Enums\\Kitchen.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T10:51:31.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Property .cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Property .cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\Property .cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Property .cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\Property .cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAA7wCQAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T10:26:53.997Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.API\\Program.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.API\\Program.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.API\\Program.cs",
+              "RelativeToolTip": "RealEstateBroker.API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T13:16:31.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "RealEstateBroker.BLL.csproj",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.BLL\\RealEstateBroker.BLL.csproj",
+              "RelativeDocumentMoniker": "RealEstateBroker.BLL\\RealEstateBroker.BLL.csproj",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.BLL\\RealEstateBroker.BLL.csproj",
+              "RelativeToolTip": "RealEstateBroker.BLL\\RealEstateBroker.BLL.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-18T09:27:42.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "PropertyGallery.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\PropertyGallery.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\PropertyGallery.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\PropertyGallery.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\PropertyGallery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T11:06:30.997Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Compound.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Compound.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\Compound.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Compound.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\Compound.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T11:02:44.335Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Amenity.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Amenity.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\Amenity.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Amenity.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\Amenity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T11:40:43.577Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Agent.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Agent.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\Agent.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Agent.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\Agent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T10:00:47.792Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Broker.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Broker.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\Broker.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Broker.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\Broker.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T10:08:05.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Comment.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Comment.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Models\\Comment.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Models\\Comment.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Models\\Comment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T11:38:30.304Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "PropertyPurpose.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Enums\\PropertyPurpose.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Enums\\PropertyPurpose.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Enums\\PropertyPurpose.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Enums\\PropertyPurpose.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T10:37:11.849Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "PropertyStateType.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Enums\\PropertyStateType.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Enums\\PropertyStateType.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Enums\\PropertyStateType.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Enums\\PropertyStateType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T10:35:07.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "PropertyStatus.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Enums\\PropertyStatus.cs",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\Enums\\PropertyStatus.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\Enums\\PropertyStatus.cs",
+              "RelativeToolTip": "RealEstateBroker.DAL\\Enums\\PropertyStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T10:46:06.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "RealEstateBroker.DAL.csproj",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj",
+              "RelativeDocumentMoniker": "RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj",
+              "ToolTip": "E:\\cSharp\\Projects\\RealEstateBroker\\RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj",
+              "RelativeToolTip": "RealEstateBroker.DAL\\RealEstateBroker.DAL.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-18T09:27:49.541Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\cSharp\\Projects\\Depi-project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.pl\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|solutionrelative:depi-project.pl\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.pl\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|solutionrelative:depi-project.pl\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.pl\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|solutionrelative:depi-project.pl\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\appsettings.Development.json",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\appsettings.Development.json",
+              "RelativeToolTip": "DEPI-PROJECT.PL\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-29T10:00:38.657Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Program.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Program.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Program.cs",
+              "RelativeToolTip": "DEPI-PROJECT.PL\\Program.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAQwA8AAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-29T09:16:13.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\appsettings.json",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\appsettings.json",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\appsettings.json",
+              "RelativeToolTip": "DEPI-PROJECT.PL\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-29T09:13:00.858Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Comment.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Comment.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\Comment.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Comment.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\Comment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-29T08:50:03.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
