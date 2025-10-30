@@ -20,4 +20,8 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="..\DEPI-PROJECT.BLL\DTOs\Pagination" />
+  </ItemGroup>
+
 </Project>

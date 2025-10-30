@@ -2,9 +2,9 @@
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DataModel = DEPI_PROJECT.DAL.Models;
 
-namespace DEPI_PROJECT.BLL.Manager.PropertyGallery
+namespace DEPI_PROJECT.BLL.Services.Interfaces
 {
-    public interface IPropertyGalleryManager
+    public interface IPropertyGalleryService
     {
         ResponseDto<IEnumerable<PropertyGalleryReadDto>> GetAll();
         ResponseDto<PropertyGalleryReadDto> GetById(Guid id);

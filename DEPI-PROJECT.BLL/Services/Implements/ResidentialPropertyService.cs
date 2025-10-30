@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
-using DEPI_PROJECT.DAL.Repository.ResidentialProperties;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +12,13 @@ using System.Text;
 using EntityResidentialProperty = DEPI_PROJECT.DAL.Models.ResidentialProperty;
 
 
-namespace DEPI_PROJECT.BLL.Manager.ResidentialProperty
+namespace DEPI_PROJECT.BLL.Services.Implements
 {
-    public class ResidentialPropertyManager : IResidentialPropertyManager
+    public class ResidentialPropertyService : IResidentialPropertyService
     {
         private readonly IResidentialPropertyRepo _repo;
         private readonly IMapper _mapper;
-        public ResidentialPropertyManager(IMapper mapper, IResidentialPropertyRepo repo)
+        public ResidentialPropertyService(IMapper mapper, IResidentialPropertyRepo repo)
         {
             _mapper = mapper;
             _repo = repo;
