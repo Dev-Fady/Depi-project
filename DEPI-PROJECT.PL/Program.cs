@@ -66,7 +66,7 @@ namespace DEPI_PROJECT.PL
                             return;
                         }
 
-                        Claim TokenVersionClaim = userClaims.ToList().ElementAt(2);
+                        Claim TokenVersionClaim = userClaims.ToList().FirstOrDefault(c => c.Type == ClaimTypes.Version);
 
                         if (!principal.HasClaim(c => c.Type == ClaimTypes.Version && c.Value == TokenVersionClaim.Value))
                         {
@@ -80,6 +80,11 @@ namespace DEPI_PROJECT.PL
 
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<IUserRoleService, UserRoleService>();
+
+
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();

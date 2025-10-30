@@ -1,14 +1,8 @@
-using System.Threading.Tasks;
-using DEPI_PROJECT.BLL.DTOs.Authentication;
+
+using DEPI_PROJECT.BLL.DTOs.User;
 using DEPI_PROJECT.BLL.Services.Interfaces;
-using DEPI_PROJECT.DAL.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.Data;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DEPI_PROJECT.PL.Controllers
 {
@@ -16,24 +10,57 @@ namespace DEPI_PROJECT.PL.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        // private readonly IdentityDbContext _context;
-        private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
 
-        public UserController(
-            // IdentityDbContext identityDbContext,
-            UserManager<User> userManager)
+        public UserController(IUserService userService)
         {
-            // _context = identityDbContext;
-            _userManager = userManager;
+            _userService = userService;
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetAll()
+        // [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> GetAllAsync()
         {
-            var result = await _userManager.Users.ToListAsync();
+            var response = await _userService.GetAllUsersAsync();
+            if (response.IsSuccess)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
 
-            return Ok(result);
+        }
+
+        [HttpGet("{UserId}")]
+        public async Task<IActionResult> GetByIdAsync(Guid UserId)
+        {
+            var response = await _userService.GetUserByIdAsync(UserId);
+            if (response.IsSuccess)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync(UserUpdateDto userUpdateDto)
+        {
+            var response = await _userService.UpdateUserAsync(userUpdateDto);
+            if (response.IsSuccess)
+            {
+                return NoContent();
+            }
+            return BadRequest(response);
+        }
+
+        [HttpDelete("{UserId}")]
+        public async Task<IActionResult> DeleteAsync(Guid UserId)
+        {
+            var response = await _userService.DeleteUserAsync(UserId);
+            if (response.IsSuccess)
+            {
+                return NoContent();
+            }
+            return BadRequest(response);
         }
         
     }

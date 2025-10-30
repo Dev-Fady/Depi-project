@@ -3,7 +3,6 @@ using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Security.Principal;
 using DEPI_PROJECT.BLL.DTOs.Authentication;
-using DEPI_PROJECT.BLL.DTOs.Jwt;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
@@ -50,7 +49,6 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Role, Enum.GetName(typeof(UserRole), authRegisterDto.userRole)),
                 new Claim(ClaimTypes.Version, "0"),
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
             };
@@ -126,15 +124,10 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                     IsSuccess = false
                 };
             }
-            var claims = await _userManager.GetClaimsAsync(user);
-            var OldClaim = claims.ToList()[2];
-            int newTokenVersion = int.Parse(OldClaim.Value) + 1;
 
-
-            var NewClaim = new Claim(OldClaim.Type, newTokenVersion.ToString());
-            var identityResult = await _userManager.ReplaceClaimAsync(user, OldClaim, NewClaim);
-
-            if (!identityResult.Succeeded)
+            var result = await _jwtService.InvalidateToken(user);
+            
+            if (!result.IsSuccess)
             {
                 return new ResponseDto<bool>
                 {
