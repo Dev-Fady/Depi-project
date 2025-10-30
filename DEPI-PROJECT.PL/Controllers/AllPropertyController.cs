@@ -1,6 +1,8 @@
-﻿using DEPI_PROJECT.BLL.Services.Implements;
+﻿using DEPI_PROJECT.BLL.DTOs.Property;
+using DEPI_PROJECT.BLL.Services.Implements;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +25,8 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet("GetAllProperties")]
-        // [Authorize(Roles = "ADMIN")]
+        [ProducesResponseType(typeof(PropertyReadDto), StatusCodes.Status200OK)]
+        
         public IActionResult GetAllProperties([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 5)
         {
             var commercial = _commercialService.GetAllProperties(pageNumber, pageSize);
@@ -37,7 +40,7 @@ namespace DEPI_PROJECT.PL.Controllers
             int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
             bool isNextPage = pageNumber < totalPages;
 
-            var result = new
+            var result = new PropertyReadDto
             {
                 TotalCommercial = commercial.Data.TotalCount,
                 TotalResidential = residential.Data.TotalCount,

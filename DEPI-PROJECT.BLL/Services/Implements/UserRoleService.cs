@@ -122,36 +122,35 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return responseDto;
             }
-            
-
 
             var identityResult = await _userManager.AddToRoleAsync(user, role.Name);
             if (!identityResult.Succeeded)
             {
                 return new ResponseDto<bool>
                 {
-                    Message = "An error occurred while assignning user role",
+                    Message = identityResult.Errors.ElementAt(0).ToString() ?? "An error occurred while assignning user role",
                     IsSuccess = false
                 };
             }
-            // Claim claim = new Claim(ClaimTypes.Role, role.NormalizedName);
-            // identityResult = await _userManager.AddClaimAsync(user, claim);
+            Claim claim = new Claim(ClaimTypes.Role, role.NormalizedName);
+            identityResult = await _userManager.AddClaimAsync(user, claim);
 
-            // if (!identityResult.Succeeded)
-            // {
-            //     return new ResponseDto<bool>
-            //     {
-            //         Message = $"An error occurred while adding role claim {role.NormalizedName}",
-            //         IsSuccess = false
-            //     };
-            // }
+            if (!identityResult.Succeeded)
+            {
+                return new ResponseDto<bool>
+                {
+                    Message = identityResult.Errors.ElementAt(0).ToString() 
+                                ?? $"An error occurred while adding user to role {role.Name}",
+                    IsSuccess = false
+                };
+            }
 
-            // var result = await _jwtService.InvalidateToken(user);
+            var result = await _jwtService.InvalidateToken(user);
 
-            // if (!result.IsSuccess)
-            // {
-            //     return result;
-            // }
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
 
 
             return new ResponseDto<bool>
@@ -176,29 +175,32 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    Message = $"An error occurred while removing user from role {role.Name}",
+                    Message = identityResult.Errors.ElementAt(0).ToString() 
+                                ?? $"An error occurred while removing user from role {role.Name}",
                     IsSuccess = false
                 };
             }
-            // Claim claim = new Claim(ClaimTypes.Role, role.NormalizedName);
+            Claim claim = new Claim(ClaimTypes.Role, role.NormalizedName);
 
-            // identityResult = await _userManager.RemoveClaimAsync(user, claim);
+            identityResult = await _userManager.RemoveClaimAsync(user, claim);
 
-            // if (!identityResult.Succeeded)
-            // {
-            //     return new ResponseDto<bool>
-            //     {
-            //         Message = $"An error occurred while removing claim role {role.NormalizedName}",
-            //         IsSuccess = false
-            //     };
-            // }
+            if (!identityResult.Succeeded)
+            {
+                return new ResponseDto<bool>
+                {
+                    Message = identityResult.Errors.ElementAt(0).ToString() 
+                                ?? $"An error occurred while removing claim role {role.NormalizedName}",
+                    IsSuccess = false
+                };
+            }
 
-            // var result = await _jwtService.InvalidateToken(user);
+            var result = await _jwtService.InvalidateToken(user);
 
-            // if (!result.IsSuccess)
-            // {
-            //     return result;
-            // }
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
+            
             return new ResponseDto<bool>
             {
                 Message = $"User removed from role {role.Name} successfully",

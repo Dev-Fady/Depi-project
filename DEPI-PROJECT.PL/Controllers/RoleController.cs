@@ -1,4 +1,5 @@
 
+using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.Role;
 using DEPI_PROJECT.BLL.DTOs.User;
 using DEPI_PROJECT.BLL.Services.Interfaces;
@@ -19,6 +20,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(ResponseDto<List<RoleResponseDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         public async Task<IActionResult> GetAllAsync()
         {
             var response = await _roleService.GetAllAsync();
@@ -30,6 +34,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(ResponseDto<RoleResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         public async Task<IActionResult> CreateAsync(RoleCreateDto roleCreateDto)
         {
             var response = await _roleService.CreateAsync(roleCreateDto);
@@ -41,6 +48,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         public async Task<IActionResult> UpdateAsync(RoleUpdateDto roleUpdateDto)
         {
             var response = await _roleService.UpdateAsync(roleUpdateDto);
@@ -52,6 +62,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpDelete("{RoleId}")]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         public async Task<IActionResult> DeleteAsync(Guid RoleId)
         {
             var response = await _roleService.DeleteAsync(RoleId);

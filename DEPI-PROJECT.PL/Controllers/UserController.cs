@@ -1,4 +1,5 @@
 
+using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.User;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +19,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(ResponseDto<List<UserResponseDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         // [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetAllAsync()
         {
@@ -31,6 +35,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet("{UserId}")]
+        [ProducesResponseType(typeof(ResponseDto<UserResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         public async Task<IActionResult> GetByIdAsync(Guid UserId)
         {
             var response = await _userService.GetUserByIdAsync(UserId);
@@ -42,6 +49,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         public async Task<IActionResult> UpdateAsync(UserUpdateDto userUpdateDto)
         {
             var response = await _userService.UpdateUserAsync(userUpdateDto);
@@ -53,6 +63,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpDelete("{UserId}")]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         public async Task<IActionResult> DeleteAsync(Guid UserId)
         {
             var response = await _userService.DeleteUserAsync(UserId);
