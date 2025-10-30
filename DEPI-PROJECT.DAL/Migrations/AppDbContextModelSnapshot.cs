@@ -13,16 +13,16 @@ namespace DEPI_PROJECT.DAL.Migrations
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildModel(ModelBuilder ModelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            ModelBuilder
-                .HasAnnotation("ProductVersion", "9.0.9")
+            modelBuilder
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(ModelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Amenity", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Amenity", b =>
                 {
                     b.Property<Guid>("PropertyId")
                         .HasColumnType("uniqueidentifier");
@@ -47,7 +47,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.ToTable("Amenities", "pros");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Comment", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Comment", b =>
                 {
                     b.Property<Guid>("CommentId")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.ToTable("Comments", "interactions");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Compound", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Compound", b =>
                 {
                     b.Property<Guid>("CompoundId")
                         .ValueGeneratedOnAdd()
@@ -116,7 +116,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.ToTable("Compounds", "pros");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
                 {
                     b.Property<Guid>("PropertyId")
                         .ValueGeneratedOnAdd()
@@ -136,10 +136,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("CommercialPropertyPropertyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CompoundId")
+                    b.Property<Guid?>("CompoundId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateListed")
@@ -179,8 +176,6 @@ namespace DEPI_PROJECT.DAL.Migrations
 
                     b.HasIndex("AgentId");
 
-                    b.HasIndex("CommercialPropertyPropertyId");
-
                     b.HasIndex("CompoundId");
 
                     b.ToTable("Properties", "pros");
@@ -188,7 +183,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.UseTptMappingStrategy();
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.PropertyGallery", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.PropertyGallery", b =>
                 {
                     b.Property<Guid>("MediaId")
                         .ValueGeneratedOnAdd()
@@ -219,27 +214,46 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.ToTable("PropertyGalleries", "pros");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Role", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("RoleType")
-                        .HasColumnType("int");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Roles", "accounts");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.User", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.User", b =>
                 {
-                    b.Property<Guid>("UserID")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateJoined")
                         .ValueGeneratedOnAdd()
@@ -251,34 +265,64 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Phone")
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
 
-                    b.HasKey("UserID");
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("RoleId");
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("UserId");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", "accounts");
 
                     b.UseTptMappingStrategy();
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Wishlist", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Wishlist", b =>
                 {
                     b.Property<Guid>("ListingID")
                         .ValueGeneratedOnAdd()
@@ -306,7 +350,110 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.ToTable("Wishlists", "interactions");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.CommercialProperty", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RoleClaims", "accounts");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserClaims", "accounts");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLogins", "accounts");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles", "accounts");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("UserTokens", "accounts");
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.CommercialProperty", b =>
                 {
                     b.HasBaseType("DEPI_PROJECT.DAL.Models.Property");
 
@@ -323,7 +470,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.ToTable("CommercialProperties", "pros");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.ResidentialProperty", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.ResidentialProperty", b =>
                 {
                     b.HasBaseType("DEPI_PROJECT.DAL.Models.Property");
 
@@ -343,7 +490,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.ToTable("ResidentialProperties", "pros");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
                 {
                     b.HasBaseType("DEPI_PROJECT.DAL.Models.User");
 
@@ -368,7 +515,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.ToTable("Agents", "accounts");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Broker", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Broker", b =>
                 {
                     b.HasBaseType("DEPI_PROJECT.DAL.Models.User");
 
@@ -381,7 +528,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.ToTable("Brokers", "accounts");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Amenity", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Amenity", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Property", "Property")
                         .WithOne("Amenity")
@@ -392,7 +539,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("Property");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Comment", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Comment", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Property", "Property")
                         .WithMany("Comments")
@@ -411,7 +558,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("User");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Agent", "Agent")
                         .WithMany("Properties")
@@ -419,26 +566,17 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DEPI_PROJECT.DAL.Models.CommercialProperty", "CommercialProperty")
-                        .WithMany()
-                        .HasForeignKey("CommercialPropertyPropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DEPI_PROJECT.DAL.Models.Compound", "Compound")
                         .WithMany("Properties")
                         .HasForeignKey("CompoundId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Agent");
-
-                    b.Navigation("CommercialProperty");
 
                     b.Navigation("Compound");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.PropertyGallery", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.PropertyGallery", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Property", "Property")
                         .WithMany("PropertyGalleries")
@@ -449,18 +587,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("Property");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.User", b =>
-                {
-                    b.HasOne("DEPI_PROJECT.DAL.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Wishlist", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Wishlist", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Property", "Property")
                         .WithMany("Wishlists")
@@ -479,7 +606,58 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("User");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.CommercialProperty", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.HasOne("DEPI_PROJECT.DAL.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.HasOne("DEPI_PROJECT.DAL.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.CommercialProperty", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Property", null)
                         .WithOne()
@@ -488,7 +666,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .IsRequired();
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.ResidentialProperty", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.ResidentialProperty", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Property", null)
                         .WithOne()
@@ -497,30 +675,30 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .IsRequired();
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
                         .WithOne()
-                        .HasForeignKey("DEPI_PROJECT.DAL.Models.Agent", "UserID")
+                        .HasForeignKey("DEPI_PROJECT.DAL.Models.Agent", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Broker", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Broker", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
                         .WithOne()
-                        .HasForeignKey("DEPI_PROJECT.DAL.Models.Broker", "UserID")
+                        .HasForeignKey("DEPI_PROJECT.DAL.Models.Broker", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Compound", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Compound", b =>
                 {
                     b.Navigation("Properties");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
                 {
                     b.Navigation("Amenity")
                         .IsRequired();
@@ -532,19 +710,14 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("Wishlists");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Role", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.User", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.User", b =>
                 {
                     b.Navigation("Comments");
 
                     b.Navigation("Wishlists");
                 });
 
-            ModelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
                 {
                     b.Navigation("Properties");
                 });

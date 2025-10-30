@@ -1,0 +1,14 @@
+using DEPI_PROJECT.DAL.Models.Enums;
+
+namespace DEPI_PROJECT.BLL.DTOs.User
+{
+    public class UserResponseDto
+    {
+        public Guid UserId { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string phone { get; set; }
+        public DateTime DateJoined { get; set; }
+        public string RoleName { get; set; }
+    }
+}
