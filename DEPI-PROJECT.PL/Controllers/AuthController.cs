@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using DEPI_PROJECT.BLL.DTOs.Authentication;
+using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
@@ -17,6 +18,8 @@ namespace DEPI_PROJECT.PL.Controllers
             _authService = authService;
         }
         [HttpPost("Register")]
+        [ProducesResponseType(typeof(ResponseDto<AuthResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register(AuthRegisterDto authRegisterDto)
         {
             var result = await _authService.RegisterAsync(authRegisterDto);
@@ -29,6 +32,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(typeof(ResponseDto<AuthResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+
         public async Task<IActionResult> Login(AuthLoginDto authLoginDto)
         {
             var result = await _authService.LoginAsync(authLoginDto);
@@ -41,6 +47,8 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpPost("logout/{UserId}")]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Logout(Guid UserId)
         {
             // UserId = UserId.Trim();
@@ -50,39 +58,6 @@ namespace DEPI_PROJECT.PL.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
-            // return Ok();
         }
-
-        // [HttpPost("add-role")]
-        // public Task<IActionResult> AddRole()
-        // {
-
-        // }
-
-        // [HttpPost("assign-user-to-role")]
-        // public Task<IActionResult> AssignUserToRole()
-        // {
-
-        // }
-
-        // [HttpDelete("remove-user-from-role")]
-        // public Task<IActionResult> RemoveUserFromRole()
-        // {
-
-        // }
-
-        // [HttpGet("roles")]
-        // public Task<IActionResult> GetAllRoles()
-        // {
-            
-        // }
-
-        // [HttpGet("user-roles/{id}")]
-        // public Task<IActionResult> GetUserRole(int id)
-        // {
-
-        // }
-        
-        
     }
 }

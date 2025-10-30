@@ -1,3 +1,5 @@
+using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.DTOs.User;
 using DEPI_PROJECT.BLL.DTOs.UserRole;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +19,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet("users-role/{RoleId}")]
+        [ProducesResponseType(typeof(ResponseDto<List<UserResponseDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         // [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetUsersRole(Guid RoleId)
         {
@@ -29,6 +34,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet("user-roles/{UserId}")]
+        [ProducesResponseType(typeof(ResponseDto<UserRolesDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         // [Authorize(Roles = "AGENT")]
         public async Task<IActionResult> GetUserRolesAsync(Guid UserId)
         {
@@ -41,6 +49,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpPost("assign-user-to-role")]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         public async Task<IActionResult> AssignToRoleAsync(UserRoleDto userRoleDto)
         {
             var response = await _userRoleService.AssignUserToRole(userRoleDto);
@@ -52,6 +63,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpDelete("remove-user-from-role")]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
         public async Task<IActionResult> RemoveFromRoleAsync(UserRoleDto userRoleDto)
         {
             var response = await _userRoleService.RemoveUserFromRole(userRoleDto);
