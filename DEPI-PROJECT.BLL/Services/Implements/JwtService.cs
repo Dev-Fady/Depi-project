@@ -72,13 +72,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = "An error occured while invalidating the token",
+                    Message = "An error occured while invalidating the token",
                     IsSuccess = false
                 };
             }
             return new ResponseDto<bool>
             {
-                message = "Token invalidated successfully",
+                Message = "Token invalidated successfully",
                 IsSuccess = true
             };
         }

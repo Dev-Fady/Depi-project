@@ -23,6 +23,7 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet("GetAllProperties")]
+        // [Authorize(Roles = "ADMIN")]
         public IActionResult GetAllProperties([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 5)
         {
             var commercial = _commercialManager.GetAllProperties(pageNumber, pageSize);

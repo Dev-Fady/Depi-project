@@ -33,7 +33,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<List<RoleResponseDto>>
                 {
-                    message = "No roles found",
+                    Message = "No roles found",
                     IsSuccess = true
                 };
             }
@@ -41,7 +41,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return new ResponseDto<List<RoleResponseDto>>
             {
                 Data = roles,
-                message = "Roles reterived successfully",
+                Message = "Roles reterived successfully",
                 IsSuccess = true
             };
         }
@@ -58,7 +58,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<RoleResponseDto>
                 {
-                    message = "An error occurred while creating the role, please try again",
+                    Message = "An error occurred while creating the role, please try again",
                     IsSuccess = false
                 };
             }
@@ -72,7 +72,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return new ResponseDto<RoleResponseDto>
             {
                 Data = roleResponseDto,
-                message = "Role Created successfully",
+                Message = "Role Created successfully",
                 IsSuccess = true
             };
 
@@ -86,7 +86,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = "No response with the specified ID",
+                    Message = "No response with the specified ID",
                     IsSuccess = false
                 };
             }
@@ -100,14 +100,14 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = "An error occurred while updating the role, please try again",
+                    Message = "An error occurred while updating the role, please try again",
                     IsSuccess = false
                 };
             }
 
             return new ResponseDto<bool>
             {
-                message = "Role updated successfully",
+                Message = "Role updated successfully",
                 IsSuccess = true
             }; 
         }
@@ -120,7 +120,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = $"No role found with Id: {RoleId}",
+                    Message = $"No role found with Id: {RoleId}",
                     IsSuccess = false
                 };
             }
@@ -130,14 +130,14 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = "An error occurred while deleting the role, please try again",
+                    Message = "An error occurred while deleting the role, please try again",
                     IsSuccess = false
                 };
             }
 
             return new ResponseDto<bool>
             {
-                message = "Role deleted successfully",
+                Message = "Role deleted successfully",
                 IsSuccess = true
             }; 
         }

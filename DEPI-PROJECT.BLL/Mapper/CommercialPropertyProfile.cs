@@ -10,7 +10,7 @@ namespace DEPI_PROJECT.BLL.Mapper
         public CommercialPropertyProfile()
         {
             CreateMap<CommercialProperty, CommercialPropertyReadDto>()
-                .ForMember(dest => dest.AgentName, opt => opt.MapFrom(src => src.Agent != null ? src.Agent.Name : null))
+                .ForMember(dest => dest.AgentName, opt => opt.MapFrom(src => src.Agent != null ? src.Agent.AgencyName : null))
                 .ForMember(dest => dest.CompoundName, opt => opt.MapFrom(src => src.Compound != null ? src.Compound.Name : null))
                 .ForMember(dest => dest.Galleries, opt => opt.MapFrom(src => src.PropertyGalleries ?? new List<PropertyGallery>()))
                 .ForMember(dest => dest.Amenity, opt => opt.MapFrom(src => src.Amenity != null ? src.Amenity : null));

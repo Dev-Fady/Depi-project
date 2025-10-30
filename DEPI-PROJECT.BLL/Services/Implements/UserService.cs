@@ -26,7 +26,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<List<UserResponseDto>>
                 {
-                    message = "No users found",
+                    Message = "No users found",
                     IsSuccess = true
                 };
             }
@@ -47,7 +47,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return new ResponseDto<List<UserResponseDto>>
             {
                 Data = userResponseDtos,
-                message = "All users retrived successfully",
+                Message = "All users retrived successfully",
                 IsSuccess = true
             };
         }
@@ -59,7 +59,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<UserResponseDto>
                 {
-                    message = $"No user found with Id {UserId}",
+                    Message = $"No user found with Id {UserId}",
                     IsSuccess = false
                 };
             }
@@ -77,7 +77,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return new ResponseDto<UserResponseDto>
             {
                 Data = userResponseDto,
-                message = "User Returned Successfully",
+                Message = "User Returned Successfully",
                 IsSuccess = true
             };
         }
@@ -90,7 +90,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = $"No user found with the given ID {userUpdateDto.UserId}",
+                    Message = $"No user found with the given ID {userUpdateDto.UserId}",
                     IsSuccess = false
                 };
             }
@@ -103,7 +103,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = "An error occured while updating user, please try again",
+                    Message = "An error occured while updating user, please try again",
                     IsSuccess = false
                 };
             }
@@ -111,7 +111,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return new ResponseDto<bool>
             {
                 Data = true,
-                message = "User Updated successfully",
+                Message = "User Updated successfully",
                 IsSuccess = true
             };
         }
@@ -123,7 +123,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = $"No user found with Id {UserId}, please try again",
+                    Message = $"No user found with Id {UserId}, please try again",
                     IsSuccess = false
                 };
             }
@@ -133,7 +133,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = "An error occured while Deleting user, please try again",
+                    Message = "An error occured while Deleting user, please try again",
                     IsSuccess = false
                 };
             }
@@ -141,7 +141,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return new ResponseDto<bool>
             {
                 Data = true,
-                message = "User Deleted successfully",
+                Message = "User Deleted successfully",
                 IsSuccess = true
             };
         }

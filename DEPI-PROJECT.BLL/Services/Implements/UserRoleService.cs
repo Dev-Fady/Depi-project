@@ -33,7 +33,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 return new ResponseDto<List<UserResponseDto>>
                 {
                     Data = [],
-                    message = $"No role found by id {RoleId}",
+                    Message = $"No role found by id {RoleId}",
                     IsSuccess = false
                 };
             }
@@ -47,7 +47,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 return new ResponseDto<List<UserResponseDto>>
                 {
                     Data = [],
-                    message = "No user associated with the current role",
+                    Message = "No user associated with the current role",
                     IsSuccess = true
                 };
             }
@@ -71,7 +71,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return new ResponseDto<List<UserResponseDto>>
             {
                 Data = userResponseDtos,
-                message = "Users Returned successfully",
+                Message = "Users Returned successfully",
                 IsSuccess = true
             };
         }
@@ -84,7 +84,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<UserRolesDto>
                 {
-                    message = $"No User associated with the given ID {UserId}",
+                    Message = $"No User associated with the given ID {UserId}",
                     IsSuccess = false
                 };
             }
@@ -95,7 +95,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 return new ResponseDto<UserRolesDto>
                 {
                     Data = null,
-                    message = "No Roles associated with the current user",
+                    Message = "No Roles associated with the current user",
                     IsSuccess = true
                 };
             }
@@ -109,7 +109,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return new ResponseDto<UserRolesDto>
             {
                 Data = userRolesDto,
-                message = "Roles retrived successfully",
+                Message = "Roles retrived successfully",
                 IsSuccess = true
             };
         }
@@ -130,7 +130,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = "An error occurred while assignning user role",
+                    Message = "An error occurred while assignning user role",
                     IsSuccess = false
                 };
             }
@@ -141,7 +141,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             // {
             //     return new ResponseDto<bool>
             //     {
-            //         message = $"An error occurred while adding role claim {role.NormalizedName}",
+            //         Message = $"An error occurred while adding role claim {role.NormalizedName}",
             //         IsSuccess = false
             //     };
             // }
@@ -156,7 +156,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             return new ResponseDto<bool>
             {
-                message = $"User added to role {role.Name}",
+                Message = $"User added to role {role.Name}",
                 IsSuccess = true
             };
         }
@@ -176,7 +176,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = $"An error occurred while removing user from role {role.Name}",
+                    Message = $"An error occurred while removing user from role {role.Name}",
                     IsSuccess = false
                 };
             }
@@ -188,7 +188,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             // {
             //     return new ResponseDto<bool>
             //     {
-            //         message = $"An error occurred while removing claim role {role.NormalizedName}",
+            //         Message = $"An error occurred while removing claim role {role.NormalizedName}",
             //         IsSuccess = false
             //     };
             // }
@@ -201,7 +201,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             // }
             return new ResponseDto<bool>
             {
-                message = $"User removed from role {role.Name} successfully",
+                Message = $"User removed from role {role.Name} successfully",
                 IsSuccess = true
             };
         }
@@ -216,7 +216,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                     null,
                     new ResponseDto<bool>
                     {
-                        message = $"No role found with Id {userRoleDto.RoleId}",
+                        Message = $"No role found with Id {userRoleDto.RoleId}",
                         IsSuccess = false
                     }
                 ); 
@@ -230,7 +230,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                     null,
                     new ResponseDto<bool>
                     {
-                        message = $"No role found with Id {userRoleDto.RoleId}",
+                        Message = $"No role found with Id {userRoleDto.RoleId}",
                         IsSuccess = false
                     }
                 );
@@ -241,7 +241,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                     role,
                     new ResponseDto<bool>
                     {
-                        message = "User and Role retrived",
+                        Message = "User and Role retrived",
                         IsSuccess = true
                     }
                 );

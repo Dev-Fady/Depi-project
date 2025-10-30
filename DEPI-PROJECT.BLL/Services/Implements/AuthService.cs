@@ -40,7 +40,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<AuthResponseDto>
                 {
-                    message = "An error occured while registering the user. Please try again",
+                    Message = "An error occured while registering the user. Please try again",
                     IsSuccess = false
                 };
             }
@@ -67,7 +67,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return new ResponseDto<AuthResponseDto>
             {
                 Data = authResponseDto,
-                message = "User Registered Successfully",
+                Message = "User Registered Successfully",
                 IsSuccess = true
             };
         }
@@ -80,7 +80,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<AuthResponseDto>
                 {
-                    message = "No username match, please try another one",
+                    Message = "No username match, please try another one",
                     IsSuccess = false
                 };
             }
@@ -90,7 +90,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<AuthResponseDto>
                 {
-                    message = "Password doesn't match the current username",
+                    Message = "Password doesn't match the current username",
                     IsSuccess = false
                 };
             }
@@ -108,7 +108,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             return new ResponseDto<AuthResponseDto>
             {
                 Data = authResponseDto,
-                message = "User logged successfully",
+                Message = "User logged successfully",
                 IsSuccess = true
             };
         }
@@ -120,7 +120,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = "No userId match found",
+                    Message = "No userId match found",
                     IsSuccess = false
                 };
             }
@@ -131,14 +131,14 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    message = "An error occurred while logging out, please try again",
+                    Message = "An error occurred while logging out, please try again",
                     IsSuccess = false
                 };
             }
 
             return new ResponseDto<bool>
             {
-                message = "User successfully logged out",
+                Message = "User successfully logged out",
                 IsSuccess = true
             };
 
