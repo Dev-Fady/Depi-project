@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
+using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using EntityResidentialProperty = DEPI_PROJECT.DAL.Models.ResidentialProperty;
 
 
@@ -23,19 +27,23 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             _mapper = mapper;
             _repo = repo;
         }
-        public ResponseDto<PagedResult<ResidentialPropertyReadDto>> GetAllResidentialProperty(int pageNumber, int pageSize)
+        public async Task<ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>> GetAllResidentialPropertyAsync(ResidentialPropertyQueryDto queryDto)
         {
-            var result = _repo.GetAllResidentialProperty(pageNumber, pageSize);
-            var mappedData = _mapper.Map<List<ResidentialPropertyReadDto>>(result.Data);
+            var query = _repo.GetAllResidentialProperty();
 
-            var pagedResult = new PagedResult<ResidentialPropertyReadDto>
-            {
-                Data = mappedData,
-                TotalCount = result.TotalCount,
-                TotalPages = result.TotalPages
-            };
+            var result = await query.IF(queryDto.Bedrooms != null, a => a.Bedrooms == queryDto.Bedrooms)
+                                    .IF(queryDto.Bathrooms != null, a => a.Bathrooms == queryDto.Bathrooms)
+                                    .IF(queryDto.Floors != null, a => a.Floors == queryDto.Floors)
+                                    .IF(queryDto.KitchenType != null, a => a.KitchenType == queryDto.KitchenType)
+                                    .Paginate(new PagedQueryDto { PageNumber = queryDto.PageNumber, PageSize = queryDto.PageSize })
+                                    .ToListAsync();
+            
+            var mappedData = _mapper.Map<List<ResidentialPropertyReadDto>>(result);
 
-            return new ResponseDto<PagedResult<ResidentialPropertyReadDto>>
+            var pagedResult = new PagedResultDto<ResidentialPropertyReadDto>(mappedData, queryDto.PageNumber, query.Count(), queryDto.PageSize);
+            
+
+            return new ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>
             {
                 IsSuccess = true,
                 Message = "Residential properties retrieved successfully.",
@@ -43,9 +51,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<ResidentialPropertyReadDto> GetResidentialPropertyById(Guid id)
+        public async Task<ResponseDto<ResidentialPropertyReadDto>> GetResidentialPropertyByIdAsync(Guid id)
         {
-            var property = _repo.GetResidentialPropertyById(id);
+            var property = await _repo.GetResidentialPropertyByIdAsync(id);
             if (property == null)
             {
                 return new ResponseDto<ResidentialPropertyReadDto>
@@ -64,16 +72,16 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<ResidentialPropertyReadDto> AddResidentialProperty(ResidentialPropertyAddDto propertyDto)
+        public async Task<ResponseDto<ResidentialPropertyReadDto>> AddResidentialPropertyAsync(ResidentialPropertyAddDto propertyDto)
         {
             var property = _mapper.Map<EntityResidentialProperty>(propertyDto);
-            _repo.AddResidentialProperty(property);
+            await _repo.AddResidentialPropertyAsync(property);
 
             if (propertyDto.Amenity != null)
             {
                 var amenity = _mapper.Map<Amenity>(propertyDto.Amenity);
                 amenity.PropertyId = property.PropertyId;
-                _repo.AddAmenity(amenity);
+                await _repo.AddAmenityAsync(amenity);
             }
 
             return new ResponseDto<ResidentialPropertyReadDto>
@@ -84,9 +92,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<bool> UpdateResidentialProperty(Guid id, ResidentialPropertyUpdateDto propertyDto)
+        public async Task<ResponseDto<bool>> UpdateResidentialPropertyAsync(Guid id, ResidentialPropertyUpdateDto propertyDto)
         {
-            var existing = _repo.GetResidentialPropertyById(id);
+            var existing = await _repo.GetResidentialPropertyByIdAsync(id);
             if (existing == null)
             {
                 return new ResponseDto<bool>
@@ -104,16 +112,16 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 {
                     existing.Amenity = _mapper.Map<Amenity>(propertyDto.Amenity);
                     existing.Amenity.PropertyId = existing.PropertyId;
-                    _repo.AddAmenity(existing.Amenity);
+                    await _repo.AddAmenityAsync(existing.Amenity);
                 }
                 else
                 {
                     _mapper.Map(propertyDto.Amenity, existing.Amenity);
-                    _repo.UpdateAmenity(existing.Amenity);
+                    await _repo.UpdateAmenityAsync(existing.Amenity);
                 }
             }
 
-            _repo.UpdateResidentialProperty(id, existing);
+            await _repo.UpdateResidentialPropertyAsync(id, existing);
 
             return new ResponseDto<bool>
             {
@@ -123,9 +131,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<bool> DeleteResidentialProperty(Guid id)
+        public async Task<ResponseDto<bool>> DeleteResidentialPropertyAsync(Guid id)
         {
-            var existing = _repo.GetResidentialPropertyById(id);
+            var existing = await _repo.GetResidentialPropertyByIdAsync(id);
             if (existing == null)
             {
                 return new ResponseDto<bool>
@@ -136,7 +144,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 };
             }
 
-            _repo.DeleteResidentialProperty(id);
+            await _repo.DeleteResidentialPropertyAsync(id);
 
             return new ResponseDto<bool>
             {

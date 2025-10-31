@@ -1,13 +1,13 @@
 
+using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
+using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
+
 namespace DEPI_PROJECT.BLL.DTOs.Property
 {
     public class PropertyReadDto
     {
-        public int TotalCommercial {get; set;}
-        public int TotalResidential {get; set;}
-        public int TotalAll {get; set;}
-        public int TotalPage {get; set;}
-        public bool IsNextPage {get; set;}
-        public List<Object> Properties {get; set;}
+        public IEnumerable<CommercialPropertyReadDto> CommercialProperties { get; set; }
+        public IEnumerable<ResidentialPropertyReadDto> ResidentialProperties { get; set; }
+        
     }
 }

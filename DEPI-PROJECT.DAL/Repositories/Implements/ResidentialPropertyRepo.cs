@@ -1,5 +1,4 @@
-﻿using DEPI_PROJECT.BLL.DTOs.Pagination;
-using DEPI_PROJECT.DAL.Models;
+﻿using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,7 +18,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             this.context = context;
         }
 
-        public PagedResult<ResidentialProperty> GetAllResidentialProperty(int pageNumber, int pageSize)
+        public IQueryable<ResidentialProperty> GetAllResidentialProperty()
         {
             var query = context.ResidentialProperties
                 .Include(x => x.Agent)
@@ -27,64 +26,52 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                 .Include(x=>x.Amenity)
                 .Include(x => x.PropertyGalleries);
 
-            var totalCount = query.Count();
-
-            var data = query
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            return new PagedResult<ResidentialProperty>
-            {
-                Data = data,
-                TotalCount = totalCount,
-                TotalPages = (int)Math.Ceiling((double)totalCount / pageSize)
-            };
+            return query;
         }
 
 
-        public ResidentialProperty? GetResidentialPropertyById(Guid id)
+        public async Task<ResidentialProperty?> GetResidentialPropertyByIdAsync(Guid id)
         {
-            return context.ResidentialProperties
+            return await context.ResidentialProperties
                 .Include(x=>x.Amenity)
-                .FirstOrDefault(rp => rp.PropertyId == id);
+                .FirstOrDefaultAsync(rp => rp.PropertyId == id);
         }
-        public void AddResidentialProperty(ResidentialProperty property)
+        public async Task AddResidentialPropertyAsync(ResidentialProperty property)
         {
             context.ResidentialProperties.Add(property);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
-        public void DeleteResidentialProperty(Guid id)
+        public async Task DeleteResidentialPropertyAsync(Guid id)
         {
             var property = context.ResidentialProperties.Find(id);
             if (property == null) return;
 
             context.ResidentialProperties.Remove(property);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public void UpdateResidentialProperty(Guid id, ResidentialProperty property)
+        public async Task UpdateResidentialPropertyAsync(Guid id, ResidentialProperty property)
         {
             var existing = context.ResidentialProperties.Find(id);
             if (existing == null) return;
 
             context.Entry(existing).CurrentValues.SetValues(property);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public void AddAmenity(Amenity amenity)
+        public async Task AddAmenityAsync(Amenity amenity)
         {
             context.Amenities.Add(amenity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public void UpdateAmenity(Amenity amenity)
+        public async Task UpdateAmenityAsync(Amenity amenity)
         {
             var existing = context.Amenities.Find(amenity.PropertyId);
             if (existing == null) return;
 
             context.Entry(existing).CurrentValues.SetValues(amenity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

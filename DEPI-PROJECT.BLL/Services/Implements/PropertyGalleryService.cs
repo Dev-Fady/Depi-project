@@ -16,7 +16,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             _repo = repo;
         }
 
-        public async Task<ResponseDto<string>> Add(PropertyGalleryAddDto dto)
+        public async Task<ResponseDto<string>> AddAsync(PropertyGalleryAddDto dto)
         {
             if (dto.MediaFiles == null || !dto.MediaFiles.Any())
             {
@@ -60,7 +60,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 galleryList.Add(gallery);
             }
 
-            _repo.AddRange(galleryList);
+            await _repo.AddRangeAsync(galleryList);
 
             return new ResponseDto<string>
             {
@@ -70,9 +70,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<bool> Delete(Guid id)
+        public async Task<ResponseDto<bool>> DeleteAsync(Guid id)
         {
-            var gallery = _repo.GetById(id);
+            var gallery = await _repo.GetByIdAsync(id);
             if (gallery == null)
             {
                 return new ResponseDto<bool>
@@ -92,7 +92,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             if (filePath != null && File.Exists(filePath))
                 File.Delete(filePath);
 
-            _repo.Delete(id);
+            await _repo.DeleteAsync(id);
 
             return new ResponseDto<bool>
             {
@@ -102,9 +102,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<IEnumerable<PropertyGalleryReadDto>> GetAll()
+        public async Task<ResponseDto<IEnumerable<PropertyGalleryReadDto>>> GetAllAsync()
         {
-            var data = _repo.GetAll();
+            var data = await _repo.GetAllAsync();
             var mapped = data.Select(g => new PropertyGalleryReadDto
             {
                 MediaId = g.MediaId,
@@ -122,9 +122,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<PropertyGalleryReadDto> GetById(Guid id)
+        public async Task<ResponseDto<PropertyGalleryReadDto>> GetByIdAsync(Guid id)
         {
-            var g = _repo.GetById(id);
+            var g = await _repo.GetByIdAsync(id);
             if (g == null)
             {
                 return new ResponseDto<PropertyGalleryReadDto>
@@ -150,9 +150,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<IEnumerable<DataModel.PropertyGallery>> GetByPropertyId(Guid propertyId)
+        public async Task<ResponseDto<IEnumerable<DataModel.PropertyGallery>>> GetByPropertyIdAsync(Guid propertyId)
         {
-            var data = _repo.GetByPropertyId(propertyId);
+            var data = await _repo.GetByPropertyIdAsync(propertyId);
 
             return new ResponseDto<IEnumerable<DataModel.PropertyGallery>>
             {
