@@ -87,6 +87,7 @@ namespace DEPI_PROJECT.PL
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<IUserRoleService, UserRoleService>();
+            builder.Services.AddScoped<IPropertyService, PropertyService>();
 
 
 

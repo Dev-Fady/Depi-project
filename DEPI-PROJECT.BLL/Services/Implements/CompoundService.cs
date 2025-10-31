@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using DEPI_PROJECT.BLL.DTOs.Compound;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
+using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,17 +27,20 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             _repo = repo;
             _mapper = mapper;
         }
-        public ResponseDto<PagedResult<CompoundReadDto>> GetAllCompounds(int pageNumber, int pageSize)
+        public async Task<ResponseDto<PagedResultDto<CompoundReadDto>>> GetAllCompoundsAsync(CompoundQueryDto compoundQueryDto)
         {
-            var result = _repo.GetAllCompounds(pageNumber, pageSize);
-            var mappedData = _mapper.Map<List<CompoundReadDto>>(result.Data);
-            var pagedResult = new PagedResult<CompoundReadDto>
-            {
-                Data = mappedData,
-                TotalCount = result.TotalCount,
-                TotalPages = result.TotalPages
-            };
-            return new ResponseDto<PagedResult<CompoundReadDto>>
+            var query = _repo.GetAllCompounds();
+
+            var result = await query.IF(compoundQueryDto.City != null, a => a.City == compoundQueryDto.City)
+                                    .IF(compoundQueryDto.Address != null, a => a.Address.Contains(compoundQueryDto.Address))
+                                    .IF(compoundQueryDto.Description != null, a => a.Description.Contains(compoundQueryDto.Description))
+                                    .Paginate(new PagedQueryDto { PageNumber = compoundQueryDto.PageNumber, PageSize = compoundQueryDto.PageSize })
+                                    .ToListAsync();
+
+            var mappedData = _mapper.Map<List<CompoundReadDto>>(result);
+            var pagedResult = new PagedResultDto<CompoundReadDto>(mappedData, compoundQueryDto.PageNumber, query.Count(), compoundQueryDto.PageSize);
+            
+            return new ResponseDto<PagedResultDto<CompoundReadDto>>
             {
                 IsSuccess = true,
                 Message = "Compounds retrieved successfully.",
@@ -42,9 +48,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<CompoundReadDto> GetCompoundById(Guid id)
+        public async Task<ResponseDto<CompoundReadDto>> GetCompoundByIdAsync(Guid id)
         {
-            var compound = _repo.GetCompoundById(id);
+            var compound = await _repo.GetCompoundByIdAsync(id);
             if (compound == null)
             {
                 return new ResponseDto<CompoundReadDto>
@@ -62,9 +68,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<bool> UpdateCompound(Guid id, CompoundUpdateDto compoundDto)
+        public async Task<ResponseDto<bool>> UpdateCompoundAsync(Guid id, CompoundUpdateDto compoundDto)
         {
-            var existing = _repo.GetCompoundById(id);
+            var existing = await _repo.GetCompoundByIdAsync(id);
             if (existing == null)
             {
                 return new ResponseDto<bool>
@@ -75,7 +81,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 };
             }
             _mapper.Map(compoundDto, existing);
-            _repo.UpdateCompound(id, existing);
+            await _repo.UpdateCompoundAsync(id, existing);
             return new ResponseDto<bool>
             {
                 IsSuccess = true,
@@ -83,10 +89,10 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 Data = true
             };
         }
-        public ResponseDto<CompoundReadDto> AddCompound(CompoundAddDto compoundDto)
+        public async Task<ResponseDto<CompoundReadDto>> AddCompoundAsync(CompoundAddDto compoundDto)
         {
             var compoundEntity = _mapper.Map<EntityCompound>(compoundDto);
-            _repo.AddCompound(compoundEntity);
+            await _repo.AddCompoundAsync(compoundEntity);
             return new ResponseDto<CompoundReadDto>
             {
                 IsSuccess = true,
@@ -95,9 +101,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public ResponseDto<bool> DeleteCompound(Guid id)
+        public async Task<ResponseDto<bool>> DeleteCompoundAsync(Guid id)
         {
-           var existing = _repo.GetCompoundById(id);
+           var existing = await _repo.GetCompoundByIdAsync(id);
             if (existing == null)
             {
                 return new ResponseDto<bool>
@@ -107,7 +113,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                     Data = false
                 };
             }
-            _repo.DeleteCompound(id);
+            await _repo.DeleteCompoundAsync(id);
             return new ResponseDto<bool>
             {
                 IsSuccess = true,

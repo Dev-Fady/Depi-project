@@ -1,5 +1,4 @@
-﻿using DEPI_PROJECT.BLL.DTOs.Pagination;
-using DEPI_PROJECT.DAL.Models;
+﻿using DEPI_PROJECT.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +10,15 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
 {
     public interface ICommercialPropertyRepo
     {
-        PagedResult<Models.CommercialProperty> GetAllProperties(int pageNumber, int pageSize);
+        IQueryable<CommercialProperty> GetAllProperties();
 
-        Models.CommercialProperty GetPropertyById(Guid id);
+        Task<CommercialProperty?> GetPropertyByIdAsync(Guid id);
 
-        void AddCommercialProperty(Models.CommercialProperty property);
-        void UpdateCommercialProperty(Guid id, Models.CommercialProperty property);
-        void DeleteCommercialProperty(Guid id);
-
-        void AddAmenity(Amenity amenity);
-        void UpdateAmenity(Amenity amenity);
+        Task AddCommercialPropertyAsync(CommercialProperty property);
+        Task UpdateCommercialPropertyAsync(Guid id, CommercialProperty property);
+        Task DeleteCommercialPropertyAsync(Guid id);
+        Task AddAmenityAsync(Amenity amenity);
+        Task UpdateAmenityAsync(Amenity amenity);
 
     }
 }

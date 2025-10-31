@@ -1,4 +1,5 @@
-﻿using DEPI_PROJECT.DAL.Models;
+﻿using System.Threading.Tasks;
+using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using DataModels = DEPI_PROJECT.DAL.Models;
@@ -13,51 +14,51 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             _context = context;
         }
 
-        public void Add(PropertyGallery gallery)
+        public async Task AddAsync(PropertyGallery gallery)
         {
             if (gallery == null)
                 throw new ArgumentNullException(nameof(gallery));
 
             _context.PropertyGalleries.Add(gallery);
-            var affected = _context.SaveChanges();
+            var affected = await _context.SaveChangesAsync();
             Console.WriteLine($"Rows affected: {affected}");
         }
 
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            var gallery = _context.PropertyGalleries.FirstOrDefault(g => g.MediaId == id);
+            var gallery = await _context.PropertyGalleries.FirstOrDefaultAsync(g => g.MediaId == id);
             if (gallery == null)
                 throw new KeyNotFoundException($"No gallery found with Id = {id}");
 
             _context.PropertyGalleries.Remove(gallery);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<PropertyGallery> GetAll()
+        public async Task<IEnumerable<PropertyGallery>> GetAllAsync()
         {
-            return _context.PropertyGalleries
+            return await _context.PropertyGalleries
                            .AsNoTracking()
-                           .ToList();
+                           .ToListAsync();
         }
 
-        public IEnumerable<PropertyGallery> GetByPropertyId(Guid propertyId)
+        public async Task<IEnumerable<PropertyGallery>> GetByPropertyIdAsync(Guid propertyId)
         {
-            return _context.PropertyGalleries
+            return await _context.PropertyGalleries
                            .AsNoTracking()
                            .Where(g => g.PropertyId == propertyId)
-                           .ToList();
+                           .ToListAsync();
         }
-        public void AddRange(IEnumerable<PropertyGallery> galleries)
+        public async Task AddRangeAsync(IEnumerable<PropertyGallery> galleries)
         {
             _context.PropertyGalleries.AddRange(galleries);
-            var affected = _context.SaveChanges();
+            var affected = await _context.SaveChangesAsync();
             Console.WriteLine($"Rows affected: {affected}");
         }
-        public PropertyGallery? GetById(Guid id)
+        public async Task<PropertyGallery?> GetByIdAsync(Guid id)
         {
-            return _context.PropertyGalleries
+            return await _context.PropertyGalleries
                            //.AsNoTracking()
-                           .FirstOrDefault(g => g.MediaId == id);
+                           .FirstOrDefaultAsync(g => g.MediaId == id);
         }
     }
 }
