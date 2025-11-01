@@ -12,6 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Security.Claims;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
+using DEPI_PROJECT.DAL.Repositories.Implements;
+using System.Runtime.InteropServices;
 namespace DEPI_PROJECT.PL
 {
     public class Program
@@ -87,6 +90,13 @@ namespace DEPI_PROJECT.PL
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<IUserRoleService, UserRoleService>();
+            builder.Services.AddScoped<IPropertyService, PropertyService>();
+            builder.Services.AddScoped<IAgentService, AgentService>();
+            builder.Services.AddScoped<IBrokerService, BrokerService>();
+
+
+            builder.Services.AddScoped<IAgentRepo, AgentRepo>();
+            builder.Services.AddScoped<IBrokerRepo, BrokerRepo>();
 
 
 
@@ -95,7 +105,7 @@ namespace DEPI_PROJECT.PL
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DEPI Real Estate API", Version = "v1" });
-                
+
                 // Add JWT Bearer Authentication to Swagger
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -106,7 +116,7 @@ namespace DEPI_PROJECT.PL
                     In = ParameterLocation.Header,
                     Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\""
                 });
-                
+
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -124,7 +134,7 @@ namespace DEPI_PROJECT.PL
             });
 
             // Register
-            
+
             builder.Services.AddResidentialPropertyServices();
             builder.Services.AddPropertyGalleryServices();
 
@@ -158,5 +168,7 @@ namespace DEPI_PROJECT.PL
             app.UseStaticFiles();
             app.Run();
         }
+
+        
     }
 }

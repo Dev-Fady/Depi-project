@@ -11,12 +11,10 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
 {
     public interface ICommercialPropertyService
     {
-        ResponseDto<PagedResult<CommercialPropertyReadDto>> GetAllProperties(int pageNumber, int pageSize);
-        ResponseDto<CommercialPropertyReadDto> GetPropertyById(Guid id);
-
-        ResponseDto<CommercialPropertyReadDto> AddProperty(CommercialPropertyAddDto propertyDto);
-
-        ResponseDto<bool> UpdateCommercialProperty(Guid id, CommercialPropertyUpdateDto propertyDto);
-        ResponseDto<bool> DeleteCommercialProperty(Guid id);
+        Task<ResponseDto<PagedResultDto<CommercialPropertyReadDto>>> GetAllPropertiesAsync(CommercialPropertyQueryDto queryDto);
+        Task<ResponseDto<CommercialPropertyReadDto>> GetPropertyByIdAsync(Guid id);
+        Task<ResponseDto<CommercialPropertyReadDto>> AddPropertyAsync(CommercialPropertyAddDto propertyDto);
+        Task<ResponseDto<bool>> UpdateCommercialPropertyAsync(Guid id, CommercialPropertyUpdateDto propertyDto);
+        Task<ResponseDto<bool>> DeleteCommercialPropertyAsync(Guid id);
     }
 }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.Role;
 using DEPI_PROJECT.BLL.Services.Interfaces;
@@ -11,21 +12,26 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     {
         // private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
+        private readonly IMapper _mapper;
 
-        public RoleService(RoleManager<Role> roleManager)
+        public RoleService(
+            RoleManager<Role> roleManager,
+            IMapper mapper
+            )
         {
             // _userManager = userManager;
             _roleManager = roleManager;
+            _mapper = mapper;
         }
 
         public async Task<ResponseDto<List<RoleResponseDto>>> GetAllAsync()
         {
             var roles = await _roleManager.Roles
                             .Select(r => new RoleResponseDto
-                                {
-                                    RoleId = r.Id,
-                                    RoleName = r.Name
-                                }
+                            {
+                                RoleId = r.Id,
+                                RoleName = r.Name
+                            }
                             )
                             .ToListAsync();
 
@@ -45,13 +51,32 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 IsSuccess = true
             };
         }
+        
+        public async Task<ResponseDto<RoleResponseDto>> GetByName(string RoleName)
+        {
+            Role role = await _roleManager.FindByNameAsync(RoleName);
+            if (role == null)
+            {
+                return new ResponseDto<RoleResponseDto>
+                {
+                    Message = $"No role found with name {RoleName}",
+                    IsSuccess = false
+                };
+            }
+
+            RoleResponseDto roleResponseDto = _mapper.Map<Role, RoleResponseDto>(role);
+
+            return new ResponseDto<RoleResponseDto>
+            {
+                Data = roleResponseDto,
+                Message = "Role retrived successfully",
+                IsSuccess = true
+            };
+        }
+
         public async Task<ResponseDto<RoleResponseDto>> CreateAsync(RoleCreateDto roleCreateDto)
         {
-            var role = new Role
-            {
-                Name = roleCreateDto.RoleName,
-                NormalizedName = roleCreateDto.RoleName.ToLower()
-            };
+            var role = _mapper.Map<RoleCreateDto, Role>(roleCreateDto);
 
             var identityResult = await _roleManager.CreateAsync(role);
             if (!identityResult.Succeeded)
@@ -63,11 +88,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 };
             }
 
-            var roleResponseDto = new RoleResponseDto
-            {
-                RoleId = role.Id,
-                RoleName = role.Name
-            };
+            var roleResponseDto = _mapper.Map<Role, RoleResponseDto>(role);
 
             return new ResponseDto<RoleResponseDto>
             {
@@ -91,8 +112,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 };
             }
 
-            role.Name = roleUpdateDto.RoleName;
-            role.NormalizedName = roleUpdateDto.RoleName.ToLower();
+            _mapper.Map<RoleUpdateDto, Role>(roleUpdateDto, role);
 
             var identityResult = await _roleManager.UpdateAsync(role);
             
@@ -100,7 +120,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    Message = "An error occurred while updating the role, please try again",
+                    Message = identityResult.Errors.ElementAt(0).Description 
+                                ?? "An error occurred while updating the role, please try again",
                     IsSuccess = false
                 };
             }

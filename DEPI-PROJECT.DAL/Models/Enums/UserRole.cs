@@ -1,6 +1,6 @@
 ﻿namespace DEPI_PROJECT.DAL.Models.Enums
 {
-    public enum UserRole
+    public enum UserRoleOptions
     {
         Admin = 0,
         Agent = 1,

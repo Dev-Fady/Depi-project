@@ -1,6 +1,12 @@
+using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
+using AutoMapper;
+using DEPI_PROJECT.BLL.DTOs.Agent;
+using DEPI_PROJECT.BLL.DTOs.Pagination;
+using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.User;
+using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using Microsoft.AspNetCore.Identity;
@@ -11,42 +17,48 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     public class UserService : IUserService
     {
 
-        public UserManager<User> _userManager;
+        private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
 
-        public UserService(UserManager<User> userManager)
+        public UserService(UserManager<User> userManager,
+                           IMapper mapper)
         {
             _userManager = userManager;
+            _mapper = mapper;
         }
-        public async Task<ResponseDto<List<UserResponseDto>>> GetAllUsersAsync()
+        public async Task<ResponseDto<PagedResultDto<UserResponseDto>>> GetAllUsersAsync(UserQueryDto userQueryDto)
         {
-            var users = await _userManager.Users.ToListAsync();
-            List<UserResponseDto> userResponseDtos = new List<UserResponseDto>();
+            var searchBy = userQueryDto.SearchText;
+            var query = _userManager.Users
+                              .IF(searchBy != null, a => a.UserName.Contains(searchBy) ||
+                                                        a.Email.Contains(searchBy))
+                              .OrderByExtended(new List<Tuple<bool, Expression<Func<User, object>>>>
+                              {
+                                  new (userQueryDto.OrderByOption == OrderByUserOptions.DataJoind, a => a.DateJoined)
+                              }, userQueryDto.IsDesc)
+                              .AsQueryable();
 
-            if(users.Count == 0)
+            var TotalCount = query.Count(); 
+
+            var users = await query
+                                .Paginate(new PagedQueryDto {PageNumber = userQueryDto.PageNumber, PageSize = userQueryDto.PageSize})
+                                .ToListAsync();
+            if (users.Count == 0)
             {
-                return new ResponseDto<List<UserResponseDto>>
+                return new ResponseDto<PagedResultDto<UserResponseDto>>
                 {
                     Message = "No users found",
                     IsSuccess = true
                 };
             }
 
-            foreach (var user in users)
-            {
-                userResponseDtos.Add(new UserResponseDto
-                {
-                    UserId = user.UserId,
-                    Username = user.UserName,
-                    Email = user.Email,
-                    phone = user.PhoneNumber,
-                    DateJoined = user.DateJoined,
-                    // RoleType = await _roleService.getUserRoleAsync()
-                });
-            }
+            var userResponseDtos = _mapper.Map<List<User>, List<UserResponseDto>>(users);
 
-            return new ResponseDto<List<UserResponseDto>>
+            var PagedResult = new PagedResultDto<UserResponseDto>(userResponseDtos, userQueryDto.PageNumber, query.Count(), userQueryDto.PageSize);
+
+            return new ResponseDto<PagedResultDto<UserResponseDto>>
             {
-                Data = userResponseDtos,
+                Data = PagedResult,
                 Message = "All users retrived successfully",
                 IsSuccess = true
             };
@@ -64,15 +76,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 };
             }
 
-            var userResponseDto = new UserResponseDto
-            {
-                UserId = user.UserId,
-                Username = user.UserName,
-                Email = user.Email,
-                phone = user.PhoneNumber,
-                DateJoined = user.DateJoined,
-                // RoleType = await _roleService.getUserRoleAsync()
-            };
+            var userResponseDto = _mapper.Map<User, UserResponseDto>(user);
 
             return new ResponseDto<UserResponseDto>
             {
@@ -94,16 +98,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                     IsSuccess = false
                 };
             }
-            User.UserName = userUpdateDto.Username;
-            User.Email = userUpdateDto.Email;
-            User.PhoneNumber = userUpdateDto.phone;
+            _mapper.Map<UserUpdateDto, User>(userUpdateDto, User);
 
             var identityResult = await _userManager.UpdateAsync(User);
             if (!identityResult.Succeeded)
             {
                 return new ResponseDto<bool>
                 {
-                    Message = "An error occured while updating user, please try again",
+                    Message = identityResult.Errors.ElementAt(0).Description
+                                ?? "An error occured while updating user, please try again",
                     IsSuccess = false
                 };
             }
@@ -133,7 +136,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 return new ResponseDto<bool>
                 {
-                    Message = "An error occured while Deleting user, please try again",
+                    Message = identityResult.Errors.ElementAt(0).Description 
+                                ?? "An error occured while Deleting user, please try again",
                     IsSuccess = false
                 };
             }

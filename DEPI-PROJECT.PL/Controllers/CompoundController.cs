@@ -1,4 +1,5 @@
-﻿using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
+﻿using System.Threading.Tasks;
+using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
 using DEPI_PROJECT.BLL.DTOs.Compound;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Response;
@@ -19,53 +20,72 @@ namespace DEPI_PROJECT.PL.Controllers
             _compundService = compoundService;
         }
 
-        [HttpGet("GetAll")]
-        [ProducesResponseType(typeof(ResponseDto<PagedResult<CompoundReadDto>>), StatusCodes.Status200OK)]
+        [HttpGet]
+        [ProducesResponseType(typeof(ResponseDto<PagedResultDto<CompoundReadDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        public IActionResult GetAll([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetAll([FromQuery] CompoundQueryDto compoundQueryDto)
         {
-            var res = _compundService.GetAllCompounds(pageNumber, pageSize);
-            return Ok(res);
-        }
-
-        [HttpGet("GetById/{id}")]
-        [ProducesResponseType(typeof(ResponseDto<CompoundReadDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        public IActionResult GetById(Guid id)
-        {
-            var result = _compundService.GetCompoundById(id);
-            if (result == null) return NotFound();
-            return Ok(result);
-        }
-
-        [HttpPost("AddCompound")]
-        [ProducesResponseType(typeof(ResponseDto<CompoundReadDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
-        public IActionResult AddCompound([FromBody] CompoundAddDto Dto)
-        {
-            var response = _compundService.AddCompound(Dto);
+            var response = await _compundService.GetAllCompoundsAsync(compoundQueryDto);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
 
-        [HttpDelete("DeleteCompound/{id}")]
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ResponseDto<CompoundReadDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var response = await _compundService.GetCompoundByIdAsync(id);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(ResponseDto<CompoundReadDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
+        public async Task<IActionResult> AddCompound([FromBody] CompoundAddDto Dto)
+        {
+            var response = await _compundService.AddCompoundAsync(Dto);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
 
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
 
-        public IActionResult DeleteCompound(Guid id)
+        public async Task<IActionResult> DeleteCompound(Guid id)
         {
-            var response = _compundService.DeleteCompound(id);
+            var response = await _compundService.DeleteCompoundAsync(id);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
 
-        [HttpPut("UpdateCompound/{id}")]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         
-        public IActionResult UpdateCompound(Guid id, [FromBody] CompoundUpdateDto Dto)
+        public async Task<IActionResult> UpdateCompound(Guid id, [FromBody] CompoundUpdateDto Dto)
         {
-            var response = _compundService.UpdateCompound(id, Dto);
+            var response = await _compundService.UpdateCompoundAsync(id, Dto);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
 

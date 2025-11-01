@@ -7,11 +7,14 @@ namespace DEPI_PROJECT.DAL.Models.Config
     {
         public void Configure(EntityTypeBuilder<Agent> builder)
         {
-            // TPT inheritance => Key is the same as UserID
-            builder.HasBaseType<User>();
+            // Remove inheritance - Agent is now a standalone entity
+            // Configure primary key
+            builder.HasKey(a => a.Id);
 
+            // Configure properties
             builder.Property(a => a.AgencyName)
-                   .HasMaxLength(100);
+                   .HasMaxLength(100)
+                   .IsRequired();
 
             builder.Property(a => a.TaxIdentificationNumber)
                    .IsRequired();
@@ -21,6 +24,12 @@ namespace DEPI_PROJECT.DAL.Models.Config
 
             builder.Property(a => a.ExperienceYears)
                    .HasDefaultValue(0);
+
+            // Configure foreign key relationship to User
+            builder.HasOne(a => a.User)
+                   .WithOne(a => a.Agent) // or WithOne() if User should have one Agent
+                   .HasForeignKey<Agent>(a => a.UserId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

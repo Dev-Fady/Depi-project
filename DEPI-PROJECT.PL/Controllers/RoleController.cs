@@ -22,10 +22,22 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ResponseDto<List<RoleResponseDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+
         public async Task<IActionResult> GetAllAsync()
         {
             var response = await _roleService.GetAllAsync();
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("{RoleName}")]
+        [ProducesResponseType(typeof(ResponseDto<RoleResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetByNameAsync(string RoleName){
+            var response = await _roleService.GetByName(RoleName);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -58,7 +70,7 @@ namespace DEPI_PROJECT.PL.Controllers
             {
                 return BadRequest(response);
             }
-            return NoContent();
+            return Ok(response);
         }
 
         [HttpDelete("{RoleId}")]
@@ -72,7 +84,7 @@ namespace DEPI_PROJECT.PL.Controllers
             {
                 return BadRequest(response);
             }
-            return NoContent();
+            return Ok(response);
         }
     }
 }

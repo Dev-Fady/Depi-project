@@ -1,5 +1,4 @@
-﻿using DEPI_PROJECT.BLL.DTOs.Pagination;
-using DEPI_PROJECT.DAL.Models;
+﻿using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,7 +18,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
         {
             _context = context;
         }
-        public PagedResult<CommercialProperty> GetAllProperties(int pageNumber, int pageSize)
+        public IQueryable<CommercialProperty> GetAllProperties()
         {
             var query = _context.CommercialProperties
                  .Include(x => x.Agent)
@@ -27,71 +26,61 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                 .Include(x => x.Amenity)
                 .Include(x => x.PropertyGalleries);
 
-            var totalCount=query.Count();
-            var data = query
-             .Skip((pageNumber - 1) * pageSize)
-             .Take(pageSize)
-             .ToList();
-            return new PagedResult<CommercialProperty>
-            {
-                Data = data,
-                TotalCount = totalCount,
-                TotalPages = (int)Math.Ceiling((double)totalCount / pageSize)
-            };
+            return query;
         }
 
-        public CommercialProperty? GetPropertyById(Guid id)
+        public async Task<CommercialProperty?> GetPropertyByIdAsync(Guid id)
         {
-            return _context.CommercialProperties
-                 .Include(p => p.Amenity)
-                    .Include(p => p.PropertyGalleries)
-                    .Include(p => p.Agent)
-                    .Include(p => p.Compound)
-                   .FirstOrDefault(x => x.PropertyId == id);
+            return await _context.CommercialProperties
+                                .Include(p => p.Amenity)
+                                .Include(p => p.PropertyGalleries)
+                                .Include(p => p.Agent)
+                                .Include(p => p.Compound)
+                                .FirstOrDefaultAsync(x => x.PropertyId == id);
         }
 
-        public void UpdateAmenity(Amenity amenity)
+        public async Task UpdateAmenityAsync(Amenity amenity)
         {
-            var existing =  _context.CommercialProperties.Find(amenity.PropertyId);
+            var existing =  await _context.CommercialProperties.FindAsync(amenity.PropertyId);
             if (existing == null) {
                 return;
             }
             _context.Entry(existing).CurrentValues.SetValues(amenity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateCommercialProperty(Guid id, CommercialProperty property)
+        public async Task UpdateCommercialPropertyAsync(Guid id, CommercialProperty property)
         {
-            var existing = _context.CommercialProperties
-                           .Include(p => p.Amenity)
-                           .FirstOrDefault(p => p.PropertyId == id);
+            var existing = await _context.CommercialProperties
+                                        .Include(p => p.Amenity)
+                                        .FirstOrDefaultAsync(p => p.PropertyId == id);
 
             if (existing == null)
                 return;
 
             _context.Entry(existing).CurrentValues.SetValues(property);
             _context.Entry(existing).Property(e => e.PropertyId).IsModified = false;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void AddAmenity(Amenity amenity)
+        public async Task AddAmenityAsync(Amenity amenity)
         {
             _context.Amenities.Add(amenity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void AddCommercialProperty(CommercialProperty property)
+        public async Task AddCommercialPropertyAsync(CommercialProperty property)
         {
             _context.CommercialProperties.Add(property);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteCommercialProperty(Guid id)
+        public async Task DeleteCommercialPropertyAsync(Guid id)
         {
-            var property = _context.CommercialProperties.Find(id);
+            var property = await _context.CommercialProperties.FindAsync(id);
             if (property == null) return;
 
             _context.CommercialProperties.Remove(property);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
     }

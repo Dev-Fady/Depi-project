@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using AutoMapper;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.Role;
 using DEPI_PROJECT.BLL.DTOs.User;
@@ -15,14 +16,17 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IJwtService _jwtService;
+        private readonly IMapper _mapper;
 
         public UserRoleService(UserManager<User> userManager,
                                RoleManager<Role> roleManager,
-                               IJwtService jwtService)
+                               IJwtService jwtService,
+                               IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _jwtService = jwtService;
+            _mapper = mapper;
         }
         public async Task<ResponseDto<List<UserResponseDto>>> GetUsersFromRole(Guid RoleId)
         {
@@ -52,25 +56,11 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 };
             }
 
-            List<UserResponseDto> userResponseDtos = new List<UserResponseDto>();
-
-            foreach (var user in users)
-            {
-                var userResponseDto = new UserResponseDto
-                {
-                    UserId = user.UserId,
-                    Username = user.UserName,
-                    Email = user.Email,
-                    phone = user.PhoneNumber,
-                    DateJoined = user.DateJoined,
-                    RoleName = role.Name
-                };
-                userResponseDtos.Add(userResponseDto);
-            }
+            var userResponseDtos = _mapper.Map<IEnumerable<User>, IEnumerable<UserResponseDto>>(users);
 
             return new ResponseDto<List<UserResponseDto>>
             {
-                Data = userResponseDtos,
+                Data = userResponseDtos.ToList(),
                 Message = "Users Returned successfully",
                 IsSuccess = true
             };

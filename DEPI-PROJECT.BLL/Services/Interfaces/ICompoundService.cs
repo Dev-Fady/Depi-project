@@ -11,10 +11,10 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
 {
     public interface ICompoundService
     {
-        ResponseDto<PagedResult<CompoundReadDto>> GetAllCompounds(int pageNumber, int pageSize);
-        ResponseDto<CompoundReadDto> GetCompoundById(Guid id);
-        ResponseDto<CompoundReadDto> AddCompound(CompoundAddDto compoundDto);
-        ResponseDto<bool> UpdateCompound(Guid id, CompoundUpdateDto compoundDto);
-        ResponseDto<bool> DeleteCompound(Guid id);
+        Task<ResponseDto<PagedResultDto<CompoundReadDto>>> GetAllCompoundsAsync(CompoundQueryDto compoundQueryDto);
+        Task<ResponseDto<CompoundReadDto>> GetCompoundByIdAsync(Guid id);
+        Task<ResponseDto<CompoundReadDto>> AddCompoundAsync(CompoundAddDto compoundDto);
+        Task<ResponseDto<bool>> UpdateCompoundAsync(Guid id, CompoundUpdateDto compoundDto);
+        Task<ResponseDto<bool>> DeleteCompoundAsync(Guid id);
     }
 }

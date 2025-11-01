@@ -1,4 +1,5 @@
-﻿using DEPI_PROJECT.BLL.DTOs.Pagination;
+﻿using System.Threading.Tasks;
+using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
@@ -17,54 +18,73 @@ namespace DEPI_PROJECT.PL.Controllers
             _residentialPropertyService = residentialPropertyService;
         }
 
-        [HttpGet("GetAllResidentialProperty")]
-        [ProducesResponseType(typeof(ResponseDto<PagedResult<ResidentialPropertyReadDto>>), StatusCodes.Status200OK)]
+        [HttpGet]
+        [ProducesResponseType(typeof(ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
 
-        public IActionResult GetAllResidentialProperty([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetAllResidentialProperty([FromQuery] ResidentialPropertyQueryDto queryDto)
         {
-            var result = _residentialPropertyService.GetAllResidentialProperty(pageNumber, pageSize);
-            return Ok(result);
-        }
-
-        [HttpGet("GetById/{id}")]
-        [ProducesResponseType(typeof(ResponseDto<ResidentialPropertyReadDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-
-        public IActionResult GetById(Guid id)
-        {
-            var result = _residentialPropertyService.GetResidentialPropertyById(id);
-            if (result == null) return NotFound();
-            return Ok(result);
-        }
-
-        [HttpPost("AddResidentialProperty")]
-        [ProducesResponseType(typeof(ResponseDto<ResidentialPropertyReadDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
-        public IActionResult AddResidentialProperty([FromBody] ResidentialPropertyAddDto propertyDto)
-        {
-            var response = _residentialPropertyService.AddResidentialProperty(propertyDto);
+            var response = await _residentialPropertyService.GetAllResidentialPropertyAsync(queryDto);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
 
-        [HttpPut("UpdateResidentialProperty/{id}")]
-        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ResponseDto<ResidentialPropertyReadDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
-        public IActionResult UpdateResidentialProperty(Guid id, [FromBody] ResidentialPropertyUpdateDto propertyDto)
+
+        public async Task<IActionResult> GetByIdAsync(Guid id)
         {
-            var response = _residentialPropertyService.UpdateResidentialProperty(id, propertyDto);
+            var response = await _residentialPropertyService.GetResidentialPropertyByIdAsync(id);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
 
-        [HttpDelete("DeleteResidentialProperty/{id}")]
+        [HttpPost]
+        [ProducesResponseType(typeof(ResponseDto<ResidentialPropertyReadDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
+        public async Task<IActionResult> AddResidentialProperty([FromBody] ResidentialPropertyAddDto propertyDto)
+        {
+            var response = await _residentialPropertyService.AddResidentialPropertyAsync(propertyDto);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         
-        public IActionResult DeleteResidentialProperty(Guid id)
+        public async Task<IActionResult> UpdateResidentialProperty(Guid id, [FromBody] ResidentialPropertyUpdateDto propertyDto)
         {
-            var response = _residentialPropertyService.DeleteResidentialProperty(id);
+            var response = await _residentialPropertyService.UpdateResidentialPropertyAsync(id, propertyDto);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
+        public async Task<IActionResult> DeleteResidentialProperty(Guid id)
+        {
+            var response = await _residentialPropertyService.DeleteResidentialPropertyAsync(id);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
     }

@@ -1,15 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DEPI_PROJECT.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using DataModels = DEPI_PROJECT.DAL.Models;
 
 namespace DEPI_PROJECT.DAL.Repositories.Interfaces
 {
     public interface IPropertyGalleryRepo
     {
-        IEnumerable<DataModels.PropertyGallery> GetAll();
-        IEnumerable<DataModels.PropertyGallery> GetByPropertyId(Guid propertyId);
-        void Add(DataModels.PropertyGallery gallery);
-        void Delete(Guid id);
-        DataModels.PropertyGallery GetById(Guid id);
-        void AddRange(IEnumerable<DataModels.PropertyGallery> galleries);
+        Task<IEnumerable<PropertyGallery>> GetAllAsync();
+        Task<IEnumerable<PropertyGallery>> GetByPropertyIdAsync(Guid propertyId);
+        Task AddAsync(PropertyGallery gallery);
+        Task DeleteAsync(Guid id);
+        Task<PropertyGallery?> GetByIdAsync(Guid id);
+        Task AddRangeAsync(IEnumerable<PropertyGallery> galleries);
     }
 }

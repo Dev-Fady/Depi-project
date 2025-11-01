@@ -1,8 +1,12 @@
 ﻿namespace DEPI_PROJECT.DAL.Models
 {
-    public class Broker : User
+    public class Broker
     {
-        public int NationalID { get; set; }
-        public int LicenseID { get; set; }
+        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
+        public string NationalID { get; set; }
+        public string LicenseID { get; set; }
+
+        public User User { get; set; }
     }
 }

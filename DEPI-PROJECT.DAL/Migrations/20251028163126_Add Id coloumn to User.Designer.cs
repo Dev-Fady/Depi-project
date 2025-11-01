@@ -139,10 +139,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("CommercialPropertyPropertyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CompoundId")
+                    b.Property<Guid?>("CompoundId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateListed")
@@ -181,8 +178,6 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.HasKey("PropertyId");
 
                     b.HasIndex("AgentId");
-
-                    b.HasIndex("CommercialPropertyPropertyId");
 
                     b.HasIndex("CompoundId");
 
@@ -574,21 +569,12 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DEPI_PROJECT.DAL.Models.CommercialProperty", "CommercialProperty")
-                        .WithMany()
-                        .HasForeignKey("CommercialPropertyPropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DEPI_PROJECT.DAL.Models.Compound", "Compound")
                         .WithMany("Properties")
                         .HasForeignKey("CompoundId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Agent");
-
-                    b.Navigation("CommercialProperty");
 
                     b.Navigation("Compound");
                 });

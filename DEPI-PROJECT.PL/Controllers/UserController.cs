@@ -1,4 +1,6 @@
 
+using DEPI_PROJECT.BLL.DTOs.Agent;
+using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.User;
 using DEPI_PROJECT.BLL.Services.Interfaces;
@@ -19,19 +21,18 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ResponseDto<List<UserResponseDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<PagedResultDto<UserResponseDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         
         // [Authorize(Roles = "ADMIN")]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] UserQueryDto userQueryDto)
         {
-            var response = await _userService.GetAllUsersAsync();
-            if (response.IsSuccess)
+            var response = await _userService.GetAllUsersAsync(userQueryDto);
+            if (!response.IsSuccess)
             {
-                return Ok(response);
+                return BadRequest(response);
             }
-            return BadRequest(response);
-
+            return Ok(response);
         }
 
         [HttpGet("{UserId}")]
@@ -41,11 +42,11 @@ namespace DEPI_PROJECT.PL.Controllers
         public async Task<IActionResult> GetByIdAsync(Guid UserId)
         {
             var response = await _userService.GetUserByIdAsync(UserId);
-            if (response.IsSuccess)
+            if (!response.IsSuccess)
             {
-                return Ok(response);
+                return BadRequest(response);
             }
-            return BadRequest(response);
+            return Ok(response);
         }
 
         [HttpPut]
@@ -55,11 +56,11 @@ namespace DEPI_PROJECT.PL.Controllers
         public async Task<IActionResult> UpdateAsync(UserUpdateDto userUpdateDto)
         {
             var response = await _userService.UpdateUserAsync(userUpdateDto);
-            if (response.IsSuccess)
+            if (!response.IsSuccess)
             {
-                return NoContent();
+                return BadRequest(response);
             }
-            return BadRequest(response);
+            return Ok(response);
         }
 
         [HttpDelete("{UserId}")]
@@ -69,11 +70,11 @@ namespace DEPI_PROJECT.PL.Controllers
         public async Task<IActionResult> DeleteAsync(Guid UserId)
         {
             var response = await _userService.DeleteUserAsync(UserId);
-            if (response.IsSuccess)
+            if (!response.IsSuccess)
             {
-                return NoContent();
+                return BadRequest(response);
             }
-            return BadRequest(response);
+            return Ok(response);
         }
         
     }
