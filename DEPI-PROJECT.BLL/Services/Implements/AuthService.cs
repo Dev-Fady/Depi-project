@@ -2,11 +2,17 @@
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Security.Principal;
+using System.Threading.Tasks;
+using AutoMapper;
+using DEPI_PROJECT.BLL.DTOs.Agent;
 using DEPI_PROJECT.BLL.DTOs.Authentication;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.DTOs.Role;
+using DEPI_PROJECT.BLL.DTOs.UserRole;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Models.Enums;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace DEPI_PROJECT.BLL.Services.Implements
@@ -15,23 +21,38 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     {
         private readonly IJwtService _jwtService;
         private readonly UserManager<User> _userManager;
+        private readonly IRoleService _roleService;
+        private readonly IUserRoleService _userRoleService;
+        private readonly IMapper _mapper;
+
         public AuthService(
             IJwtService jwtService,
-            UserManager<User> userManager
+            UserManager<User> userManager,
+            IRoleService roleService,
+            IUserRoleService userRoleService,
+            IMapper mapper
             )
         {
             _userManager = userManager;
+            _roleService = roleService;
+            _userRoleService = userRoleService;
             _jwtService = jwtService;
+            _mapper = mapper;
         }
         public async Task<ResponseDto<AuthResponseDto>> RegisterAsync(AuthRegisterDto authRegisterDto)
         {
-            // Register the new user
-            User user = new User
+            var roleResult = await _roleService.GetByName(authRegisterDto.RoleDiscriminator.ToString());
+            if (!roleResult.IsSuccess)
             {
-                UserName = authRegisterDto.UserName,
-                Email = authRegisterDto.Email,
-                PhoneNumber = authRegisterDto.Phone,
-            };
+                return new ResponseDto<AuthResponseDto>
+                {
+                    Message = $"No Role exist with name {authRegisterDto.RoleDiscriminator}",
+                    IsSuccess = false
+                };
+            }
+
+            // Register the new user
+            User user = _mapper.Map<AuthRegisterDto, User>(authRegisterDto);
             user.PasswordHash = new PasswordHasher<User>().HashPassword(user, authRegisterDto.Password);
 
             var identityResult = await _userManager.CreateAsync(user);
@@ -53,10 +74,21 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
             };
 
+            await _userManager.AddClaimsAsync(user, claims);
+
+            // Assignning user to their role
+            var result = await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = user.UserId, RoleId = roleResult.Data.RoleId });
+
+            if (!result.IsSuccess)
+            {
+                return new ResponseDto<AuthResponseDto>
+                {
+                    Message = result.Message,
+                    IsSuccess = false
+                };
+            }
 
             string ToeknGenerated = _jwtService.GenerateToken(claims);
-
-            await _userManager.AddClaimsAsync(user, claims);
 
             var authResponseDto = new AuthResponseDto
             {
@@ -126,7 +158,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
 
             var result = await _jwtService.InvalidateToken(user);
-            
+
             if (!result.IsSuccess)
             {
                 return new ResponseDto<bool>

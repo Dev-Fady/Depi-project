@@ -1,12 +1,11 @@
-﻿namespace DEPI_PROJECT.DAL.Models
+using DEPI_PROJECT.BLL.DTOs.Authentication;
+
+namespace DEPI_PROJECT.BLL.DTOs.Broker
 {
-    public class Broker
+    public class BrokerCreateDto
     {
-        public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public string NationalID { get; set; }
         public string LicenseID { get; set; }
-
-        public User User { get; set; }
     }
 }
