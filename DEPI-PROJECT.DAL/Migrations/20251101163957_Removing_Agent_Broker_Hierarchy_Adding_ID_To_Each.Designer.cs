@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEPI_PROJECT.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251028163126_Add Id coloumn to User")]
-    partial class AddIdcoloumntoUser
+    [Migration("20251101163957_Removing_Agent_Broker_Hierarchy_Adding_ID_To_Each")]
+    partial class Removing_Agent_Broker_Hierarchy_Adding_ID_To_Each
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,41 @@ namespace DEPI_PROJECT.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AgencyName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("ExperienceYears")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<float>("Rating")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("real")
+                        .HasDefaultValue(0f);
+
+                    b.Property<int>("TaxIdentificationNumber")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Agents", "accounts");
+                });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Amenity", b =>
                 {
@@ -48,6 +83,29 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.HasKey("PropertyId");
 
                     b.ToTable("Amenities", "pros");
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Broker", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("LicenseID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NationalID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Brokers", "accounts");
                 });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Comment", b =>
@@ -321,8 +379,6 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", "accounts");
-
-                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Wishlist", b =>
@@ -495,40 +551,13 @@ namespace DEPI_PROJECT.DAL.Migrations
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
                 {
-                    b.HasBaseType("DEPI_PROJECT.DAL.Models.User");
+                    b.HasOne("DEPI_PROJECT.DAL.Models.User", "User")
+                        .WithOne("Agent")
+                        .HasForeignKey("DEPI_PROJECT.DAL.Models.Agent", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("AgencyName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("ExperienceYears")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
-                    b.Property<float>("Rating")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("real")
-                        .HasDefaultValue(0f);
-
-                    b.Property<int>("TaxIdentificationNumber")
-                        .HasColumnType("int");
-
-                    b.ToTable("Agents", "accounts");
-                });
-
-            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Broker", b =>
-                {
-                    b.HasBaseType("DEPI_PROJECT.DAL.Models.User");
-
-                    b.Property<int>("LicenseID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NationalID")
-                        .HasColumnType("int");
-
-                    b.ToTable("Brokers", "accounts");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Amenity", b =>
@@ -540,6 +569,17 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Property");
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Broker", b =>
+                {
+                    b.HasOne("DEPI_PROJECT.DAL.Models.User", "User")
+                        .WithOne("Broker")
+                        .HasForeignKey("DEPI_PROJECT.DAL.Models.Broker", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Comment", b =>
@@ -680,20 +720,7 @@ namespace DEPI_PROJECT.DAL.Migrations
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
                 {
-                    b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
-                        .WithOne()
-                        .HasForeignKey("DEPI_PROJECT.DAL.Models.Agent", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Broker", b =>
-                {
-                    b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
-                        .WithOne()
-                        .HasForeignKey("DEPI_PROJECT.DAL.Models.Broker", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Properties");
                 });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Compound", b =>
@@ -715,14 +742,13 @@ namespace DEPI_PROJECT.DAL.Migrations
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.User", b =>
                 {
+                    b.Navigation("Agent");
+
+                    b.Navigation("Broker");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Wishlists");
-                });
-
-            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
-                {
-                    b.Navigation("Properties");
                 });
 #pragma warning restore 612, 618
         }
