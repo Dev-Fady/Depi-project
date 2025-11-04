@@ -22,7 +22,6 @@ namespace DEPI_PROJECT.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
                 {
                     b.Property<Guid>("Id")
@@ -175,6 +174,37 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.HasIndex("City");
 
                     b.ToTable("Compounds", "pros");
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeEntity", b =>
+                {
+                    b.Property<Guid>("LikeEntityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CommentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<Guid?>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LikeEntityId");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("PropertyId");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("LikeEntities", "interactions");
                 });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
@@ -511,6 +541,7 @@ namespace DEPI_PROJECT.DAL.Migrations
 
                     b.ToTable("UserTokens", "accounts");
                 });
+
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.CommercialProperty", b =>
                 {
                     b.HasBaseType("DEPI_PROJECT.DAL.Models.Property");
@@ -600,6 +631,30 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeEntity", b =>
+                {
+                    b.HasOne("DEPI_PROJECT.DAL.Models.Comment", "Comment")
+                        .WithMany("LikeEntities")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DEPI_PROJECT.DAL.Models.Property", "Property")
+                        .WithMany("LikeEntities")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DEPI_PROJECT.DAL.Models.User", "User")
+                        .WithMany("LikeEntities")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("Property");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Agent", "Agent")
@@ -647,6 +702,7 @@ namespace DEPI_PROJECT.DAL.Migrations
 
                     b.Navigation("User");
                 });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Role", null)
@@ -655,8 +711,8 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
                         .WithMany()
@@ -664,8 +720,8 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
                         .WithMany()
@@ -688,8 +744,8 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
                         .WithMany()
@@ -715,9 +771,15 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
+
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
                 {
                     b.Navigation("Properties");
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Comment", b =>
+                {
+                    b.Navigation("LikeEntities");
                 });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Compound", b =>
@@ -732,18 +794,22 @@ namespace DEPI_PROJECT.DAL.Migrations
 
                     b.Navigation("Comments");
 
+                    b.Navigation("LikeEntities");
+
                     b.Navigation("PropertyGalleries");
 
                     b.Navigation("Wishlists");
                 });
-            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.User", b =>
 
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.User", b =>
                 {
                     b.Navigation("Agent");
 
                     b.Navigation("Broker");
 
                     b.Navigation("Comments");
+
+                    b.Navigation("LikeEntities");
 
                     b.Navigation("Wishlists");
                 });
