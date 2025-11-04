@@ -1,19 +1,20 @@
-﻿using DEPI_PROJECT.DAL.Repository.WishList;
+﻿using DEPI_PROJECT.BLL.Dtos.Wishists;
+using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using DEPI_PROJECT.BLL.Dtos.Wishists;
 
-namespace DEPI_PROJECT.BLL.Manager.WishList
+namespace DEPI_PROJECT.BLL.Services.Implements
 {
-    public class WishListManger : IWishListManger
+    public class WishListService : IWishListService
     {
         private readonly IWishListRepository _wishListRepository;
-        public WishListManger(IWishListRepository wishListRepository) 
+        public WishListService(IWishListRepository wishListRepository) 
         {
             _wishListRepository = wishListRepository;
         }

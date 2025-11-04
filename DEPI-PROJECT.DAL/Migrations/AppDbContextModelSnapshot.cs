@@ -22,7 +22,6 @@ namespace DEPI_PROJECT.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
                 {
                     b.Property<Guid>("Id")
@@ -511,6 +510,7 @@ namespace DEPI_PROJECT.DAL.Migrations
 
                     b.ToTable("UserTokens", "accounts");
                 });
+
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.CommercialProperty", b =>
                 {
                     b.HasBaseType("DEPI_PROJECT.DAL.Models.Property");
@@ -647,6 +647,7 @@ namespace DEPI_PROJECT.DAL.Migrations
 
                     b.Navigation("User");
                 });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Role", null)
@@ -655,8 +656,8 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
                         .WithMany()
@@ -664,8 +665,8 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
                         .WithMany()
@@ -688,8 +689,8 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.User", null)
                         .WithMany()
@@ -715,6 +716,7 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
+
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Agent", b =>
                 {
                     b.Navigation("Properties");
@@ -736,8 +738,8 @@ namespace DEPI_PROJECT.DAL.Migrations
 
                     b.Navigation("Wishlists");
                 });
-            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.User", b =>
 
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.User", b =>
                 {
                     b.Navigation("Agent");
 

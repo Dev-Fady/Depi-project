@@ -1,4 +1,5 @@
 ﻿using DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

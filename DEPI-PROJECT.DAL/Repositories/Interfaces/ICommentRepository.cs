@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DEPI_PROJECT.DAL.Repository.Comments
+namespace DEPI_PROJECT.DAL.Repositories.Interfaces
 {
     public interface ICommentRepository
     {

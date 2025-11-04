@@ -12,7 +12,7 @@
         public User User { get; set; }
         public Guid PropertyId { get; set; }
         public Property Property { get; set; }
-        public ICollection<LikeEntity> LikeEntities { get; set; } = new List<LikeEntity>(); //new added
+        //public ICollection<LikeEntity> LikeEntities { get; set; } = new List<LikeEntity>(); //new added
 
     }
 }
