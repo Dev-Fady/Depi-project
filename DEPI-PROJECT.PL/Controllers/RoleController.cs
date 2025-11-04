@@ -1,0 +1,90 @@
+
+using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.DTOs.Role;
+using DEPI_PROJECT.BLL.DTOs.User;
+using DEPI_PROJECT.BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace DEPI_PROJECT.PL.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RoleController : ControllerBase
+    {
+        private readonly IRoleService _roleService;
+
+        public RoleController(IRoleService roleService)
+        {
+            _roleService = roleService;
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ResponseDto<List<RoleResponseDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var response = await _roleService.GetAllAsync();
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("{RoleName}")]
+        [ProducesResponseType(typeof(ResponseDto<RoleResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetByNameAsync(string RoleName){
+            var response = await _roleService.GetByName(RoleName);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(ResponseDto<RoleResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
+        public async Task<IActionResult> CreateAsync(RoleCreateDto roleCreateDto)
+        {
+            var response = await _roleService.CreateAsync(roleCreateDto);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
+        public async Task<IActionResult> UpdateAsync(RoleUpdateDto roleUpdateDto)
+        {
+            var response = await _roleService.UpdateAsync(roleUpdateDto);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpDelete("{RoleId}")]
+        [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        
+        public async Task<IActionResult> DeleteAsync(Guid RoleId)
+        {
+            var response = await _roleService.DeleteAsync(RoleId);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+    }
+}

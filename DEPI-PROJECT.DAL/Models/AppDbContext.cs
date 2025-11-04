@@ -1,12 +1,12 @@
 ﻿using DEPI_PROJECT.DAL.Models.Config;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace DEPI_PROJECT.DAL.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User, Role, Guid>
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        // Users and Roles DbSets are inherited from IdentityDbContext
         public DbSet<Agent> Agents { get; set; }
         public DbSet<Broker> Brokers { get; set; }
 
@@ -25,11 +25,21 @@ namespace DEPI_PROJECT.DAL.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Call base first to configure Identity tables
+            base.OnModelCreating(modelBuilder);
+
             // ----- Accounts Schema -----
             modelBuilder.Entity<User>().ToTable("Users", "accounts");
             modelBuilder.Entity<Role>().ToTable("Roles", "accounts");
             modelBuilder.Entity<Agent>().ToTable("Agents", "accounts");
             modelBuilder.Entity<Broker>().ToTable("Brokers", "accounts");
+
+            // Move Identity tables to accounts schema
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims", "accounts");
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("UserLogins", "accounts");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens", "accounts");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles", "accounts");
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("RoleClaims", "accounts");
 
             // ----- Properties (Pros) Schema -----
             modelBuilder.Entity<Property>().ToTable("Properties", "pros");
@@ -46,7 +56,6 @@ namespace DEPI_PROJECT.DAL.Models
 
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(RoleConfiguration).Assembly);
-            base.OnModelCreating(modelBuilder);
         }
     }
 }
