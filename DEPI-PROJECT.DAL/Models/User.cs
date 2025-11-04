@@ -14,6 +14,7 @@ namespace DEPI_PROJECT.DAL.Models
         public DateTime DateJoined { get; set; }
         public ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public ICollection<LikeEntity> LikeEntities { get; set; } = new List<LikeEntity>(); //new added
 
     }
 }

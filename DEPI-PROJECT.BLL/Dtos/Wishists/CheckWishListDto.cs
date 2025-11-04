@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DEPI_PROJECT.BLL.Dtos
+namespace DEPI_PROJECT.BLL.Dtos.Wishists
 {
     public class CheckWishListDto
     {

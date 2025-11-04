@@ -19,6 +19,7 @@ namespace DEPI_PROJECT.DAL.Models
         public DbSet<CommercialProperty> CommercialProperties { get; set; }
         public DbSet<Compound> Compounds { get; set; }
         public DbSet<ResidentialProperty> ResidentialProperties {  get; set; }
+        public DbSet<LikeEntity> LikeEntities { get; set; }
         public AppDbContext() : base() { }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -41,6 +42,8 @@ namespace DEPI_PROJECT.DAL.Models
             // ----- Interactions Schema -----
             modelBuilder.Entity<Wishlist>().ToTable("Wishlists", "interactions");
             modelBuilder.Entity<Comment>().ToTable("Comments", "interactions");
+            modelBuilder.Entity<LikeEntity>().ToTable("LikeEntities", "interactions");
+
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(RoleConfiguration).Assembly);
             base.OnModelCreating(modelBuilder);

@@ -1,5 +1,4 @@
-﻿using DEPI_PROJECT.BLL.Dtos;
-using DEPI_PROJECT.DAL.Repository.WishList;
+﻿using DEPI_PROJECT.DAL.Repository.WishList;
 using DEPI_PROJECT.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using DEPI_PROJECT.BLL.Dtos.Wishists;
 
 namespace DEPI_PROJECT.BLL.Manager.WishList
 {

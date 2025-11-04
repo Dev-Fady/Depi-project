@@ -1,4 +1,4 @@
-﻿using DEPI_PROJECT.BLL.Dtos;
+﻿using DEPI_PROJECT.BLL.Dtos.Wishists;
 using DEPI_PROJECT.DAL.Models;
 using System;
 using System.Collections.Generic;

@@ -3,8 +3,40 @@
   "WorkspaceRootPath": "E:\\cSharp\\Projects\\Depi-project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\manager\\wishlist\\wishlistmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\manager\\wishlist\\wishlistmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\config\\likeentityconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\config\\likeentityconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\commentliked.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\commentliked.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\repository\\comments\\commentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\repository\\comments\\commentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\migrations\\20251103195437_change isliked to int datatype in comment table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\migrations\\20251103195437_change isliked to int datatype in comment table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\repository\\comments\\icommentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\repository\\comments\\icommentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\repository\\wishlist\\iwishlistrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -15,16 +47,20 @@
       "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\repository\\wishlist\\wishlistrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\dtos\\wishists\\getallwishlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\dtos\\wishists\\getallwishlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\manager\\wishlist\\wishlistmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\manager\\wishlist\\wishlistmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\manager\\wishlist\\iwishlistmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\manager\\wishlist\\iwishlistmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.pl\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|solutionrelative:depi-project.pl\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\dtos\\getallwishlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\dtos\\getallwishlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.pl\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,58 +74,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "WishListRepository.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\WishList\\WishListRepository.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repository\\WishList\\WishListRepository.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\WishList\\WishListRepository.cs",
-              "RelativeToolTip": "DEPI-PROJECT.DAL\\Repository\\WishList\\WishListRepository.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwCAAAAAdAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "LikeEntityConfiguration.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Config\\LikeEntityConfiguration.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\Config\\LikeEntityConfiguration.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Config\\LikeEntityConfiguration.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\Config\\LikeEntityConfiguration.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAkwA0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:59:01.105Z",
+              "WhenOpened": "2025-11-04T12:32:28.048Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "IWishListRepository.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\WishList\\IWishListRepository.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repository\\WishList\\IWishListRepository.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\WishList\\IWishListRepository.cs",
-              "RelativeToolTip": "DEPI-PROJECT.DAL\\Repository\\WishList\\IWishListRepository.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAArwBAAAAAaAAAAAAAAAA==",
+              "Title": "User.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\User.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\User.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\User.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\User.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAQwBEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:58:58.223Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "WishListManger.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Manager\\WishList\\WishListManger.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Manager\\WishList\\WishListManger.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Manager\\WishList\\WishListManger.cs",
-              "RelativeToolTip": "DEPI-PROJECT.BLL\\Manager\\WishList\\WishListManger.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAiwDoAAABLAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:35:45.497Z",
+              "WhenOpened": "2025-11-04T12:30:50.608Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "IWishListManger.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Manager\\WishList\\IWishListManger.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Manager\\WishList\\IWishListManger.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Manager\\WishList\\IWishListManger.cs",
-              "RelativeToolTip": "DEPI-PROJECT.BLL\\Manager\\WishList\\IWishListManger.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA0AAAAAAAAAA==",
+              "Title": "Property.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Property.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\Property.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Property.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\Property.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAA2wB4AAABnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:33:19.059Z",
+              "WhenOpened": "2025-11-04T12:29:57.147Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\AppDbContext.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\AppDbContext.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\AppDbContext.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAACoAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T12:27:49.363Z",
               "EditorCaption": ""
             },
             {
@@ -99,19 +135,130 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "GetAllWishListDto.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\GetAllWishListDto.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\GetAllWishListDto.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\GetAllWishListDto.cs",
-              "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\GetAllWishListDto.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAADwvwoAAAAoAAAAAAAAAA==",
+              "Title": "CommentLIked.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\CommentLIked.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\CommentLIked.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\CommentLIked.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\CommentLIked.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:20:21.357Z",
+              "WhenOpened": "2025-11-04T12:10:49.068Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "20251103195437_Change IsLiked to int dataType in Comment Table.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Migrations\\20251103195437_Change IsLiked to int dataType in Comment Table.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Migrations\\20251103195437_Change IsLiked to int dataType in Comment Table.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Migrations\\20251103195437_Change IsLiked to int dataType in Comment Table.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Migrations\\20251103195437_Change IsLiked to int dataType in Comment Table.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T19:54:38.108Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Comment.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Comment.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\Comment.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Comment.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\Comment.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAqwA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T19:52:19.045Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "CommentRepository.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\Comments\\CommentRepository.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repository\\Comments\\CommentRepository.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\Comments\\CommentRepository.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Repository\\Comments\\CommentRepository.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAowDkAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T14:54:01.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ICommentRepository.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\Comments\\ICommentRepository.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repository\\Comments\\ICommentRepository.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\Comments\\ICommentRepository.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Repository\\Comments\\ICommentRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAgwA0AAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T14:53:37.95Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "WishListRepository.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\WishList\\WishListRepository.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repository\\WishList\\WishListRepository.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\WishList\\WishListRepository.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Repository\\WishList\\WishListRepository.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAgwCAAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T09:59:01.105Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IWishListRepository.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\WishList\\IWishListRepository.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repository\\WishList\\IWishListRepository.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repository\\WishList\\IWishListRepository.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Repository\\WishList\\IWishListRepository.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAArwBAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T09:58:58.223Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "WishListManger.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Manager\\WishList\\WishListManger.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Manager\\WishList\\WishListManger.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Manager\\WishList\\WishListManger.cs",
+              "RelativeToolTip": "DEPI-PROJECT.BLL\\Manager\\WishList\\WishListManger.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAADoAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T09:35:45.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IWishListManger.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Manager\\WishList\\IWishListManger.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Manager\\WishList\\IWishListManger.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Manager\\WishList\\IWishListManger.cs",
+              "RelativeToolTip": "DEPI-PROJECT.BLL\\Manager\\WishList\\IWishListManger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T09:33:19.059Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "GetAllWishListDto.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Wishists\\GetAllWishListDto.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Wishists\\GetAllWishListDto.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Wishists\\GetAllWishListDto.cs",
+              "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\Wishists\\GetAllWishListDto.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAADwvwoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T09:20:21.357Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Program.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Program.cs",
@@ -119,12 +266,11 @@
               "RelativeToolTip": "DEPI-PROJECT.PL\\Program.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAQwA8AAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T09:16:13.581Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T09:16:13.581Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 14,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\appsettings.json",
               "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\appsettings.json",
@@ -132,8 +278,7 @@
               "RelativeToolTip": "DEPI-PROJECT.PL\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-29T09:13:00.858Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T09:13:00.858Z"
             }
           ]
         }
