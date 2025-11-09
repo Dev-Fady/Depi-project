@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DEPI_PROJECT.BLL.Manager.WishList
+namespace DEPI_PROJECT.BLL.Services.Interfaces
 {
-    public interface IWishListManger
+    public interface IWishListService
     {
         public Task<bool> AddWishList(AddWishListDto wishlistDto);
         public Task<bool> DeleteWishList(DeleteWishListDto wishlistDto);

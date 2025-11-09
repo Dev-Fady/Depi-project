@@ -1,4 +1,5 @@
 ﻿using DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DEPI_PROJECT.DAL.Repository.Comments
+namespace DEPI_PROJECT.DAL.Repositories.Implements
 {
     public class CommentRepository : ICommentRepository
     {
@@ -27,20 +28,15 @@ namespace DEPI_PROJECT.DAL.Repository.Comments
             return result;
         }
 
-        public async Task<bool> DeleteComment(Guid commentId)
+        public async Task<bool> DeleteComment(Comment comment)
         {
-           var comment =await GetCommentById(commentId); 
-            if (comment == null)
-            {
-                return false;
-            }
             _appDbContext.Comments.Remove(comment);
             return await _appDbContext.SaveChangesAsync() > 0;
         }
 
-        public async Task<IEnumerable<Comment>>? GetAllCommentsByPropertyId(Guid propertyId)
+        public  IQueryable<Comment>? GetAllCommentsByPropertyId()
         {
-            var comments = await _appDbContext.Comments.Where(c => c.PropertyId == propertyId).OrderByDescending(c => c.DateComment).ToListAsync();
+            var comments = _appDbContext.Comments;
             return comments;
         }
 
@@ -50,13 +46,9 @@ namespace DEPI_PROJECT.DAL.Repository.Comments
             return comment;
         }
 
-        public async Task<bool> LikeComment()
+        public async Task<bool> UpdateComment(Comment comment)
         {
-            return await _appDbContext.SaveChangesAsync() > 0;
-        }
-
-        public async Task<bool> UpdateComment()
-        {
+            _appDbContext.Update(comment);
             return await _appDbContext.SaveChangesAsync() > 0;
         }
     }

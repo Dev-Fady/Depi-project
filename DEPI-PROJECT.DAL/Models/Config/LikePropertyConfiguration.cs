@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DEPI_PROJECT.DAL.Models.Config
 {
-    public class LikeEntityConfiguration : IEntityTypeConfiguration<LikeEntity>
+    public class LikePropertyConfiguration : IEntityTypeConfiguration<LikeProperty>
     {
-        public void Configure(EntityTypeBuilder<LikeEntity> builder)
+        public void Configure(EntityTypeBuilder<LikeProperty> builder)
         {
             builder.HasKey(le => le.LikeEntityId);
             builder.Property(le => le.CreatedAt)
@@ -24,10 +24,9 @@ namespace DEPI_PROJECT.DAL.Models.Config
                      .WithMany(u => u.LikeEntities)
                      .HasForeignKey(le => le.UserID)
                      .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(le => le.Comment)
-                    .WithMany(c => c.LikeEntities)
-                    .HasForeignKey(le => le.CommentId)
-                    .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasIndex(le => new { le.UserID, le.PropertyId })
+                    .IsUnique();
         }
     }
 }

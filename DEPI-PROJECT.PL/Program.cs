@@ -96,11 +96,18 @@ namespace DEPI_PROJECT.PL
             builder.Services.AddScoped<IPropertyService, PropertyService>();
             builder.Services.AddScoped<IAgentService, AgentService>();
             builder.Services.AddScoped<IBrokerService, BrokerService>();
+            builder.Services.AddScoped<IWishListService, WishListService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
 
 
             builder.Services.AddScoped<IAgentRepo, AgentRepo>();
             builder.Services.AddScoped<IBrokerRepo, BrokerRepo>();
+            builder.Services.AddScoped<IWishListRepository , WishListRepository>();
+            builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
+
+            // Auto Mapper Configurations
+            builder.Services.AddAutoMapper(typeof(CommentProfile).Assembly);
 
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

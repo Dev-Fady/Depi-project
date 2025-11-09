@@ -4,6 +4,7 @@ using DEPI_PROJECT.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEPI_PROJECT.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251107120016_Add_Likecomments_Table , AlterTableName_of_LikeEntity_To_LikeProperty")]
+    partial class Add_Likecomments_TableAlterTableName_of_LikeEntity_To_LikeProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,6 +132,9 @@ namespace DEPI_PROJECT.DAL.Migrations
 
                     b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("isLiked")
+                        .HasColumnType("int");
 
                     b.HasKey("CommentId");
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEPI_PROJECT.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251104214854_isLiked_bool_int")]
-    partial class isLiked_bool_int
+    [Migration("20251107120858_DropColumIsLiked")]
+    partial class DropColumIsLiked
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,9 +133,6 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("isLiked")
-                        .HasColumnType("int");
-
                     b.HasKey("CommentId");
 
                     b.HasIndex("PropertyId");
@@ -179,13 +176,38 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.ToTable("Compounds", "pros");
                 });
 
-            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeEntity", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeComment", b =>
                 {
-                    b.Property<Guid>("LikeEntityId")
+                    b.Property<Guid>("LikeCommentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CommentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<Guid?>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LikeCommentId");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("UserID", "CommentId")
+                        .IsUnique()
+                        .HasFilter("[UserID] IS NOT NULL AND [CommentId] IS NOT NULL");
+
+                    b.ToTable("LikeComments", "interactions");
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeProperty", b =>
+                {
+                    b.Property<Guid>("LikeEntityId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -201,13 +223,13 @@ namespace DEPI_PROJECT.DAL.Migrations
 
                     b.HasKey("LikeEntityId");
 
-                    b.HasIndex("CommentId");
-
                     b.HasIndex("PropertyId");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserID", "PropertyId")
+                        .IsUnique()
+                        .HasFilter("[UserID] IS NOT NULL AND [PropertyId] IS NOT NULL");
 
-                    b.ToTable("LikeEntities", "interactions");
+                    b.ToTable("LikeProperties", "interactions");
                 });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
@@ -634,13 +656,25 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeEntity", b =>
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeComment", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Comment", "Comment")
-                        .WithMany("LikeEntities")
+                        .WithMany("LikeComments")
                         .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("DEPI_PROJECT.DAL.Models.User", "User")
+                        .WithMany("LikeComments")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeProperty", b =>
+                {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Property", "Property")
                         .WithMany("LikeEntities")
                         .HasForeignKey("PropertyId")
@@ -650,8 +684,6 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .WithMany("LikeEntities")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Comment");
 
                     b.Navigation("Property");
 
@@ -782,7 +814,7 @@ namespace DEPI_PROJECT.DAL.Migrations
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Comment", b =>
                 {
-                    b.Navigation("LikeEntities");
+                    b.Navigation("LikeComments");
                 });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Compound", b =>
@@ -811,6 +843,8 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("Broker");
 
                     b.Navigation("Comments");
+
+                    b.Navigation("LikeComments");
 
                     b.Navigation("LikeEntities");
 

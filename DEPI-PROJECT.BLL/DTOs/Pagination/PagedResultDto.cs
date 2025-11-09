@@ -9,12 +9,12 @@ namespace DEPI_PROJECT.BLL.DTOs.Pagination
 {
     public class PagedResultDto<T>
     {
-        public IEnumerable<T> Items { get; set; }
+        public IEnumerable<T>? Items { get; set; }
         public int PageNumber { get; set; }
-        public int TotalCount { get; set; }
+        public int? TotalCount { get; set; }
         public int TotalPages { get; set; }
 
-        public PagedResultDto(IEnumerable<T> Items, int PageNumber, int TotalCount, int pageSize)
+        public PagedResultDto(IEnumerable<T>? Items, int PageNumber, int TotalCount, int pageSize)
         {
             this.Items = Items;
             this.PageNumber = PageNumber;
