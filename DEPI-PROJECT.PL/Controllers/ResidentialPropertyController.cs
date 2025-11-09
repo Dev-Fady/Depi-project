@@ -1,15 +1,17 @@
-﻿using System.Threading.Tasks;
-using DEPI_PROJECT.BLL.DTOs.Pagination;
+﻿using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ResidentialPropertyController : ControllerBase
     {
         private readonly IResidentialPropertyService _residentialPropertyService;
