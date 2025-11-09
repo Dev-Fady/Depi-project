@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "E:\\cSharp\\Projects\\Depi-project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Migrations\\20251104215011_Change IsLiked datatype to int.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DEPI-PROJECT.DAL\\Migrations\\20251104215011_Change IsLiked datatype to int.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\migrations\\20251104215011_change isliked datatype to int.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\migrations\\20251104215011_change isliked datatype to int.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\migrations\\20251023130136_addedidentitymodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -82,7 +82,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -90,16 +90,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "20251104215011_Change IsLiked datatype to int.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Migrations\\20251104215011_Change IsLiked datatype to int.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Migrations\\20251104215011_Change IsLiked datatype to int.cs",
               "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Migrations\\20251104215011_Change IsLiked datatype to int.cs",
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Migrations\\20251104215011_Change IsLiked datatype to int.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwDoAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T21:50:11.74Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T21:50:11.74Z"
             },
             {
               "$type": "Document",
@@ -111,12 +110,11 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Migrations\\20251023130136_AddedIdentityModels.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T21:20:36.976Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T21:20:36.976Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Property.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Property.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\Property.cs",
@@ -129,7 +127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "AppDbContextModelSnapshot.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Migrations\\AppDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Migrations\\AppDbContextModelSnapshot.cs",
@@ -137,12 +135,11 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Migrations\\AppDbContextModelSnapshot.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAQwOsCAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T14:13:54.762Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T14:13:54.762Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "User.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\User.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\User.cs",
@@ -150,12 +147,11 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\User.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAA1wA8AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T12:30:50.608Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T12:30:50.608Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Comment.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Comment.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\Comment.cs",
@@ -163,12 +159,11 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\Comment.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAA7wA4AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T19:52:19.045Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T19:52:19.045Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\AppDbContext.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\AppDbContext.cs",
@@ -176,8 +171,7 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\AppDbContext.cs",
               "ViewState": "AgIAACgAAAAAAAAAAAAqwDcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T12:27:49.363Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T12:27:49.363Z"
             },
             {
               "$type": "Document",
@@ -189,8 +183,7 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Migrations\\20251023130136_AddedIdentityModels.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T21:20:36.773Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T21:20:36.773Z"
             },
             {
               "$type": "Document",

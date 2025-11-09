@@ -96,7 +96,7 @@
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Migrations\\20251104215011_Change IsLiked datatype to int.cs",
               "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Migrations\\20251104215011_Change IsLiked datatype to int.cs",
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Migrations\\20251104215011_Change IsLiked datatype to int.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwDoAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAxwDoAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-04T21:50:11.74Z",
               "EditorCaption": ""
@@ -111,8 +111,7 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Migrations\\20251023130136_AddedIdentityModels.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T21:20:36.976Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T21:20:36.976Z"
             },
             {
               "$type": "Document",
@@ -124,8 +123,7 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\Property.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAqwB4AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T12:29:57.147Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T12:29:57.147Z"
             },
             {
               "$type": "Document",
@@ -137,8 +135,7 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Migrations\\AppDbContextModelSnapshot.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAQwOsCAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T14:13:54.762Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T14:13:54.762Z"
             },
             {
               "$type": "Document",
@@ -150,8 +147,7 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\User.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAA1wA8AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T12:30:50.608Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T12:30:50.608Z"
             },
             {
               "$type": "Document",
@@ -163,8 +159,7 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\Comment.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAA7wA4AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T19:52:19.045Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T19:52:19.045Z"
             },
             {
               "$type": "Document",
@@ -176,8 +171,7 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Models\\AppDbContext.cs",
               "ViewState": "AgIAACgAAAAAAAAAAAAqwDcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T12:27:49.363Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T12:27:49.363Z"
             },
             {
               "$type": "Document",
@@ -189,8 +183,7 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Migrations\\20251023130136_AddedIdentityModels.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T21:20:36.773Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T21:20:36.773Z"
             },
             {
               "$type": "Document",
