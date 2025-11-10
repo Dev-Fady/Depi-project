@@ -153,8 +153,8 @@ namespace DEPI_PROJECT.PL
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.MapOpenApi();
                 app.UseSwagger();
                 app.UseSwaggerUI();
@@ -165,7 +165,7 @@ namespace DEPI_PROJECT.PL
                     options.HideClientButton = true;
                     options.Theme = ScalarTheme.Saturn;
                 });
-            }
+            //}
             app.UseMiddleware<GlobalExceptionHandler>();
 
             app.UseHttpsRedirection();
