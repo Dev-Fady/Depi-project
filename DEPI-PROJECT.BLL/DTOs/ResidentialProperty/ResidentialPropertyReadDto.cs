@@ -33,5 +33,8 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
 
         public AmenityReadDto Amenity { get; set; }
 
+        //this part is new --> count of likes and is liked by user
+        public int LikesCount { get; set; }
+        public bool IsLiked { get; set; }
     }
 }

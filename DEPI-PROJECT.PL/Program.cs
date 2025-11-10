@@ -98,12 +98,18 @@ namespace DEPI_PROJECT.PL
             builder.Services.AddScoped<IBrokerService, BrokerService>();
             builder.Services.AddScoped<IWishListService, WishListService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<ILikeCommentService, LikeCommentService>();
+            builder.Services.AddScoped<ILikePropertyService, LikePropertyService>();
 
 
             builder.Services.AddScoped<IAgentRepo, AgentRepo>();
             builder.Services.AddScoped<IBrokerRepo, BrokerRepo>();
             builder.Services.AddScoped<IWishListRepository , WishListRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+            builder.Services.AddScoped<ILikeCommentRepo, LikeCommentRepo>();
+            builder.Services.AddScoped<ILikePropertyRepo, LikePropertyRepo>();
+
+
 
 
             // Auto Mapper Configurations
@@ -142,7 +148,12 @@ namespace DEPI_PROJECT.PL
                     }
                 });
             });
-
+            //configure JSON options to serialize enums as strings
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+                });
             // Register
 
             builder.Services.AddResidentialPropertyServices();

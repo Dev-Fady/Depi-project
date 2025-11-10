@@ -13,12 +13,12 @@ namespace DEPI_PROJECT.BLL.Mapper
     {
         public CommentProfile()
         {
-            CreateMap<AddCommentDto, Comment>()
+            CreateMap<CommentAddDto, Comment>()
                     .ForMember(dest => dest.DateComment, opt => opt.Ignore());
-            CreateMap<UpdateCommentDto, Comment>()
+            CreateMap<CommentUpdateDto, Comment>()
                     .ForMember(dest => dest.UserID, opt => opt.Ignore())
                     .ForMember(dest => dest.PropertyId, opt => opt.Ignore());
-            CreateMap<Comment, GetCommentDto>();
+            CreateMap<Comment, CommentGetDto>();
         }
     }
 }

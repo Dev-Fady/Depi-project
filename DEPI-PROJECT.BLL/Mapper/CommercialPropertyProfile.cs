@@ -3,6 +3,7 @@ using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
 using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
 using DEPI_PROJECT.DAL.Models;
 
+
 namespace DEPI_PROJECT.BLL.Mapper
 {
     public class CommercialPropertyProfile : Profile

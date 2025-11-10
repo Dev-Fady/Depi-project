@@ -4,10 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DEPI_PROJECT.BLL.Dtos.Comment
+namespace DEPI_PROJECT.BLL.Dtos.Like
 {
-    public class UpdateCommentDto
+ 
+    public enum ToggleResult
     {
-        public string? CommentText { get; set; }
+        Added,
+        Deleted,
+        Failed,
+        NotFound
     }
+ 
 }

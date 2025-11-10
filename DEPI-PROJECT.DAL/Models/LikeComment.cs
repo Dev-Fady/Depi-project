@@ -9,8 +9,8 @@ namespace DEPI_PROJECT.DAL.Models
     public class LikeComment
     {
         public Guid LikeCommentId { get; set; }
-        public Guid? UserID { get; set; }
-        public Guid? CommentId { get; set; }
+        public Guid UserID { get; set; }
+        public Guid CommentId { get; set; }
 
         public Comment? Comment { get; set; }
         public User? User { get; set; }

@@ -31,5 +31,10 @@ namespace DEPI_PROJECT.BLL.DTOs.CommercialProperty
         public bool HasStorage { get; set; }
         public CommercialAmenityReadDto Amenity { get; set; }
         public List<PropertyGalleryReadDto> Galleries { get; set; }
+
+
+        //this part is new --> count of likes and is liked by user
+        public int LikesCount { get; set; }
+        public bool IsLiked { get; set; }
     }
 }

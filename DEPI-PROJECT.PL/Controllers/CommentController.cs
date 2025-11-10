@@ -1,17 +1,19 @@
 ﻿using Azure;
 using DEPI_PROJECT.BLL.Dtos.Comment;
+using DEPI_PROJECT.BLL.DTOs.Agent;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.PL.Helper_Function;
+using DEPI_PROJECT.PL.Helper_Function;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using DEPI_PROJECT.PL.Helper_Function;
 
 namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CommentController : ControllerBase
     {
         private readonly ICommentService _service;
@@ -22,12 +24,13 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ResponseDto<PagedResultDto<GetCommentDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<PagedResultDto<CommentGetDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
 
         public async Task<IActionResult> GetAllComments([FromQuery] CommentQueryDto queryDto)
         {
-            var Response = await _service.GetAllCommentsByPropertyId(queryDto);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var Response = await _service.GetAllCommentsByPropertyId(UserId ,queryDto);
             if (!Response.IsSuccess)
             {
                 return BadRequest(Response);
@@ -36,12 +39,13 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ResponseDto<GetCommentDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<CommentGetDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
 
         public async Task<IActionResult> GetCommentById(Guid id)
         {
-            var Response = await _service.GetCommentById(id);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var Response = await _service.GetCommentById(UserId , id);
             if (!Response.IsSuccess)
             {
                 return BadRequest(Response);
@@ -51,11 +55,10 @@ namespace DEPI_PROJECT.PL.Controllers
 
 
         [HttpPost]
-        [Authorize]
-        [ProducesResponseType(typeof(ResponseDto<GetCommentDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<CommentGetDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
 
-        public async Task<IActionResult> CreateComment([FromBody]AddCommentDto createCommentDto)
+        public async Task<IActionResult> CreateComment([FromBody]CommentAddDto createCommentDto)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);
             var Response = await _service.AddComment(UserId , createCommentDto);
@@ -67,11 +70,10 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
 
-        public async Task<IActionResult> UpdateComment(Guid id,[FromBody] UpdateCommentDto updateCommentDto)
+        public async Task<IActionResult> UpdateComment(Guid id,[FromBody] CommentUpdateDto updateCommentDto)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);
             var Response = await _service.UpdateComment(UserId, updateCommentDto , id);
@@ -83,7 +85,6 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
 

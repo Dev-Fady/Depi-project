@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace DEPI_PROJECT.BLL.Dtos.Comment
 {
-    public class GetCommentDto
+    public class CommentGetDto
     {
         public Guid CommentId { get; set; }
         public string? CommentText { get; set; }
         public DateTime DateComment { get; set; }
         public Guid UserID { get; set; }
         public Guid PropertyId { get; set; }
+        public bool IsLiked { get; set; }
+
+        public int LikesCount { get; set; }
     }
 }

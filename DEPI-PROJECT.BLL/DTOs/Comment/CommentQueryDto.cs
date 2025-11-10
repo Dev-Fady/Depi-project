@@ -15,6 +15,7 @@ namespace DEPI_PROJECT.BLL.Dtos.Comment
     {
         public bool IsDesc { get; set; }
         public Guid PropertyId { get; set; }
+
         public OrderByCommentOptions? OrderBy { get; set; }
 
     }

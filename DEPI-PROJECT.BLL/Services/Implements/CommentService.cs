@@ -11,6 +11,7 @@ using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -22,18 +23,20 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
+        private readonly ILikeCommentRepo _likeCommentRepo;
 
-        public CommentService(ICommentRepository commentRepository, IMapper mapper)
+        public CommentService(ICommentRepository commentRepository, IMapper mapper , ILikeCommentRepo likeCommentRepo)
         {
             _commentRepository = commentRepository;
             _mapper = mapper;
+            _likeCommentRepo = likeCommentRepo;
         }
 
-        public async Task<ResponseDto<GetCommentDto?>> AddComment(Guid UserId, AddCommentDto commentDto)
+        public async Task<ResponseDto<CommentGetDto?>> AddComment(Guid UserId, CommentAddDto commentDto)
         {
             if (UserId == Guid.Empty || commentDto == null)
             {
-                return new ResponseDto<GetCommentDto?>()
+                return new ResponseDto<CommentGetDto?>()
                 {
                     IsSuccess = false,
                     Message = "Invalid input data",
@@ -47,15 +50,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var Result = await _commentRepository.AddComment(CommentEntity);
             if (!Result)
             {
-                return new ResponseDto<GetCommentDto?>()
+                return new ResponseDto<CommentGetDto?>()
                 {
                     IsSuccess = false,
                     Message = "Failed to add comment",
                     Data = null
                 };
             }
-            var getComment = _mapper.Map<GetCommentDto>(CommentEntity);
-            return new ResponseDto<GetCommentDto?>()
+            var getComment = _mapper.Map<CommentGetDto>(CommentEntity);
+            return new ResponseDto<CommentGetDto?>()
             {
                 IsSuccess = true,
                 Message = "Comment added successfully",
@@ -144,7 +147,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         }
 
-        public async Task<ResponseDto<PagedResultDto<GetCommentDto?>>> GetAllCommentsByPropertyId(CommentQueryDto queryDto)
+        public async Task<ResponseDto<PagedResultDto<CommentGetDto?>>> GetAllCommentsByPropertyId(Guid CurrentUserId , CommentQueryDto queryDto)
         {
             //call all comments 
             var comments = _commentRepository.GetAllCommentsByPropertyId();
@@ -165,12 +168,60 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             //execute query
             var Result = await pagedComments.ToListAsync();
-            var mappedcomments =  _mapper.Map<IEnumerable<GetCommentDto>>(Result);
+            var mappedcomments =  _mapper.Map<IEnumerable<CommentGetDto>>(Result);
+
+            //Add Islike , count for each comment
+            var CommentIds = mappedcomments.Select(c => c.CommentId).ToList();
+            var CountCommentDic = await _likeCommentRepo.GetAllLikesByCommentId()
+                                    .Where(lc => CommentIds.Contains(lc.CommentId))
+                                    .GroupBy(lc => lc.CommentId)
+                                    .Select(n => new
+                                    {
+                                        CommentId = n.Key,
+                                        Count = n.Count()
+                                    })
+                                    .ToDictionaryAsync(n => n.CommentId , n => n.Count);
+
+            var IsLikedHash = await _likeCommentRepo.GetAllLikesByCommentId()
+                                    .Where(lc => lc.UserID == CurrentUserId && CommentIds.Contains(lc.CommentId))
+                                    .Select(n => n.CommentId)
+                                    .ToHashSetAsync();
+
+            foreach(var comment in mappedcomments)
+            {
+                if(CountCommentDic.TryGetValue(comment.CommentId, out var count))
+                {
+                    comment.LikesCount = count;
+                }
+                else
+                {
+                    comment.LikesCount = 0;
+                }
+                if (IsLikedHash.Contains(comment.CommentId))
+                {
+                    comment.IsLiked = true;
+                }
+                else
+                {
+                    comment.IsLiked = false;
+                }
+            }
+
+            //very slow --> make (N+1)problem
+            ////Add Islike , count for each comment
+            //foreach (var commentDto in mappedcomments)
+            //{
+            //    //count likes --> call likeCommentRepo
+            //    commentDto.LikesCount = await _likeCommentRepo.CountLikesByCommentId(commentDto.CommentId);
+            //    //check is liked by Current user
+            //    commentDto.IsLiked = await _likeCommentRepo.GetLikeCommentByUserAndCommentId(CurrentUserId, commentDto.CommentId) !=null;
+
+            //}
 
             //create paged result
-            var pagedResult = new PagedResultDto<GetCommentDto>(mappedcomments , queryDto.PageNumber , totalComments , queryDto.PageSize);
+            var pagedResult = new PagedResultDto<CommentGetDto>(mappedcomments , queryDto.PageNumber , totalComments , queryDto.PageSize);
             //return response 
-            return new ResponseDto<PagedResultDto<GetCommentDto?>>()
+            return new ResponseDto<PagedResultDto<CommentGetDto?>>()
             {
                 IsSuccess = true,
                 Message = "Comments retrieved successfully",
@@ -178,11 +229,11 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<GetCommentDto?>> GetCommentById(Guid commentId)
+        public async Task<ResponseDto<CommentGetDto?>> GetCommentById(Guid CurrentUserId ,Guid commentId)
         {
             if (commentId == Guid.Empty)
             {
-                return new ResponseDto<GetCommentDto?>()
+                return new ResponseDto<CommentGetDto?>()
                 {
                     IsSuccess = false,
                     Message = "Invalid CommentId",
@@ -192,15 +243,21 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var comment = await _commentRepository.GetCommentById(commentId);
             if (comment == null)
             {
-                return new ResponseDto<GetCommentDto?>()
+                return new ResponseDto<CommentGetDto?>()
                 {
                     IsSuccess = false,
                     Message = "Comment not found",
                     Data = null
                 };
             }
-            var mappedComment = _mapper.Map<GetCommentDto>(comment);
-            return new ResponseDto<GetCommentDto?>()
+            var mappedComment = _mapper.Map<CommentGetDto>(comment);
+
+            //count likes --> call likeCommentRepo
+            mappedComment.LikesCount = await _likeCommentRepo.CountLikesByCommentId(mappedComment.CommentId);
+            //check is liked by Current user
+            mappedComment.IsLiked = await _likeCommentRepo.GetLikeCommentByUserAndCommentId(CurrentUserId, mappedComment.CommentId) != null;
+
+            return new ResponseDto<CommentGetDto?>()
             {
                 IsSuccess = true,
                 Message = "Comment retrieved successfully",
@@ -209,7 +266,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         }
 
 
-        public async Task<ResponseDto<bool>> UpdateComment(Guid UserId, UpdateCommentDto commentDto, Guid CommentId)
+        public async Task<ResponseDto<bool>> UpdateComment(Guid UserId, CommentUpdateDto commentDto, Guid CommentId)
         {
             if (UserId == Guid.Empty || commentDto == null || CommentId == Guid.Empty)
             {

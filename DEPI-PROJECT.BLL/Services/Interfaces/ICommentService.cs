@@ -13,11 +13,11 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
 {
     public interface ICommentService
     {
-        public Task<ResponseDto<GetCommentDto?>> AddComment(Guid UserId, AddCommentDto commentDto);
+        public Task<ResponseDto<CommentGetDto?>> AddComment(Guid UserId, CommentAddDto commentDto);
         public Task<ResponseDto<bool>> DeleteComment(Guid UserId, Guid CommentId);
-        public Task<ResponseDto<bool>> UpdateComment(Guid UserId, UpdateCommentDto commentDto , Guid CommentId);
-        public Task<ResponseDto<PagedResultDto<GetCommentDto?>>> GetAllCommentsByPropertyId(CommentQueryDto queryDto);
-        public Task<ResponseDto<GetCommentDto?>> GetCommentById(Guid commentId);
+        public Task<ResponseDto<bool>> UpdateComment(Guid UserId, CommentUpdateDto commentDto , Guid CommentId);
+        public Task<ResponseDto<PagedResultDto<CommentGetDto?>>> GetAllCommentsByPropertyId(Guid CurrentUserId , CommentQueryDto queryDto);
+        public Task<ResponseDto<CommentGetDto?>> GetCommentById(Guid CurrentUserId ,Guid commentId);
         public Task<ResponseDto<int>> CountAllComments(Guid PropertyId);
     }
 }

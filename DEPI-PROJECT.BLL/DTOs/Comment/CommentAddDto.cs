@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DEPI_PROJECT.BLL.Dtos.Comment
 {
-    public class AddCommentDto
+    public class CommentAddDto
     {
         public string? CommentText { get; set; }
         public Guid PropertyId { get; set; }

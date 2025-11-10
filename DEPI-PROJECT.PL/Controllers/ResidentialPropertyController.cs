@@ -1,15 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿using DEPI_PROJECT.BLL.DTOs.Agent;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
+using DEPI_PROJECT.PL.Helper_Function;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ResidentialPropertyController : ControllerBase
     {
         private readonly IResidentialPropertyService _residentialPropertyService;
@@ -24,7 +28,10 @@ namespace DEPI_PROJECT.PL.Controllers
 
         public async Task<IActionResult> GetAllResidentialProperty([FromQuery] ResidentialPropertyQueryDto queryDto)
         {
-            var response = await _residentialPropertyService.GetAllResidentialPropertyAsync(queryDto);
+            // Get Current User Id from Token-->new
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+
+            var response = await _residentialPropertyService.GetAllResidentialPropertyAsync(UserId, queryDto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -38,7 +45,8 @@ namespace DEPI_PROJECT.PL.Controllers
 
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {
-            var response = await _residentialPropertyService.GetResidentialPropertyByIdAsync(id);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var response = await _residentialPropertyService.GetResidentialPropertyByIdAsync(UserId,id);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
