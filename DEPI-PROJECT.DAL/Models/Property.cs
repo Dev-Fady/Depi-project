@@ -28,10 +28,13 @@ namespace DEPI_PROJECT.DAL.Models
 
         public Amenity Amenity { get; set; }
         public ICollection<PropertyGallery> PropertyGalleries { get; set; } = new List<PropertyGallery>();
+        public ICollection<LikeProperty> LikeEntities { get; set; } = new List<LikeProperty>(); //new added
+
         public Guid? CompoundId { get; set; }
         public Compound? Compound { get; set; }
 
         //public CommercialProperty CommercialProperty { get; set; }
+
 
     }
 }

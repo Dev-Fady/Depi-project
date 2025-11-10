@@ -16,5 +16,7 @@ namespace DEPI_PROJECT.BLL.DTOs.CommercialProperty
         public string BusinessType { get; set; }
         public int FloorNumber { get; set; }
         public bool HasStorage { get; set; }
+        public AmenityReadDto Amenity { get; set; }
+        public List<PropertyGalleryReadDto> Galleries { get; set; }
     }
 }

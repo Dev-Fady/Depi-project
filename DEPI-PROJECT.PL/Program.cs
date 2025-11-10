@@ -26,6 +26,9 @@ namespace DEPI_PROJECT.PL
             // Add services to the container
             builder.Services.AddControllers();
 
+
+            // this line to read appsettings.Local.json and override settings normally read from appsettings.json
+            builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true);
             // Add Entity Framework
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -104,11 +107,24 @@ namespace DEPI_PROJECT.PL
             builder.Services.AddScoped<IPropertyService, PropertyService>();
             builder.Services.AddScoped<IAgentService, AgentService>();
             builder.Services.AddScoped<IBrokerService, BrokerService>();
+            builder.Services.AddScoped<IWishListService, WishListService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<ILikeCommentService, LikeCommentService>();
+            builder.Services.AddScoped<ILikePropertyService, LikePropertyService>();
 
 
             builder.Services.AddScoped<IAgentRepo, AgentRepo>();
             builder.Services.AddScoped<IBrokerRepo, BrokerRepo>();
+            builder.Services.AddScoped<IWishListRepository , WishListRepository>();
+            builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+            builder.Services.AddScoped<ILikeCommentRepo, LikeCommentRepo>();
+            builder.Services.AddScoped<ILikePropertyRepo, LikePropertyRepo>();
 
+
+
+
+            // Auto Mapper Configurations
+            builder.Services.AddAutoMapper(typeof(CommentProfile).Assembly);
 
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -143,7 +159,12 @@ namespace DEPI_PROJECT.PL
                     }
                 });
             });
-
+            //configure JSON options to serialize enums as strings
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+                });
             // Register
 
             builder.Services.AddResidentialPropertyServices();

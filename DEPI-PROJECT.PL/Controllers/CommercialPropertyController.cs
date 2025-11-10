@@ -1,12 +1,14 @@
-﻿using System.Threading.Tasks;
-using Azure;
+﻿using Azure;
 using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
+using DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.PL.Helper_Function;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace DEPI_PROJECT.PL.Controllers
 {
@@ -27,7 +29,8 @@ namespace DEPI_PROJECT.PL.Controllers
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAll([FromQuery] CommercialPropertyQueryDto commercialPropertyQueryDto)
         {
-            var response = await _commercialPropertyService.GetAllPropertiesAsync(commercialPropertyQueryDto);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var response = await _commercialPropertyService.GetAllPropertiesAsync(UserId,commercialPropertyQueryDto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -40,7 +43,8 @@ namespace DEPI_PROJECT.PL.Controllers
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var response = await _commercialPropertyService.GetPropertyByIdAsync(id);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var response = await _commercialPropertyService.GetPropertyByIdAsync(UserId,id);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
