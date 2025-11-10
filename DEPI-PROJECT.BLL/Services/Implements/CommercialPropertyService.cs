@@ -3,6 +3,7 @@ using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
@@ -53,11 +54,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var property = await _repo.GetPropertyByIdAsync(id);
             if (property == null)
             {
-                return new ResponseDto<CommercialPropertyReadDto>
-                {
-                    IsSuccess = false,
-                    Message = "Commercial property not found."
-                };
+                throw new NotFoundException($"No property found with ID {id}");
             }
             var mapped = _mapper.Map<CommercialPropertyReadDto>(property);
             return new ResponseDto<CommercialPropertyReadDto>
@@ -73,12 +70,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var existing = await _repo.GetPropertyByIdAsync(id);
             if (existing == null)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Property not found.",
-                    Data = false
-                };
+                throw new NotFoundException($"No property found with ID {id}");
             }
             _mapper.Map(propertyDto, existing);
             if (propertyDto.Amenity != null)
@@ -126,12 +118,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var existing = await _repo.GetPropertyByIdAsync(id);
             if (existing == null)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Property not found.",
-                    Data = false
-                };
+                throw new NotFoundException($"No property found with ID {id}");
             }
 
             await _repo.DeleteCommercialPropertyAsync(id);

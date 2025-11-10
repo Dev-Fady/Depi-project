@@ -3,6 +3,7 @@ using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
@@ -56,11 +57,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var property = await _repo.GetResidentialPropertyByIdAsync(id);
             if (property == null)
             {
-                return new ResponseDto<ResidentialPropertyReadDto>
-                {
-                    IsSuccess = false,
-                    Message = "Residential property not found."
-                };
+                throw new NotFoundException($"No property found with ID {id}");
             }
 
             var mapped = _mapper.Map<ResidentialPropertyReadDto>(property);
@@ -97,12 +94,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var existing = await _repo.GetResidentialPropertyByIdAsync(id);
             if (existing == null)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Residential property not found.",
-                    Data = false
-                };
+                throw new NotFoundException($"No property found with ID {id}");
             }
 
             _mapper.Map(propertyDto, existing);
@@ -136,12 +128,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var existing = await _repo.GetResidentialPropertyByIdAsync(id);
             if (existing == null)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Residential property not found.",
-                    Data = false
-                };
+                throw new NotFoundException($"No property found with ID {id}");
             }
 
             await _repo.DeleteResidentialPropertyAsync(id);

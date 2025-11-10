@@ -1,6 +1,8 @@
 ﻿using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
+using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using System.Threading.Tasks;
 using DataModel = DEPI_PROJECT.DAL.Models;
@@ -20,19 +22,14 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             if (dto.MediaFiles == null || !dto.MediaFiles.Any())
             {
-                return new ResponseDto<string>
-                {
-                    IsSuccess = false,
-                    Message = "No media files uploaded.",
-                    Data = null
-                };
+                throw new BadRequestException("Expected media files");
             }
 
             var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
             if (!Directory.Exists(uploadDir))
                 Directory.CreateDirectory(uploadDir);
 
-            var galleryList = new List<DataModel.PropertyGallery>();
+            var galleryList = new List<PropertyGallery>();
 
             foreach (var file in dto.MediaFiles)
             {
@@ -45,7 +42,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
                 var fileUrl = $"/uploads/{fileName}";
 
-                var gallery = new DataModel.PropertyGallery
+                var gallery = new PropertyGallery
                 {
                     MediaId = Guid.NewGuid(),
                     PropertyId = dto.PropertyId,
@@ -75,12 +72,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var gallery = await _repo.GetByIdAsync(id);
             if (gallery == null)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = $"Gallery item with id {id} not found.",
-                    Data = false
-                };
+                throw new NotFoundException($"No media file found with Id {id}");
             }
 
             string? filePath = null;
@@ -127,12 +119,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var g = await _repo.GetByIdAsync(id);
             if (g == null)
             {
-                return new ResponseDto<PropertyGalleryReadDto>
-                {
-                    IsSuccess = false,
-                    Message = $"Gallery item with id {id} not found.",
-                    Data = null
-                };
+                throw new NotFoundException($"No media file found with Id {id}");
             }
 
             return new ResponseDto<PropertyGalleryReadDto>
@@ -150,11 +137,11 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<IEnumerable<DataModel.PropertyGallery>>> GetByPropertyIdAsync(Guid propertyId)
+        public async Task<ResponseDto<IEnumerable<PropertyGallery>>> GetByPropertyIdAsync(Guid propertyId)
         {
             var data = await _repo.GetByPropertyIdAsync(propertyId);
 
-            return new ResponseDto<IEnumerable<DataModel.PropertyGallery>>
+            return new ResponseDto<IEnumerable<PropertyGallery>>
             {
                 IsSuccess = true,
                 Message = $"Gallery items for property {propertyId} retrieved successfully.",

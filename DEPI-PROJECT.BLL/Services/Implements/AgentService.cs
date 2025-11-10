@@ -5,6 +5,7 @@ using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.UserRole;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
@@ -66,11 +67,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             if (agent == null)
             {
-                return new ResponseDto<AgentResponseDto>
-                {
-                    Message = $"No Agent found with userId {AgentId}",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No Agent found with userId {AgentId}");
             }
 
             var AgentResponseDto = _mapper.Map<Agent, AgentResponseDto>(agent);
@@ -89,25 +86,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             if (agent == null)
             {
-                return new ResponseDto<AgentResponseDto>
-                {
-                    Message = "An error occurred while creating agent",
-                    IsSuccess = false
-                };
+                throw new Exception("An error occurred while creating agent");
             }
 
             // Assignning user to role Agent
             var roleResponse = await _roleService.GetByName(UserRoleOptions.Agent.ToString());
             var result = await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = agent.UserId, RoleId = roleResponse.Data.RoleId });
 
-            if (!result.IsSuccess)
-            {
-                return new ResponseDto<AgentResponseDto>
-                {
-                    Message = result.Message,
-                    IsSuccess = false
-                };
-            }
             var agentResponseDto = _mapper.Map<Agent, AgentResponseDto>(agent);
 
             return new ResponseDto<AgentResponseDto>
@@ -123,11 +108,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var agent = await _agentRepo.GetByIdAsync(agentUpdateDto.AgentId);
             if (agent == null)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = $"No agent found with ID {agentUpdateDto.AgentId}",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No agent found with ID {agentUpdateDto.AgentId}");
             }
 
             _mapper.Map<AgentUpdateDto, Agent>(agentUpdateDto, agent);
@@ -135,11 +116,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             bool result = await _agentRepo.UpdateAsync(agent);
             if (!result)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = "An error occurred while updating agent",
-                    IsSuccess = false
-                };
+                throw new Exception("An error occurred while updating agent");
             }
             return new ResponseDto<bool>
             {
@@ -153,11 +130,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             if (!result)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = "An error occurred while deleting agent",
-                    IsSuccess = false
-                };
+                throw new Exception("An error occurred while deleting agent");
             }
 
             return new ResponseDto<bool>

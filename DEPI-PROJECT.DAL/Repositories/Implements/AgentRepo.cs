@@ -23,16 +23,26 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
         public IQueryable<Agent> GetAll()
         {
             return _context.Agents
-                            .Include(a => a.Properties)
                             .Include(a => a.User)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.Compound)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.PropertyGalleries)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.Amenity)
                             .AsQueryable();
         }
 
         public async Task<Agent?> GetByIdAsync(Guid AgentId)
         {
             return await _context.Agents
-                            .Include(a => a.Properties)
                             .Include(a => a.User)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.Compound)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.PropertyGalleries)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.Amenity)
                             .FirstOrDefaultAsync(a => a.Id == AgentId);
                             
         }

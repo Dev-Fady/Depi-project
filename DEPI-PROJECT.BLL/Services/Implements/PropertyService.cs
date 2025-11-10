@@ -35,7 +35,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             _residentialPropertyRepo = residentialPropertyRepo;
             _mapper = mapper;
         }
-        public async Task<ResponseDto<PagedResultDto<PropertyReadDto>>> GetAll(PropertyQueryDto propertyQueryDto)
+        public async Task<ResponseDto<PagedResultDto<AllPropertyReadDto>>> GetAll(PropertyQueryDto propertyQueryDto)
         {
             var query1 = _commercialPropertyRepo.GetAllProperties();
             var query2 = _residentialPropertyRepo.GetAllResidentialProperty();
@@ -80,18 +80,18 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                             propertyQueryDto.IsDesc
                     ).ToListAsync();
 
-            List<PropertyReadDto> propertyReadDto = new List<PropertyReadDto>
+            List<AllPropertyReadDto> propertyReadDto = new List<AllPropertyReadDto>
             {
-                new PropertyReadDto{
+                new AllPropertyReadDto{
                     CommercialProperties = _mapper.Map<IEnumerable<CommercialPropertyReadDto>>(commercials),
                     ResidentialProperties = _mapper.Map<IEnumerable<ResidentialPropertyReadDto>>(residentials),
                 }
             };
 
             int totalCount = query1.Count() + query2.Count();
-            var pagedResult = new PagedResultDto<PropertyReadDto>(propertyReadDto, propertyQueryDto.PageNumber, totalCount, propertyQueryDto.PageSize);
+            var pagedResult = new PagedResultDto<AllPropertyReadDto>(propertyReadDto, propertyQueryDto.PageNumber, totalCount, propertyQueryDto.PageSize);
 
-            return new ResponseDto<PagedResultDto<PropertyReadDto>>
+            return new ResponseDto<PagedResultDto<AllPropertyReadDto>>
             {
                 Data = pagedResult,
                 Message = "Properties returned successfully",

@@ -15,6 +15,7 @@ using System.Security.Claims;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using DEPI_PROJECT.DAL.Repositories.Implements;
 using System.Runtime.InteropServices;
+using DEPI_PROJECT.PL.Middlewares;
 namespace DEPI_PROJECT.PL
 {
     public class Program
@@ -83,6 +84,16 @@ namespace DEPI_PROJECT.PL
                         }
                     }
                 };
+            });
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
             });
 
             builder.Services.AddScoped<IAuthService, AuthService>();
@@ -155,9 +166,11 @@ namespace DEPI_PROJECT.PL
                     options.Theme = ScalarTheme.Saturn;
                 });
             }
+            app.UseMiddleware<GlobalExceptionHandler>();
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors("AllowAll");
 
             // Authentication & Authorization middleware (order is important!)
             app.UseAuthentication();

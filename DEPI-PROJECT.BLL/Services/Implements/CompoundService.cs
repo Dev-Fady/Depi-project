@@ -3,6 +3,7 @@ using DEPI_PROJECT.BLL.DTOs.Compound;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
@@ -53,11 +54,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var compound = await _repo.GetCompoundByIdAsync(id);
             if (compound == null)
             {
-                return new ResponseDto<CompoundReadDto>
-                {
-                    IsSuccess = false,
-                    Message = "Compound not found."
-                };
+                throw new NotFoundException($"No compund found with Id {id}");
             }
             var mapped = _mapper.Map<CompoundReadDto>(compound);
             return new ResponseDto<CompoundReadDto>
@@ -73,12 +70,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var existing = await _repo.GetCompoundByIdAsync(id);
             if (existing == null)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Compound not found.",
-                    Data = false
-                };
+                throw new NotFoundException($"No compund found with Id {id}");
             }
             _mapper.Map(compoundDto, existing);
             await _repo.UpdateCompoundAsync(id, existing);
@@ -106,12 +98,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
            var existing = await _repo.GetCompoundByIdAsync(id);
             if (existing == null)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Compound not found.",
-                    Data = false
-                };
+                throw new NotFoundException($"No compund found with Id {id}");
             }
             await _repo.DeleteCompoundAsync(id);
             return new ResponseDto<bool>

@@ -24,7 +24,7 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ResponseDto<PagedResultDto<PropertyReadDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<PagedResultDto<AllPropertyReadDto>>), StatusCodes.Status200OK)]
         
         public async Task<IActionResult> GetAll([FromQuery] PropertyQueryDto propertyQueryDto)
         {

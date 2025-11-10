@@ -1,4 +1,4 @@
-﻿namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
+﻿namespace DEPI_PROJECT.BLL.DTOs.Amenity
 {
     public class AmenityReadDto
     {

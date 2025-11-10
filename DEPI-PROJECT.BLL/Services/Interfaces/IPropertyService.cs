@@ -12,6 +12,6 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
 {
     public interface IPropertyService
     {
-        Task<ResponseDto<PagedResultDto<PropertyReadDto>>> GetAll(PropertyQueryDto propertyQueryDto);
+        Task<ResponseDto<PagedResultDto<AllPropertyReadDto>>> GetAll(PropertyQueryDto propertyQueryDto);
     }
 }

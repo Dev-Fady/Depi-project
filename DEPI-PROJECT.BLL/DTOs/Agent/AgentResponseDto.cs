@@ -11,6 +11,6 @@ namespace DEPI_PROJECT.BLL.DTOs.Agent
         public double Rating { get; set; }
         public int experienceYears { get; set; }
         public UserResponseDto User { get; set; }
-        public IEnumerable<PropertyReadDto> Properties { get; set; }
+        public ICollection<PropertyResponseDto> Properties { get; set; }
     }
 }

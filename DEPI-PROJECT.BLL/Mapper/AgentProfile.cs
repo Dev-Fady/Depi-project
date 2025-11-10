@@ -1,5 +1,6 @@
 using AutoMapper;
 using DEPI_PROJECT.BLL.DTOs.Agent;
+using DEPI_PROJECT.BLL.DTOs.Property;
 using DEPI_PROJECT.DAL.Models;
 
 namespace DEPI_PROJECT.BLL.Mapper
