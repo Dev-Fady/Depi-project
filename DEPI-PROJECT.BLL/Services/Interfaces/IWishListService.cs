@@ -1,4 +1,6 @@
 ﻿using DEPI_PROJECT.BLL.Dtos.Wishists;
+using DEPI_PROJECT.BLL.DTOs.Pagination;
+using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -10,10 +12,10 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
 {
     public interface IWishListService
     {
-        public Task<bool> AddWishList(AddWishListDto wishlistDto);
-        public Task<bool> DeleteWishList(DeleteWishListDto wishlistDto);
-        public Task<IEnumerable<GetAllWishListDto>>? GetAllWishList(Guid UserId);
-        public Task<bool> IsWishListFound(CheckWishListDto checkWishListDto);
+        public Task<ResponseDto<WishListGetDto?>> AddItemInWishList(Guid CurrentUserId,WishListAddDto wishlistDto);
+        public Task<ResponseDto<bool>> DeleteItemInWishList(Guid CurrentUserId,  WishListDeleteDto wishlistDto);
+        public Task<ResponseDto<PagedResultDto<WishListGetDto?>>> GetAllWishList(Guid CurrentUserId, WishListQueryDto queryDto);
+        public Task<ResponseDto<WishListGetDto?>> GetWishList(Guid CurrentUserId, Guid PropertyId);
     }
 
 }

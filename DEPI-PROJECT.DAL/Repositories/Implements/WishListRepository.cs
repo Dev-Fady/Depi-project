@@ -20,15 +20,15 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
         }
 
         // CRUD Operations
-        public async Task<bool> AddWishList(Wishlist wishlist)
+        public async Task<bool> AddItemInWishList(Wishlist wishlist)
         {
             _appDbContext.Wishlists.Add(wishlist);
             return await _appDbContext.SaveChangesAsync() > 0; //SaveChangesAsync returns number of affected rows
         }
 
-        public async Task<bool> DeleteWishList(Guid UserId, Guid PropertyId)
+        public async Task<bool> DeleteItemInWishList(Guid UserId, Guid ListingID)
         {
-            var wishlist = await _appDbContext.Wishlists.FirstOrDefaultAsync(WL => WL.UserID == UserId && WL.PropertyID == PropertyId) ; //findAsync is used to find entity by primary key
+            var wishlist = await _appDbContext.Wishlists.FirstOrDefaultAsync(WL => WL.UserID == UserId && WL.ListingID == ListingID) ; //findAsync is used to find entity by primary key
             if (wishlist == null)
             {
                 return false;
@@ -37,24 +37,17 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             return await _appDbContext.SaveChangesAsync() > 0;
         }
 
-        public IQueryable<Wishlist> GetAllWishList(Guid UserId)
+        public IQueryable<Wishlist>? GetAllWishList()
         {
-            var WishLists = _appDbContext.Wishlists.Where(WL => WL.UserID == UserId).OrderBy(WL =>WL.CreatedAt);
+            var WishLists = _appDbContext.Wishlists.Include(R => R.Property);
             return WishLists; //cannot use await here as IQueryable is not awaitable --> not accessing database yet
         }
 
-        public async Task<bool> IsWishListFound(Guid UserId, Guid PropertyId)
+        public async Task<Wishlist?> GetWishList(Guid UserId, Guid PropertyId)
         {
-            var wishlist = await _appDbContext.Wishlists.AnyAsync(WL => WL.UserID == UserId && WL.PropertyID == PropertyId); //findAsync is used to find entity by primary key
+            var wishlist = await _appDbContext.Wishlists.Include(R => R.Property).FirstOrDefaultAsync(WL => WL.UserID == UserId && WL.PropertyID == PropertyId);
             return wishlist;
-            /*
-            var wishlist = await _appDbContext.Wishlists.Where(WL => WL.UserID == UserId && WL.PropertyID == PropertyId).FirstOrDefaultAsync(); //findAsync is used to find entity by primary key
-            if (wishlist == null)
-            {
-                return false;
-            }
-            return true;*/
-
+    
         }
     }
 }

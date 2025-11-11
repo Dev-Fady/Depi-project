@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace DEPI_PROJECT.BLL.Dtos.Wishists
 {
-    public class DeleteWishListDto
+    public class WishListDeleteDto
     {
-        public Guid UserID { get; set; }
-        public Guid PropertyID { get; set; }
+        public Guid ListingID { get; set; }
     }
 }

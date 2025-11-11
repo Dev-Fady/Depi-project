@@ -122,6 +122,8 @@ namespace DEPI_PROJECT.PL
 
             // Auto Mapper Configurations
             builder.Services.AddAutoMapper(typeof(CommentProfile).Assembly);
+            builder.Services.AddAutoMapper(typeof(WishListProfile).Assembly);
+
 
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
