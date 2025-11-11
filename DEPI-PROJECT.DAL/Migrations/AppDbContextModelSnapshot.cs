@@ -130,9 +130,6 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("isLiked")
-                        .HasColumnType("bit");
-
                     b.HasKey("CommentId");
 
                     b.HasIndex("PropertyId");
@@ -174,6 +171,60 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.HasIndex("City");
 
                     b.ToTable("Compounds", "pros");
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeComment", b =>
+                {
+                    b.Property<Guid>("LikeCommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CommentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LikeCommentId");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("UserID", "CommentId")
+                        .IsUnique();
+
+                    b.ToTable("LikeComments", "interactions");
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeProperty", b =>
+                {
+                    b.Property<Guid>("LikeEntityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<Guid>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LikeEntityId");
+
+                    b.HasIndex("PropertyId");
+
+                    b.HasIndex("UserID", "PropertyId")
+                        .IsUnique();
+
+                    b.ToTable("LikeProperties", "interactions");
                 });
 
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
@@ -600,6 +651,44 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeComment", b =>
+                {
+                    b.HasOne("DEPI_PROJECT.DAL.Models.Comment", "Comment")
+                        .WithMany("LikeComments")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DEPI_PROJECT.DAL.Models.User", "User")
+                        .WithMany("LikeComments")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.LikeProperty", b =>
+                {
+                    b.HasOne("DEPI_PROJECT.DAL.Models.Property", "Property")
+                        .WithMany("LikeEntities")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DEPI_PROJECT.DAL.Models.User", "User")
+                        .WithMany("LikeEntities")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Property", b =>
                 {
                     b.HasOne("DEPI_PROJECT.DAL.Models.Agent", "Agent")
@@ -722,6 +811,11 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("Properties");
                 });
 
+            modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Comment", b =>
+                {
+                    b.Navigation("LikeComments");
+                });
+
             modelBuilder.Entity("DEPI_PROJECT.DAL.Models.Compound", b =>
                 {
                     b.Navigation("Properties");
@@ -733,6 +827,8 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Comments");
+
+                    b.Navigation("LikeEntities");
 
                     b.Navigation("PropertyGalleries");
 
@@ -746,6 +842,10 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Navigation("Broker");
 
                     b.Navigation("Comments");
+
+                    b.Navigation("LikeComments");
+
+                    b.Navigation("LikeEntities");
 
                     b.Navigation("Wishlists");
                 });

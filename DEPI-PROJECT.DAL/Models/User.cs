@@ -13,5 +13,8 @@ namespace DEPI_PROJECT.DAL.Models
         public Broker? Broker { get; set; }
         public ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public ICollection<LikeProperty> LikeEntities { get; set; } = new List<LikeProperty>(); //new added
+        public ICollection<LikeComment> LikeComments { get; set; } = new List<LikeComment>(); //new added
+
     }
 }

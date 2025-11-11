@@ -43,5 +43,8 @@ TestResults/
 *.coverage
 *.coveragexml
 
+# Local environment settings (personal, not to be committed)
+appsettings.Development.json
+
 # Others
-*.vs/
+*.vs/appsettings.Development.json

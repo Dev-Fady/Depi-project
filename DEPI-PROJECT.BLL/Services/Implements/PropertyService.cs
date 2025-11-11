@@ -98,6 +98,17 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 IsSuccess = true
             };
         }
+
+        public async Task<bool> CheckPropertyExist(Guid PropertyId)
+        {
+            var ResidentialProperty = await _residentialPropertyRepo.GetResidentialPropertyByIdAsync(PropertyId);
+            var commercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(PropertyId);
+            if (ResidentialProperty == null && commercialProperty == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 
 }
