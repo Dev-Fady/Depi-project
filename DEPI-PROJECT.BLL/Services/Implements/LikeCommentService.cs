@@ -1,5 +1,6 @@
 ﻿using DEPI_PROJECT.BLL.Dtos.Like;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
@@ -24,22 +25,12 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             if (userId == Guid.Empty || commentId == Guid.Empty)
             {
-                return new ResponseDto<ToggleResult>()
-                {
-                    IsSuccess = false,
-                    Message = "Invalid input data",
-                    Data = ToggleResult.Failed
-                };
+                throw new BadRequestException("User id and comment Id both cannot be null");
             }
             var comment = await _commentRepo.GetCommentById(commentId);
             if (comment == null)
             {
-                return new ResponseDto<ToggleResult>()
-                {
-                    IsSuccess = false,
-                    Message = "Comment not found",
-                    Data = ToggleResult.NotFound
-                };
+                throw new NotFoundException($"No comment found with Id {commentId}");
             }
 
             var existingLike = await _LikeCommentRepo.GetLikeCommentByUserAndCommentId(userId, commentId);
@@ -54,12 +45,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 var statusAdd = await _LikeCommentRepo.AddLikeComment(newLike);
                 if (!statusAdd)
                 {
-                    return new ResponseDto<ToggleResult>()
-                    {
-                        IsSuccess = false,
-                        Message = "Failed to like the comment",
-                        Data = ToggleResult.Failed
-                    };
+                    throw new Exception("An error occured while liking the comment, please try again");
                 }
                 return new ResponseDto<ToggleResult>()
                 {
@@ -71,17 +57,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var statusDelete = await _LikeCommentRepo.DeleteLikeComment(existingLike);
             if (!statusDelete)
             {
-                return new ResponseDto<ToggleResult>()
-                {
-                    IsSuccess = false,
-                    Message = "Failed to unlike the comment",
-                    Data = ToggleResult.Failed
-                };
+                throw new Exception("An error occured while disliking the comment, please try again");
+
             }
             return new ResponseDto<ToggleResult>()
             {
                 IsSuccess = true,
-                Message = "Comment unliked successfully",
+                Message = "Comment disliked successfully",
                 Data = ToggleResult.Deleted
             };
         }

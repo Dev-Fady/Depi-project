@@ -48,8 +48,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             //Add Islike , count for each comment
             var PropertiesIds = mappedData.Select(p => p.PropertyId).ToList();
-            var CountPropertyDic = await _likePropertyRepo.GetAllLikesByPropertyId()
-                                    .Where(lc => PropertiesIds.Contains(lc.PropertyId))
+            var CountPropertyDic = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
                                     .GroupBy(lc => lc.PropertyId)
                                     .Select(n => new
                                     {
@@ -58,8 +57,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                     })
                                     .ToDictionaryAsync(n => n.PropertyId, n => n.Count);
 
-            var IsLikedHash = await _likePropertyRepo.GetAllLikesByPropertyId()
-                                    .Where(lc => lc.UserID == CurrentUserId && PropertiesIds.Contains(lc.PropertyId))
+            var IsLikedHash = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
+                                    .Where(lc => lc.UserID == CurrentUserId)
                                     .Select(n => n.PropertyId)
                                     .ToHashSetAsync();
 

@@ -47,8 +47,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             #region Add Islike , count for each comment
             //Add Islike , count for each comment
             var PropertiesIds = mappedData.Select(p => p.PropertyId).ToList();
-            var CountPropertyDic = await _likePropertyRepo.GetAllLikesByPropertyId()
-                                    .Where(lc => PropertiesIds.Contains(lc.PropertyId))
+            var CountPropertyDic = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
                                     .GroupBy(lc => lc.PropertyId)
                                     .Select(n => new
                                     {
@@ -57,8 +56,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                     })
                                     .ToDictionaryAsync(n => n.PropertyId, n => n.Count);
 
-            var IsLikedHash = await _likePropertyRepo.GetAllLikesByPropertyId()
-                                    .Where(lc => lc.UserID == CurrentUserId && PropertiesIds.Contains(lc.PropertyId))
+            var IsLikedHash = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
+                                    .Where(lc => lc.UserID == CurrentUserId)
                                     .Select(n => n.PropertyId)
                                     .ToHashSetAsync();
 
@@ -102,12 +101,12 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
             var mapped = _mapper.Map<CommercialPropertyReadDto>(property);
 
-            #region Add Islike , count for each comment
-            //count likes --> call likeCommentRepo
-            mapped.LikesCount = await _likePropertyRepo.CountLikesByPropertyId(mapped.PropertyId);
-            //check is liked by Current user
-            mapped.IsLiked = await _likePropertyRepo.GetLikePropertyByUserAndPropertyId(CurrentUserId, mapped.PropertyId) != null; 
-            #endregion
+            // #region Add Islike , count for each comment
+            // //count likes --> call likeCommentRepo
+            // mapped.LikesCount = await _likePropertyRepo.CountLikesByPropertyId(mapped.PropertyId);
+            // //check is liked by Current user
+            // mapped.IsLiked = await _likePropertyRepo.GetLikePropertyByUserAndPropertyId(CurrentUserId, mapped.PropertyId) != null; 
+            // #endregion
 
             return new ResponseDto<CommercialPropertyReadDto>
             {

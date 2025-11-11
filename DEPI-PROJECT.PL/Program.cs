@@ -26,9 +26,6 @@ namespace DEPI_PROJECT.PL
             // Add services to the container
             builder.Services.AddControllers();
 
-
-            // this line to read appsettings.Local.json and override settings normally read from appsettings.json
-            builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true);
             // Add Entity Framework
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -174,8 +171,8 @@ namespace DEPI_PROJECT.PL
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            //if (app.Environment.IsDevelopment())
-            //{
+            if (app.Environment.IsDevelopment())
+            {
                 app.MapOpenApi();
                 app.UseSwagger();
                 app.UseSwaggerUI();
@@ -186,7 +183,7 @@ namespace DEPI_PROJECT.PL
                     options.HideClientButton = true;
                     options.Theme = ScalarTheme.Saturn;
                 });
-            //}
+            }
             app.UseMiddleware<GlobalExceptionHandler>();
 
             app.UseHttpsRedirection();

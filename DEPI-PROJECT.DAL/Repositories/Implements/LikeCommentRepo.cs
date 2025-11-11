@@ -40,9 +40,17 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                                     .FirstOrDefaultAsync(LC => LC.CommentId == commentId && LC.UserID == userId);
             return likeComment;
         }
-        public IQueryable<LikeComment>? GetAllLikesByCommentId()
+        public IQueryable<LikeComment>? GetAllLikesByCommentId(Guid CommentId)
         {
-            var likes = _appDbContext.LikeComments;
+            var likes = _appDbContext.LikeComments
+                                    .Where(lc => lc.CommentId == CommentId);
+            return likes;
+        }
+
+        public IQueryable<LikeComment>? GetAllLikesByCommentsId(List<Guid> CommentIds)
+        {
+            var likes = _appDbContext.LikeComments
+                                    .Where(lc => CommentIds.Contains(lc.CommentId));
             return likes;
         }
     }

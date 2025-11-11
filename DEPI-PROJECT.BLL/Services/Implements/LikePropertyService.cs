@@ -1,9 +1,13 @@
 ﻿using DEPI_PROJECT.BLL.Dtos.Like;
+using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Implements;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,23 +31,14 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             if (userId == Guid.Empty || propertyId == Guid.Empty)
             {
-                return new ResponseDto<ToggleResult>()
-                {
-                    IsSuccess = false,
-                    Message = "Invalid input data",
-                    Data = ToggleResult.Failed
-                };
+                throw new BadRequestException("User id and property Id both cannot be null");
+
             }
             var ResidentialProperty = await _ResidentialPropertyRepo.GetResidentialPropertyByIdAsync(propertyId);
-            var commercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(propertyId);  
-            if (ResidentialProperty == null && commercialProperty == null) 
+            var commercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(propertyId);
+            if (ResidentialProperty == null && commercialProperty == null)
             {
-                return new ResponseDto<ToggleResult>()
-                {
-                    IsSuccess = false,
-                    Message = "Property not found",
-                    Data = ToggleResult.NotFound
-                };
+                throw new NotFoundException($"No property found with Id {propertyId}");
             }
 
             var existingLike = await _LikePropertyRepo.GetLikePropertyByUserAndPropertyId(userId, propertyId);
@@ -58,12 +53,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 var statusAdd = await _LikePropertyRepo.AddLikeProperty(newLike);
                 if (!statusAdd)
                 {
-                    return new ResponseDto<ToggleResult>()
-                    {
-                        IsSuccess = false,
-                        Message = "Failed to like the property",
-                        Data = ToggleResult.Failed
-                    };
+                    throw new Exception("An error occured while liking the property, please try again");
+
                 }
                 return new ResponseDto<ToggleResult>()
                 {
@@ -75,17 +66,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var statusDelete = await _LikePropertyRepo.DeleteLikeProperty(existingLike);
             if (!statusDelete)
             {
-                return new ResponseDto<ToggleResult>()
-                {
-                    IsSuccess = false,
-                    Message = "Failed to unlike the property",
-                    Data = ToggleResult.Failed
-                };
+                throw new Exception("An error occured while disliking the property, please try again");
+
             }
             return new ResponseDto<ToggleResult>()
             {
                 IsSuccess = true,
-                Message = "Property unliked successfully",
+                Message = "Property disliked successfully",
                 Data = ToggleResult.Deleted
             };
         }
