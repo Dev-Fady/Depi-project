@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "E:\\cSharp\\Projects\\Depi-project\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\services\\implements\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\services\\implements\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\services\\implements\\agentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\services\\implements\\agentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\dtos\\commercialproperty\\commercialpropertyreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\dtos\\commercialproperty\\commercialpropertyreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\services\\implements\\commercialpropertyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\services\\implements\\commercialpropertyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\dtos\\residentialproperty\\residentialpropertyreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\dtos\\residentialproperty\\residentialpropertyreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.pl\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{368E4DA8-629D-4941-93E7-F66D91A82DCD}|DEPI-PROJECT.PL\\DEPI-PROJECT.PL.csproj|solutionrelative:depi-project.pl\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
@@ -79,20 +99,12 @@
       "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\dtos\\pagination\\pagedresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\services\\implements\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\services\\implements\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\extensions\\linqextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\extensions\\linqextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.dal\\repositories\\implements\\commentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B10CA1E6-8F25-43F9-A561-60502E1D948F}|DEPI-PROJECT.DAL\\DEPI-PROJECT.DAL.csproj|solutionrelative:depi-project.dal\\repositories\\implements\\commentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\dtos\\residentialproperty\\residentialpropertyreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\dtos\\residentialproperty\\residentialpropertyreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\mapper\\commentprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -125,14 +137,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\services\\implements\\likepropertyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\services\\implements\\likepropertyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\services\\implements\\commercialpropertyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\services\\implements\\commercialpropertyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\dtos\\commercialproperty\\commercialpropertyreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\dtos\\commercialproperty\\commercialpropertyreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\services\\interfaces\\iresidentialpropertyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -215,10 +219,6 @@
       "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\dtos\\agent\\agentquerydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\services\\implements\\agentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\services\\implements\\agentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|e:\\csharp\\projects\\depi-project\\depi-project.bll\\dtos\\query\\orderquerydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E0A8497-F67A-4E60-8385-35AA5AE7293C}|DEPI-PROJECT.BLL\\DEPI-PROJECT.BLL.csproj|solutionrelative:depi-project.bll\\dtos\\query\\orderquerydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -290,21 +290,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "site42555-WebDeploy.pubxml",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Properties\\PublishProfiles\\site42555-WebDeploy.pubxml",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Properties\\PublishProfiles\\site42555-WebDeploy.pubxml",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Properties\\PublishProfiles\\site42555-WebDeploy.pubxml",
-              "RelativeToolTip": "DEPI-PROJECT.PL\\Properties\\PublishProfiles\\site42555-WebDeploy.pubxml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2025-11-10T21:42:15.404Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
@@ -312,71 +299,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "WishListController.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Controllers\\WishListController.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Controllers\\WishListController.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Controllers\\WishListController.cs",
-              "RelativeToolTip": "DEPI-PROJECT.PL\\Controllers\\WishListController.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAswEMAAABJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T21:04:25.112Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "WishListRepository.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Implements\\WishListRepository.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repositories\\Implements\\WishListRepository.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Implements\\WishListRepository.cs",
-              "RelativeToolTip": "DEPI-PROJECT.DAL\\Repositories\\Implements\\WishListRepository.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAA7wDEAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:59:01.105Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "WishListService.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\WishListService.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\WishListService.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\WishListService.cs",
-              "RelativeToolTip": "DEPI-PROJECT.BLL\\Services\\Implements\\WishListService.cs",
-              "ViewState": "AgIAAIgAAAAAAAAAAAAkwJkAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:35:45.497Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\appsettings.json",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\appsettings.json",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\appsettings.json",
-              "RelativeToolTip": "DEPI-PROJECT.PL\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-29T09:13:00.858Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IWishListService.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Interfaces\\IWishListService.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Interfaces\\IWishListService.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Interfaces\\IWishListService.cs",
-              "RelativeToolTip": "DEPI-PROJECT.BLL\\Services\\Interfaces\\IWishListService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:33:19.059Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Program.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Program.cs",
@@ -384,12 +306,11 @@
               "RelativeToolTip": "DEPI-PROJECT.PL\\Program.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAowBoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T09:16:13.581Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T09:16:13.581Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "IWishListRepository.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Interfaces\\IWishListRepository.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repositories\\Interfaces\\IWishListRepository.cs",
@@ -397,12 +318,11 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Repositories\\Interfaces\\IWishListRepository.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAADwvw4AAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:58:58.223Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T09:58:58.223Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "WishListProfile.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Mapper\\WishListProfile.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Mapper\\WishListProfile.cs",
@@ -410,12 +330,146 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Mapper\\WishListProfile.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T18:50:55.495Z",
+              "WhenOpened": "2025-11-10T18:50:55.495Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CommercialPropertyReadDto.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\CommercialProperty\\CommercialPropertyReadDto.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\CommercialProperty\\CommercialPropertyReadDto.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\CommercialProperty\\CommercialPropertyReadDto.cs",
+              "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\CommercialProperty\\CommercialPropertyReadDto.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBcAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T15:47:12.548Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ResidentialPropertyReadDto.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\ResidentialProperty\\ResidentialPropertyReadDto.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\ResidentialProperty\\ResidentialPropertyReadDto.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\ResidentialProperty\\ResidentialPropertyReadDto.cs",
+              "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\ResidentialProperty\\ResidentialPropertyReadDto.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAYwA0AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T11:02:10.401Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CommercialPropertyService.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\CommercialPropertyService.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\CommercialPropertyService.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\CommercialPropertyService.cs",
+              "RelativeToolTip": "DEPI-PROJECT.BLL\\Services\\Implements\\CommercialPropertyService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T16:05:08.119Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CommentService.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\CommentService.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\CommentService.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\CommentService.cs",
+              "RelativeToolTip": "DEPI-PROJECT.BLL\\Services\\Implements\\CommentService.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAgwLwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-07T12:40:06.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AgentService.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\AgentService.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\AgentService.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\AgentService.cs",
+              "RelativeToolTip": "DEPI-PROJECT.BLL\\Services\\Implements\\AgentService.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAADgvyQAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-07T23:23:51.541Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IWishListService.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Interfaces\\IWishListService.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Interfaces\\IWishListService.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Interfaces\\IWishListService.cs",
+              "RelativeToolTip": "DEPI-PROJECT.BLL\\Services\\Interfaces\\IWishListService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T09:33:19.059Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\appsettings.json",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\appsettings.json",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\appsettings.json",
+              "RelativeToolTip": "DEPI-PROJECT.PL\\appsettings.json",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-29T09:13:00.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "WishListService.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\WishListService.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\WishListService.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\WishListService.cs",
+              "RelativeToolTip": "DEPI-PROJECT.BLL\\Services\\Implements\\WishListService.cs",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAkwJkAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T09:35:45.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "WishListRepository.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Implements\\WishListRepository.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repositories\\Implements\\WishListRepository.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Implements\\WishListRepository.cs",
+              "RelativeToolTip": "DEPI-PROJECT.DAL\\Repositories\\Implements\\WishListRepository.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAA7wDEAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T09:59:01.105Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "WishListController.cs",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Controllers\\WishListController.cs",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Controllers\\WishListController.cs",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Controllers\\WishListController.cs",
+              "RelativeToolTip": "DEPI-PROJECT.PL\\Controllers\\WishListController.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAswEMAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T21:04:25.112Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 10,
+              "Title": "site42555-WebDeploy.pubxml",
+              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Properties\\PublishProfiles\\site42555-WebDeploy.pubxml",
+              "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Properties\\PublishProfiles\\site42555-WebDeploy.pubxml",
+              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Properties\\PublishProfiles\\site42555-WebDeploy.pubxml",
+              "RelativeToolTip": "DEPI-PROJECT.PL\\Properties\\PublishProfiles\\site42555-WebDeploy.pubxml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-11-10T21:42:15.404Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "CommentAddDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentAddDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentAddDto.cs",
@@ -423,12 +477,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentAddDto.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAcwAsAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T10:47:29.599Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-07T10:47:29.599Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "CommentController.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Controllers\\CommentController.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Controllers\\CommentController.cs",
@@ -436,12 +489,11 @@
               "RelativeToolTip": "DEPI-PROJECT.PL\\Controllers\\CommentController.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAAAB8AAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-09T16:51:55.912Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-09T16:51:55.912Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "CommentGetDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentGetDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentGetDto.cs",
@@ -449,12 +501,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentGetDto.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAmwAsAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T10:48:32.233Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-07T10:48:32.233Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 17,
               "Title": "CommentQueryDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentQueryDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentQueryDto.cs",
@@ -462,12 +513,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentQueryDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T23:33:43.01Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-07T23:33:43.01Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 18,
               "Title": "CommentUpdateDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentUpdateDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentUpdateDto.cs",
@@ -475,12 +525,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\Comment\\CommentUpdateDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T20:17:19.512Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-07T20:17:19.512Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "WishListQueryDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListQueryDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListQueryDto.cs",
@@ -488,12 +537,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListQueryDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T19:49:04.992Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-10T19:49:04.992Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 20,
               "Title": "WishListGetDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListGetDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListGetDto.cs",
@@ -501,12 +549,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListGetDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:20:21.357Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T09:20:21.357Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 21,
               "Title": "WishListDeleteDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListDeleteDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListDeleteDto.cs",
@@ -514,12 +561,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListDeleteDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T18:49:41.593Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-10T18:49:41.593Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 22,
               "Title": "WishListAddDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListAddDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListAddDto.cs",
@@ -527,12 +573,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\Wishists\\WishListAddDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T18:48:47.671Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-10T18:48:47.671Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 23,
               "Title": "PagedResultDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Pagination\\PagedResultDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Pagination\\PagedResultDto.cs",
@@ -540,25 +585,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\Pagination\\PagedResultDto.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAAkAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-08T01:13:53.074Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-08T01:13:53.074Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "CommentService.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\CommentService.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\CommentService.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\CommentService.cs",
-              "RelativeToolTip": "DEPI-PROJECT.BLL\\Services\\Implements\\CommentService.cs",
-              "ViewState": "AgIAAJwAAAAAAAAAAAAowKUAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T12:40:06.456Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 24,
               "Title": "LinqExtension.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Extensions\\LinqExtension.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Extensions\\LinqExtension.cs",
@@ -566,12 +597,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Extensions\\LinqExtension.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T23:21:39.292Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-07T23:21:39.292Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 25,
               "Title": "CommentRepository.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Implements\\CommentRepository.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repositories\\Implements\\CommentRepository.cs",
@@ -579,25 +609,11 @@
               "RelativeToolTip": "DEPI-PROJECT.DAL\\Repositories\\Implements\\CommentRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwDUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T14:54:01.203Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T14:54:01.203Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "ResidentialPropertyReadDto.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\ResidentialProperty\\ResidentialPropertyReadDto.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\ResidentialProperty\\ResidentialPropertyReadDto.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\ResidentialProperty\\ResidentialPropertyReadDto.cs",
-              "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\ResidentialProperty\\ResidentialPropertyReadDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T11:02:10.401Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "CommentProfile.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Mapper\\CommentProfile.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Mapper\\CommentProfile.cs",
@@ -605,12 +621,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Mapper\\CommentProfile.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABAAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T13:29:27.516Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-07T13:29:27.516Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "CommercialPropertyProfile.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Mapper\\CommercialPropertyProfile.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Mapper\\CommercialPropertyProfile.cs",
@@ -618,12 +633,11 @@
               "RelativeToolTip": "DEPI-PROJECT.BLL\\Mapper\\CommercialPropertyProfile.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T16:37:06.053Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-10T16:37:06.053Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "ResidentialPropertyController.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Controllers\\ResidentialPropertyController.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Controllers\\ResidentialPropertyController.cs",
@@ -631,24 +645,11 @@
               "RelativeToolTip": "DEPI-PROJECT.PL\\Controllers\\ResidentialPropertyController.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAAwAkAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T15:58:08.691Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-10T15:58:08.691Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "CommercialPropertyReadDto.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\CommercialProperty\\CommercialPropertyReadDto.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\CommercialProperty\\CommercialPropertyReadDto.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\CommercialProperty\\CommercialPropertyReadDto.cs",
-              "RelativeToolTip": "DEPI-PROJECT.BLL\\Dtos\\CommercialProperty\\CommercialPropertyReadDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAoAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T15:47:12.548Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 31,
               "Title": "CommercialPropertyController.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Controllers\\CommercialPropertyController.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Controllers\\CommercialPropertyController.cs",
@@ -660,7 +661,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "LikeCommentService.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\LikeCommentService.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\LikeCommentService.cs",
@@ -672,7 +673,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 32,
               "Title": "ResidentialPropertyService.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\ResidentialPropertyService.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\ResidentialPropertyService.cs",
@@ -684,19 +685,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "CommercialPropertyService.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\CommercialPropertyService.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\CommercialPropertyService.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\CommercialPropertyService.cs",
-              "RelativeToolTip": "DEPI-PROJECT.BLL\\Services\\Implements\\CommercialPropertyService.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAswHAAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T16:05:08.119Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 29,
               "Title": "LikeController.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Controllers\\LikeController.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Controllers\\LikeController.cs",
@@ -708,7 +697,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "IResidentialPropertyService.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Interfaces\\IResidentialPropertyService.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Interfaces\\IResidentialPropertyService.cs",
@@ -720,7 +709,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "ICommercialPropertyService.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Interfaces\\ICommercialPropertyService.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Interfaces\\ICommercialPropertyService.cs",
@@ -732,7 +721,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 33,
               "Title": "LikePropertyService.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\LikePropertyService.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\LikePropertyService.cs",
@@ -744,7 +733,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "CommericialPropertyQueryDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\CommercialProperty\\CommericialPropertyQueryDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\CommercialProperty\\CommericialPropertyQueryDto.cs",
@@ -756,7 +745,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "ILikePropertyRepo.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Interfaces\\ILikePropertyRepo.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repositories\\Interfaces\\ILikePropertyRepo.cs",
@@ -768,7 +757,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "PropertyGalleryController.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Controllers\\PropertyGalleryController.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Controllers\\PropertyGalleryController.cs",
@@ -780,7 +769,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "ILikeCommentRepo.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Interfaces\\ILikeCommentRepo.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repositories\\Interfaces\\ILikeCommentRepo.cs",
@@ -792,7 +781,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "LikePropertyRepo.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Implements\\LikePropertyRepo.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repositories\\Implements\\LikePropertyRepo.cs",
@@ -816,7 +805,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "Comment.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Comment.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\Comment.cs",
@@ -828,7 +817,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "LikeCommentRepo.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Implements\\LikeCommentRepo.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repositories\\Implements\\LikeCommentRepo.cs",
@@ -840,7 +829,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "LikeComment.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\LikeComment.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\LikeComment.cs",
@@ -852,7 +841,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "LikeProperty.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\LikeProperty.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\LikeProperty.cs",
@@ -864,7 +853,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "ICommentRepository.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Repositories\\Interfaces\\ICommentRepository.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Repositories\\Interfaces\\ICommentRepository.cs",
@@ -876,7 +865,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "ICommentService.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Interfaces\\ICommentService.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Interfaces\\ICommentService.cs",
@@ -888,7 +877,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "ILikePropertyService.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Interfaces\\ILikePropertyService.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Interfaces\\ILikePropertyService.cs",
@@ -900,7 +889,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "ILikeCommentService.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Interfaces\\ILikeCommentService.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Interfaces\\ILikeCommentService.cs",
@@ -912,7 +901,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "LikeStatusDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Like\\LikeStatusDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Like\\LikeStatusDto.cs",
@@ -924,7 +913,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "ResidentialPropertyQueryDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\ResidentialProperty\\ResidentialPropertyQueryDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\ResidentialProperty\\ResidentialPropertyQueryDto.cs",
@@ -936,7 +925,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "Property.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.DAL\\Models\\Property.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.DAL\\Models\\Property.cs",
@@ -948,7 +937,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "GetUserIdFromToken.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.PL\\Helper Function\\GetUserIdFromToken.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.PL\\Helper Function\\GetUserIdFromToken.cs",
@@ -960,7 +949,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 53,
               "Title": "AgentQueryDto.cs",
               "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Dtos\\Agent\\AgentQueryDto.cs",
               "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Dtos\\Agent\\AgentQueryDto.cs",
@@ -969,18 +958,6 @@
               "ViewState": "AgIAAAMAAAAAAAAAAAAuwAQAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-07T22:51:49.789Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 53,
-              "Title": "AgentService.cs",
-              "DocumentMoniker": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\AgentService.cs",
-              "RelativeDocumentMoniker": "DEPI-PROJECT.BLL\\Services\\Implements\\AgentService.cs",
-              "ToolTip": "E:\\cSharp\\Projects\\Depi-project\\DEPI-PROJECT.BLL\\Services\\Implements\\AgentService.cs",
-              "RelativeToolTip": "DEPI-PROJECT.BLL\\Services\\Implements\\AgentService.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAADgvyoAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T23:23:51.541Z"
             },
             {
               "$type": "Document",
