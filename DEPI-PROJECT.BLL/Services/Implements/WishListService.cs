@@ -3,11 +3,13 @@ using DEPI_PROJECT.BLL.Dtos.Comment;
 using DEPI_PROJECT.BLL.Dtos.Wishists;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,42 +24,33 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     {
         private readonly IWishListRepository _wishListRepository;
         private readonly IMapper _mapper;
+        private readonly IPropertyService _propertyService;
 
-        public WishListService(IWishListRepository wishListRepository , IMapper mapper) 
+        public WishListService(IWishListRepository wishListRepository,
+                                IMapper mapper,
+                                IPropertyService propertyService) 
         {
             _wishListRepository = wishListRepository;
             _mapper = mapper;
+            _propertyService = propertyService;
         }
         public async Task<ResponseDto<WishListGetDto?>> AddItemInWishList(Guid CurrentUserId, WishListAddDto wishlistDto)
         {
-            if (CurrentUserId == Guid.Empty)
+            if (CurrentUserId == Guid.Empty || wishlistDto.PropertyID == Guid.Empty)
             {
-                return new ResponseDto<WishListGetDto?>
-                {
-                    IsSuccess = false,
-                    Message = "Invalid User ID.",
-                    Data = null
-                };
+                throw new BadRequestException("User id and property Id both cannot be null");
             }
-            if (wishlistDto.PropertyID == Guid.Empty)
+
+            if(await _propertyService.CheckPropertyExist(wishlistDto.PropertyID) == false)
             {
-                return new ResponseDto<WishListGetDto?>
-                {
-                    IsSuccess = false,
-                    Message = "Invalid Property ID.",
-                    Data = null
-                };
+                throw new NotFoundException($"No property found with Id {wishlistDto.PropertyID}");
             }
+
             //check if already exists
             var exists = await _wishListRepository.GetWishList(CurrentUserId, wishlistDto.PropertyID);
             if (exists != null)
             {
-                return new ResponseDto<WishListGetDto?>
-                {
-                    IsSuccess = false,
-                    Message = "This Item is already in your wishlist.",
-                    Data = null
-                };
+                throw new InvalidOperationException("This Item is already in your wishlist.");
             }
 
             var wishlist = _mapper.Map<Wishlist>(wishlistDto);
@@ -66,12 +59,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var Result = await _wishListRepository.AddItemInWishList(wishlist);
             if (!Result)
             {
-                return new ResponseDto<WishListGetDto?>
-                {
-                    IsSuccess = false,
-                    Message = "Failed to add Item.",
-                    Data = null
-                };
+                throw new Exception("An error occurred while adding the item to the wishlist, please try again");
             }
 
             //not include property details in mapping so manually adding them
@@ -92,33 +80,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> DeleteItemInWishList(Guid CurrentUserId, WishListDeleteDto wishlistDto)
         {
-            if (CurrentUserId == Guid.Empty)
+            if (CurrentUserId == Guid.Empty || wishlistDto.ListingID == Guid.Empty)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Invalid User ID.",
-                    Data = false
-                };
-            }
-            if (wishlistDto.ListingID == Guid.Empty)
-            {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Invalid Listing ID.",
-                    Data = false
-                };
+                throw new BadRequestException("User id and item Id both cannot be null");
             }
             bool result =  await _wishListRepository.DeleteItemInWishList(CurrentUserId, wishlistDto.ListingID);
             if (!result)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Failed to delete Item.",
-                    Data = false
-                };
+                throw new Exception("An error occurred while removing the item from the wishlist, please try again");
+
             }
             return new ResponseDto<bool>
             {
@@ -169,33 +139,20 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<WishListGetDto?>> GetWishList(Guid CurrentUserId, Guid PropertyId)
         {
-            if (CurrentUserId == Guid.Empty)
+            if (CurrentUserId == Guid.Empty || PropertyId == Guid.Empty)
             {
-                return new ResponseDto<WishListGetDto?>
-                {
-                    IsSuccess = false,
-                    Message = "Invalid User ID.",
-                    Data = null
-                };
+                throw new BadRequestException("User id and property Id both cannot be null");
             }
-            if (PropertyId == Guid.Empty)
+
+            if(await _propertyService.CheckPropertyExist(PropertyId) == false)
             {
-                return new  ResponseDto<WishListGetDto?>
-                {
-                    IsSuccess = false,
-                    Message = "Invalid Listing ID.",
-                    Data = null
-                };
+                throw new NotFoundException($"No property found with Id {PropertyId}");
             }
+
             var wishlist = await _wishListRepository.GetWishList(CurrentUserId, PropertyId);
             if (wishlist == null)
             {
-                return new ResponseDto<WishListGetDto?>
-                {
-                    IsSuccess = false,
-                    Message = "No Item found for the given User ID and Property ID.",
-                    Data = null
-                };
+                throw new NotFoundException($"No Item found for the given User {CurrentUserId} and Property {PropertyId}.");
             }
             var mappedWishList = _mapper.Map<WishListGetDto>(wishlist);
             mappedWishList.Price = wishlist.Property.Price;
