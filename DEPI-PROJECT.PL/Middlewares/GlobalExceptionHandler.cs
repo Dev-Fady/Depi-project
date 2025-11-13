@@ -102,13 +102,11 @@ namespace DEPI_PROJECT.PL.Middlewares
             {
                 Message = message,
                 IsSuccess = false,
-                Data = context.RequestServices.GetService<IWebHostEnvironment>()?.IsDevelopment() == true 
-                    ? new { 
+                Data = new { 
                         Exception = exception.GetType().Name,
                         Details = details,
-                        StackTrace = exception.StackTrace 
-                    } 
-                    : null
+                        //StackTrace = exception.StackTrace 
+                    }
             };
 
             context.Response.ContentType = "application/json";
