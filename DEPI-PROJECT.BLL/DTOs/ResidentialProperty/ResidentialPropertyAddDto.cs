@@ -9,6 +9,7 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
 {
     public class ResidentialPropertyAddDto
     {
+        public string Title { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
         public string GoogleMapsUrl { get; set; }
