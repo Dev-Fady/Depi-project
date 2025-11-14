@@ -11,9 +11,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
     public interface ICommercialPropertyRepo
     {
         IQueryable<CommercialProperty> GetAllProperties();
-
         Task<CommercialProperty?> GetPropertyByIdAsync(Guid id);
-
         Task AddCommercialPropertyAsync(CommercialProperty property);
         Task UpdateCommercialPropertyAsync(Guid id, CommercialProperty property);
         Task DeleteCommercialPropertyAsync(Guid id);

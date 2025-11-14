@@ -9,6 +9,7 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
 {
     public class ResidentialPropertyAddDto
     {
+        public string Title { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
         public string GoogleMapsUrl { get; set; }
@@ -21,7 +22,7 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
         public float Square { get; set; }
         public string Description { get; set; }
         
-        public Guid AgentId { get; set; }
+        public Guid UserId { get; set; }
         public Guid? CompoundId { get; set; }
 
         public int Bedrooms { get; set; }

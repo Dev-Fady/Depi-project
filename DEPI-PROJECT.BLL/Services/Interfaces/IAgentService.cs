@@ -10,8 +10,8 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
         public Task<ResponseDto<PagedResultDto<AgentResponseDto>>> GetAllAsync(AgentQueryDto agentQueryDto);
         public Task<ResponseDto<AgentResponseDto>> GetByIdAsync(Guid AgentId);
         public Task<ResponseDto<AgentResponseDto>> CreateAsync(AgentCreateDto roleCreateDto);
-        public Task<ResponseDto<bool>> UpdateAsync(AgentUpdateDto roleUpdateDto);
-        public Task<ResponseDto<bool>> DeleteAsync(Guid AgentId);
+        public Task<ResponseDto<bool>> UpdateAsync(Guid AgentId, AgentUpdateDto roleUpdateDto);
+        public Task<ResponseDto<bool>> DeleteAsync(Guid UserId, Guid AgentId);
 
     }
 }

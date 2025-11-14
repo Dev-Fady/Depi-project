@@ -60,7 +60,9 @@ namespace DEPI_PROJECT.PL.Controllers
         
         public async Task<IActionResult> AddResidentialProperty([FromBody] ResidentialPropertyAddDto propertyDto)
         {
-            var response = await _residentialPropertyService.AddResidentialPropertyAsync(propertyDto);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var AgentId = GetAgentId.GetAgentIdFromUserId(this, UserId);
+            var response = await _residentialPropertyService.AddResidentialPropertyAsync(UserId, AgentId, propertyDto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -74,7 +76,8 @@ namespace DEPI_PROJECT.PL.Controllers
         
         public async Task<IActionResult> UpdateResidentialProperty(Guid id, [FromBody] ResidentialPropertyUpdateDto propertyDto)
         {
-            var response = await _residentialPropertyService.UpdateResidentialPropertyAsync(id, propertyDto);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var response = await _residentialPropertyService.UpdateResidentialPropertyAsync(UserId, id, propertyDto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -88,7 +91,8 @@ namespace DEPI_PROJECT.PL.Controllers
         
         public async Task<IActionResult> DeleteResidentialProperty(Guid id)
         {
-            var response = await _residentialPropertyService.DeleteResidentialPropertyAsync(id);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var response = await _residentialPropertyService.DeleteResidentialPropertyAsync(UserId, id);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);

@@ -46,6 +46,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                         .IF(propertyQueryDto.PropertyStatus != null, a => a.PropertyStatus == propertyQueryDto.PropertyStatus)
                         .IF(propertyQueryDto.PropertyPurpose != null, a => a.PropertyPurpose == propertyQueryDto.PropertyPurpose)
                         .IF(propertyQueryDto.Address != null, a => a.Address.Contains(propertyQueryDto.Address))
+                        .IF(propertyQueryDto.Title != null, a => a.Title.Contains(propertyQueryDto.Title))
                         .IF(propertyQueryDto.Description != null, a => a.Description.Contains(propertyQueryDto.Description))
                         .IF(propertyQueryDto.UpToPrice != null, a => a.Price <= propertyQueryDto.UpToPrice)
                         .IF(propertyQueryDto.UpToSquare != null, a => a.Square <= propertyQueryDto.UpToSquare)

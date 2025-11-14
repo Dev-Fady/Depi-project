@@ -10,6 +10,7 @@ namespace DEPI_PROJECT.BLL.DTOs.Property
     public class PropertyResponseDto
     {
         public Guid PropertyId { get; set; }
+        public string Title { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
         public string GoogleMapsUrl { get; set; }
@@ -24,7 +25,7 @@ namespace DEPI_PROJECT.BLL.DTOs.Property
 
         public DateTime DateListed { get; set; }
 
-        public Guid AgentId { get; set; }
+        public Guid UserId { get; set; }
         // public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
         public AmenityReadDto Amenity { get; set; }
