@@ -11,10 +11,10 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
 {
     public interface IResidentialPropertyService
     {
-        Task<ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>> GetAllResidentialPropertyAsync(Guid CurrentUserId, ResidentialPropertyQueryDto queryDto);
-        Task<ResponseDto<ResidentialPropertyReadDto>> GetResidentialPropertyByIdAsync(Guid CurrentUserId, Guid id);
-        Task<ResponseDto<ResidentialPropertyReadDto>> AddResidentialPropertyAsync(ResidentialPropertyAddDto propertyDto);
-        Task<ResponseDto<bool>> UpdateResidentialPropertyAsync(Guid id, ResidentialPropertyUpdateDto propertyDto);
-        Task<ResponseDto<bool>> DeleteResidentialPropertyAsync(Guid id);
+        Task<ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>> GetAllResidentialPropertyAsync(Guid UserId, ResidentialPropertyQueryDto queryDto);
+        Task<ResponseDto<ResidentialPropertyReadDto>> GetResidentialPropertyByIdAsync(Guid UserId, Guid id);
+        Task<ResponseDto<ResidentialPropertyReadDto>> AddResidentialPropertyAsync(Guid UserId, Guid AgentId, ResidentialPropertyAddDto propertyDto);
+        Task<ResponseDto<bool>> UpdateResidentialPropertyAsync(Guid UserId, Guid id, ResidentialPropertyUpdateDto propertyDto);
+        Task<ResponseDto<bool>> DeleteResidentialPropertyAsync(Guid UserId, Guid id);
     }
 }

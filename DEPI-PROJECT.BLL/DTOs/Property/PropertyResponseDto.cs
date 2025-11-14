@@ -24,7 +24,7 @@ namespace DEPI_PROJECT.BLL.DTOs.Property
 
         public DateTime DateListed { get; set; }
 
-        public Guid AgentId { get; set; }
+        public Guid UserId { get; set; }
         // public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
         public AmenityReadDto Amenity { get; set; }

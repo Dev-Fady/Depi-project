@@ -22,7 +22,7 @@ namespace DEPI_PROJECT.BLL.DTOs.CommercialProperty
         public float Square { get; set; }
         public string Description { get; set; }
 
-        public Guid AgentId { get; set; }
+        public Guid UserId { get; set; }
         public Guid? CompoundId { get; set; }
 
         public string BusinessType { get; set; }

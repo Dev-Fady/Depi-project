@@ -56,7 +56,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             if (!identityResult.Succeeded)
             {
-                throw new BadRequestException(identityResult.Errors.ElementAt(0).Description
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
                         ?? "An error occured while registering the user. Please try again");
             }
 
@@ -68,13 +68,18 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
             };
 
-            await _userManager.AddClaimsAsync(user, claims);
-
+            identityResult = await _userManager.AddClaimsAsync(user, claims);
+            if (!identityResult.Succeeded)
+            {
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
+                        ?? "An error occured while adding user claims. Please try again");
+            }
+            
             // Assignning user to their role
             await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = user.UserId, RoleId = roleResult.Data.RoleId });
 
-
-            string TokenGenerated = _jwtService.GenerateToken(claims);
+            var allClaims = await _userManager.GetClaimsAsync(user);
+            string TokenGenerated = _jwtService.GenerateToken(allClaims.ToList());
 
             var authResponseDto = new AuthResponseDto
             {

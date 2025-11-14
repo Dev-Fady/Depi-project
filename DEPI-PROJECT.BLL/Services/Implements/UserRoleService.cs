@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using AutoMapper;
+using DEPI_PROJECT.BLL.Constants;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.Role;
 using DEPI_PROJECT.BLL.DTOs.User;
@@ -74,7 +75,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 IsSuccess = true
             };
         }
-        
+
         public async Task<ResponseDto<bool>> AssignUserToRole(UserRoleDto userRoleDto)
         {
             (User user, Role role) = await GetUserAndRole(userRoleDto);
@@ -82,16 +83,27 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var identityResult = await _userManager.AddToRoleAsync(user, role.Name);
             if (!identityResult.Succeeded)
             {
-                throw new BadRequestException(identityResult.Errors.ElementAt(0).ToString()
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
                             ?? "An error occurred while assignning user role");
             }
 
-            Claim claim = new Claim(ClaimTypes.Role, role.NormalizedName);
-            identityResult = await _userManager.AddClaimAsync(user, claim);
+            List<Claim> claims = new List<Claim>{
+                new Claim(ClaimTypes.Role, role.NormalizedName)
+            };
+
+            // Get agent/broker Id from claims if exists
+            var RoleIdClaim = GetAgentOrBrokerIdClaimIfExists(user, role.Name);
+
+            if (RoleIdClaim != null)
+            {
+                claims.Add(RoleIdClaim);
+            }
+
+            identityResult = await _userManager.AddClaimsAsync(user, claims);
 
             if (!identityResult.Succeeded)
             {
-                throw new BadRequestException(identityResult.Errors.ElementAt(0).ToString() 
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
                             ?? $"An error occurred while adding user to role {role.Name}");
             }
 
@@ -103,6 +115,16 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 IsSuccess = true
             };
         }
+        
+        public async Task<ResponseDto<bool>> RemoveUserFromRoleByRoleName(UserRoleByRoleNameDto userRoleDto){
+            var Role = await _roleManager.FindByNameAsync(userRoleDto.RoleName);
+            if (Role == null)
+            {
+                throw new NotFoundException($"No role found with name {userRoleDto.RoleName}");
+            }
+            var response = await RemoveUserFromRole(new UserRoleDto { UserId = userRoleDto.UserId, RoleId = Role.Id });
+            return response;
+        }
 
         public async Task<ResponseDto<bool>> RemoveUserFromRole(UserRoleDto userRoleDto)
         {
@@ -111,15 +133,28 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var identityResult = await _userManager.RemoveFromRoleAsync(user, role.Name);
             if (!identityResult.Succeeded)
             {
-                throw new BadRequestException(identityResult.Errors.ElementAt(0).ToString()
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
                         ?? $"An error occurred while removing user from role {role.Name}");
             }
+
+            // List<Claim> claims = new List<Claim>
+            // {
+            //     new Claim(ClaimTypes.Role, role.NormalizedName)
+            // };
+
+            // Get agent/broker Id from claims if exists
+            var claims = await _userManager.GetClaimsAsync(user);
+
+            List<Claim> claimsToDelete =
+            [
+                claims.FirstOrDefault(a => a.Type == ClaimTypes.Role),
+                claims.FirstOrDefault(a => a.Type == ClaimsConstants.AGENT_ID || a.Type == ClaimsConstants.BROKER_ID),
+            ];
             
-            Claim claim = new Claim(ClaimTypes.Role, role.NormalizedName);
-            identityResult = await _userManager.RemoveClaimAsync(user, claim);
+            identityResult = await _userManager.RemoveClaimsAsync(user, claimsToDelete);
             if (!identityResult.Succeeded)
             {
-                throw new Exception(identityResult.Errors.ElementAt(0).ToString() 
+                throw new Exception(identityResult.Errors.ElementAt(0).Description 
                         ?? $"An error occurred while removing claim role {role.NormalizedName}");
             }
 
@@ -146,7 +181,33 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 throw new NotFoundException($"No user found with Id {userRoleDto.UserId}");
             }
 
-            return new (user, role);
+            return new(user, role);
+        }
+        
+        private Claim? GetAgentOrBrokerIdClaimIfExists(User user, string RoleName){
+            // Add agent/broker Id if exists
+            Claim RoleIdClaim = null;
+
+            if (Enum.TryParse<UserRoleOptions>(RoleName, true, out var roleOption))
+            {
+                if (roleOption == UserRoleOptions.Agent)
+                {
+                    if (user.Agent == null)
+                    {
+                        throw new NotFoundException($"there is no agent associated with ID {user.Id}");
+                    }
+                    RoleIdClaim = new Claim(ClaimsConstants.AGENT_ID, user.Agent.Id.ToString());
+                }
+                else if (roleOption == UserRoleOptions.Broker)
+                {
+                    if (user.Broker == null)
+                    {
+                        throw new NotFoundException($"there is no Broker associated with ID {user.Id}");
+                    }
+                    RoleIdClaim = new Claim(ClaimsConstants.BROKER_ID, user.Broker.Id.ToString());
+                }
+            }
+            return RoleIdClaim;
 
         }
     }

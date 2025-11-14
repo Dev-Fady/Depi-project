@@ -105,7 +105,7 @@ namespace DEPI_PROJECT.PL.Middlewares
                 Data = new { 
                         Exception = exception.GetType().Name,
                         Details = details,
-                        //StackTrace = exception.StackTrace 
+                        StackTrace = exception.StackTrace 
                     }
             };
 

@@ -10,7 +10,7 @@ namespace DEPI_PROJECT.BLL.Mapper
         public ResidentialPropertyProfile()
         {
             CreateMap<ResidentialProperty, ResidentialPropertyReadDto>()
-                .ForMember(dest => dest.AgentId, opt => opt.MapFrom(src => src.AgentId))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Agent.UserId))
                 .ForMember(dest => dest.Galleries, opt => opt.MapFrom(src => src.PropertyGalleries))
                 .ForMember(dest => dest.Amenity, opt => opt.MapFrom(src => src.Amenity));
 
