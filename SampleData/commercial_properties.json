@@ -1,0 +1,224 @@
+{
+  "commercialProperties": [
+    {
+      "title": "Modern Office Complex Downtown",
+      "city": "Cairo",
+      "address": "123 Tahrir Square, Downtown Cairo",
+      "googleMapsUrl": "https://maps.google.com/?q=30.0444,31.2357",
+      "propertyType": 1,
+      "propertyPurpose": 0,
+      "propertyStatus": 0,
+      "price": 150000.00,
+      "square": 500.0,
+      "description": "Premium office space in the heart of downtown Cairo with modern amenities, central AC, and parking facilities. Perfect for corporate headquarters.",
+      "userId": "da2e6fd1-72c1-41f6-00a0-08de2489a21e",
+      "compoundId": "502B2F66-5184-438E-955F-88C2686C2A52",
+      "businessType": "Office Building",
+      "floorNumber": 5,
+      "hasStorage": true,
+      "amenity": {
+        "hasElectricityLine": true,
+        "hasWaterLine": true,
+        "hasGasLine": true
+      }
+    },
+    {
+      "title": "Luxury Retail Showroom",
+      "city": "Alexandria",
+      "address": "456 Mediterranean Avenue, Alexandria",
+      "googleMapsUrl": "https://maps.google.com/?q=31.2156,29.9553",
+      "propertyType": 1,
+      "propertyPurpose": 1,
+      "propertyStatus": 0,
+      "price": 2500000.00,
+      "square": 800.0,
+      "description": "High-end retail showroom with premium finishes, large display windows, and prime location on Mediterranean Avenue.",
+      "userId": "86e1295b-2f79-4610-00a1-08de2489a21e",
+      "compoundId": "E6DD0543-06F6-4E72-A58F-BBD118BB492B",
+      "businessType": "Retail Showroom",
+      "floorNumber": 1,
+      "hasStorage": true,
+      "amenity": {
+        "hasElectricityLine": true,
+        "hasWaterLine": true,
+        "hasGasLine": false
+      }
+    },
+    {
+      "title": "Tech Startup Hub",
+      "city": "Cairo",
+      "address": "789 New Administrative Capital, Smart City District",
+      "googleMapsUrl": "https://maps.google.com/?q=30.0131,31.4914",
+      "propertyType": 1,
+      "propertyPurpose": 0,
+      "propertyStatus": 1,
+      "price": 80000.00,
+      "square": 300.0,
+      "description": "Modern co-working space designed for tech startups with high-speed internet, meeting rooms, and flexible workspace solutions.",
+      "userId": "025f6b92-94bb-4496-00a2-08de2489a21e",
+      "compoundId": "C8AC9AFD-A27E-44A0-B436-E237CDBCA4CC",
+      "businessType": "Co-working Space",
+      "floorNumber": 3,
+      "hasStorage": false,
+      "amenity": {
+        "hasElectricityLine": true,
+        "hasWaterLine": true,
+        "hasGasLine": false
+      }
+    },
+    {
+      "title": "Medical Clinic Complex",
+      "city": "Giza",
+      "address": "321 Medical City Road, 6th October City",
+      "googleMapsUrl": "https://maps.google.com/?q=29.9720,31.0118",
+      "propertyType": 1,
+      "propertyPurpose": 0,
+      "propertyStatus": 0,
+      "price": 120000.00,
+      "square": 400.0,
+      "description": "Fully equipped medical facility with multiple consultation rooms, waiting areas, and medical equipment storage.",
+      "userId": "da2e6fd1-72c1-41f6-00a0-08de2489a21e",
+      "compoundId": "79737D1D-01BD-45B8-9CA2-4C820779FF3F",
+      "businessType": "Medical Facility",
+      "floorNumber": 2,
+      "hasStorage": true,
+      "amenity": {
+        "hasElectricityLine": true,
+        "hasWaterLine": true,
+        "hasGasLine": true
+      }
+    },
+    {
+      "title": "Restaurant & Cafe Space",
+      "city": "Cairo",
+      "address": "654 Zamalek Island, Nile View Street",
+      "googleMapsUrl": "https://maps.google.com/?q=30.0619,31.2203",
+      "propertyType": 1,
+      "propertyPurpose": 1,
+      "propertyStatus": 0,
+      "price": 1800000.00,
+      "square": 250.0,
+      "description": "Prime restaurant location with Nile views, fully equipped kitchen, outdoor seating area, and premium finishes.",
+      "userId": "86e1295b-2f79-4610-00a1-08de2489a21e",
+      "compoundId": "A9800E2B-94AC-48B8-8545-6ABFAEA28E7C",
+      "businessType": "Restaurant",
+      "floorNumber": 1,
+      "hasStorage": true,
+      "amenity": {
+        "hasElectricityLine": true,
+        "hasWaterLine": true,
+        "hasGasLine": true
+      }
+    },
+    {
+      "title": "Warehouse & Distribution Center",
+      "city": "Giza",
+      "address": "987 Industrial Zone, Sheikh Zayed City",
+      "googleMapsUrl": "https://maps.google.com/?q=30.0278,30.9718",
+      "propertyType": 1,
+      "propertyPurpose": 0,
+      "propertyStatus": 0,
+      "price": 200000.00,
+      "square": 1200.0,
+      "description": "Large warehouse facility with loading docks, high ceilings, and excellent logistics access for distribution operations.",
+      "userId": "025f6b92-94bb-4496-00a2-08de2489a21e",
+      "compoundId": "522976F3-E251-4669-9AD4-C321DF3963CA",
+      "businessType": "Warehouse",
+      "floorNumber": 1,
+      "hasStorage": true,
+      "amenity": {
+        "hasElectricityLine": true,
+        "hasWaterLine": true,
+        "hasGasLine": false
+      }
+    },
+    {
+      "title": "Banking Branch Office",
+      "city": "Alexandria",
+      "address": "147 Corniche Road, Stanley Bridge Area",
+      "googleMapsUrl": "https://maps.google.com/?q=31.2420,29.9737",
+      "propertyType": 1,
+      "propertyPurpose": 0,
+      "propertyStatus": 0,
+      "price": 180000.00,
+      "square": 350.0,
+      "description": "Secure banking facility with vault space, customer service areas, ATM installation ready, and premium security systems.",
+      "userId": "da2e6fd1-72c1-41f6-00a0-08de2489a21e",
+      "compoundId": "3C1695DE-2E8F-4999-9072-F4FDB68C592E",
+      "businessType": "Banking",
+      "floorNumber": 1,
+      "hasStorage": true,
+      "amenity": {
+        "hasElectricityLine": true,
+        "hasWaterLine": true,
+        "hasGasLine": false
+      }
+    },
+    {
+      "title": "Educational Training Center",
+      "city": "Cairo",
+      "address": "258 Heliopolis District, Education Hub",
+      "googleMapsUrl": "https://maps.google.com/?q=30.1127,31.3219",
+      "propertyType": 1,
+      "propertyPurpose": 1,
+      "propertyStatus": 1,
+      "price": 1200000.00,
+      "square": 600.0,
+      "description": "Multi-purpose educational facility with classrooms, computer labs, library space, and modern teaching equipment.",
+      "userId": "86e1295b-2f79-4610-00a1-08de2489a21e",
+      "compoundId": "B513E9EB-577F-4BF3-9167-56F4E2F226E2",
+      "businessType": "Educational Facility",
+      "floorNumber": 2,
+      "hasStorage": true,
+      "amenity": {
+        "hasElectricityLine": true,
+        "hasWaterLine": true,
+        "hasGasLine": true
+      }
+    },
+    {
+      "title": "Fitness & Wellness Center",
+      "city": "Giza",
+      "address": "369 Mohandessin District, Sport City",
+      "googleMapsUrl": "https://maps.google.com/?q=30.0642,31.2001",
+      "propertyType": 1,
+      "propertyPurpose": 0,
+      "propertyStatus": 0,
+      "price": 90000.00,
+      "square": 700.0,
+      "description": "Spacious fitness center with gym equipment area, group class studios, locker rooms, and wellness treatment rooms.",
+      "userId": "025f6b92-94bb-4496-00a2-08de2489a21e",
+      "compoundId": "285750C7-B665-4130-9380-5F4B6B263A8F",
+      "businessType": "Fitness Center",
+      "floorNumber": 1,
+      "hasStorage": true,
+      "amenity": {
+        "hasElectricityLine": true,
+        "hasWaterLine": true,
+        "hasGasLine": false
+      }
+    },
+    {
+      "title": "Auto Service Center",
+      "city": "Alexandria",
+      "address": "741 Ring Road, Industrial District",
+      "googleMapsUrl": "https://maps.google.com/?q=31.1728,29.8718",
+      "propertyType": 1,
+      "propertyPurpose": 1,
+      "propertyStatus": 0,
+      "price": 950000.00,
+      "square": 450.0,
+      "description": "Complete automotive service facility with lift equipment, parts storage, customer waiting area, and office space.",
+      "userId": "da2e6fd1-72c1-41f6-00a0-08de2489a21e",
+      "compoundId": "E95A02A3-3693-448B-9882-B306689E7903",
+      "businessType": "Automotive Service",
+      "floorNumber": 1,
+      "hasStorage": true,
+      "amenity": {
+        "hasElectricityLine": true,
+        "hasWaterLine": true,
+        "hasGasLine": true
+      }
+    }
+  ]
+}

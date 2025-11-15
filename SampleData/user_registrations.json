@@ -1,0 +1,168 @@
+{
+  "registrationRequests": [
+    {
+      "description": "Admin Users - System Administrators",
+      "users": [
+        {
+          "userName": "Admin1",
+          "password": "admin@123",
+          "email": "admin1@realestate.com",
+          "phone": "+201234567890",
+          "roleDiscriminator": 0,
+          "agencyName": null,
+          "taxIdentificationNumber": null,
+          "experienceYears": null,
+          "nationalID": null,
+          "licenseID": null
+        },
+        {
+          "userName": "Admin2",
+          "password": "admin@123",
+          "email": "admin2@realestate.com",
+          "phone": "+201234567891",
+          "roleDiscriminator": 0,
+          "agencyName": null,
+          "taxIdentificationNumber": null,
+          "experienceYears": null,
+          "nationalID": null,
+          "licenseID": null
+        },
+        {
+          "userName": "Admin3",
+          "password": "admin@123",
+          "email": "admin3@realestate.com",
+          "phone": "+201234567892",
+          "roleDiscriminator": 0,
+          "agencyName": null,
+          "taxIdentificationNumber": null,
+          "experienceYears": null,
+          "nationalID": null,
+          "licenseID": null
+        }
+      ]
+    },
+    {
+      "description": "Agent Users - Real Estate Agents",
+      "users": [
+        {
+          "userName": "Agent1",
+          "password": "agent@123",
+          "email": "agent1@primerealty.com",
+          "phone": "+201234567893",
+          "roleDiscriminator": 1,
+          "agencyName": "Prime Realty Solutions",
+          "taxIdentificationNumber": 123456789,
+          "experienceYears": 5,
+          "nationalID": null,
+          "licenseID": null
+        },
+        {
+          "userName": "Agent2",
+          "password": "agent@123",
+          "email": "agent2@luxuryestate.com",
+          "phone": "+201234567894",
+          "roleDiscriminator": 1,
+          "agencyName": "Luxury Estate Group",
+          "taxIdentificationNumber": 987654321,
+          "experienceYears": 8,
+          "nationalID": null,
+          "licenseID": null
+        },
+        {
+          "userName": "Agent3",
+          "password": "agent@123",
+          "email": "agent3@modernhomes.com",
+          "phone": "+201234567895",
+          "roleDiscriminator": 1,
+          "agencyName": "Modern Homes Agency",
+          "taxIdentificationNumber": 456789123,
+          "experienceYears": 3,
+          "nationalID": null,
+          "licenseID": null
+        }
+      ]
+    },
+    {
+      "description": "Broker Users - Licensed Real Estate Brokers",
+      "users": [
+        {
+          "userName": "Broker1",
+          "password": "broker@123",
+          "email": "broker1@elitebrokers.com",
+          "phone": "+201234567896",
+          "roleDiscriminator": 2,
+          "agencyName": null,
+          "taxIdentificationNumber": null,
+          "experienceYears": null,
+          "nationalID": "28501234567890",
+          "licenseID": "BRK-2024-001"
+        },
+        {
+          "userName": "Broker2",
+          "password": "broker@123",
+          "email": "broker2@premiumbrokers.com",
+          "phone": "+201234567897",
+          "roleDiscriminator": 2,
+          "agencyName": null,
+          "taxIdentificationNumber": null,
+          "experienceYears": null,
+          "nationalID": "29012345678901",
+          "licenseID": "BRK-2024-002"
+        },
+        {
+          "userName": "Broker3",
+          "password": "broker@123",
+          "email": "broker3@topbrokers.com",
+          "phone": "+201234567898",
+          "roleDiscriminator": 2,
+          "agencyName": null,
+          "taxIdentificationNumber": null,
+          "experienceYears": null,
+          "nationalID": "29512345678902",
+          "licenseID": "BRK-2024-003"
+        }
+      ]
+    },
+    {
+      "description": "Customer Users - Regular Property Seekers",
+      "users": [
+        {
+          "userName": "Customer1",
+          "password": "customer@123",
+          "email": "customer1@email.com",
+          "phone": "+201234567899",
+          "roleDiscriminator": 3,
+          "agencyName": null,
+          "taxIdentificationNumber": null,
+          "experienceYears": null,
+          "nationalID": null,
+          "licenseID": null
+        },
+        {
+          "userName": "Customer2",
+          "password": "customer@123",
+          "email": "customer2@email.com",
+          "phone": "+201234567800",
+          "roleDiscriminator": 3,
+          "agencyName": null,
+          "taxIdentificationNumber": null,
+          "experienceYears": null,
+          "nationalID": null,
+          "licenseID": null
+        },
+        {
+          "userName": "Customer3",
+          "password": "customer@123",
+          "email": "customer3@email.com",
+          "phone": "+201234567801",
+          "roleDiscriminator": 3,
+          "agencyName": null,
+          "taxIdentificationNumber": null,
+          "experienceYears": null,
+          "nationalID": null,
+          "licenseID": null
+        }
+      ]
+    }
+  ]
+}

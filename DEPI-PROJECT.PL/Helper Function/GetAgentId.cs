@@ -35,13 +35,19 @@ namespace DEPI_PROJECT.PL.Helper_Function
                 throw new UnauthorizedAccessException("Current user is not registered as agent, please register first");
             }
 
+            var agentIdClaim = claims.FirstOrDefault(a => a.Type == ClaimsConstants.AGENT_ID);
+            if (agentIdClaim == null)
+            {
+                throw new NotFoundException($"Agent ID claim not found for user {userId}");
+            }
+
             try
             {
-                return Guid.Parse(claims.FirstOrDefault(a => a.Type == ClaimsConstants.AGENT_ID).Value);
+                return Guid.Parse(agentIdClaim.Value);
             }
             catch (ArgumentNullException ex)
             {
-                throw new NotFoundException(ex.Message);
+                throw new Exception(ex.Message);
             }
 
         }
@@ -60,21 +66,20 @@ namespace DEPI_PROJECT.PL.Helper_Function
             {
                 throw new InvalidOperationException("Authenticated User ID (NameIdentifier) not found or invalid.");
             }
-
-            if (!Enum.TryParse<UserRoleOptions>(Role.Value, true, out var role))
+            var agentIdClaim = claims.FirstOrDefault(a => a.Type == ClaimsConstants.AGENT_ID);
+            if (agentIdClaim == null)
             {
-                throw new UnauthorizedAccessException("Current user is not registered as agent, please register first");
+                throw new NotFoundException($"Agent ID claim not found for user {userId}");
             }
 
             try
             {
-                return Guid.Parse(claims.FirstOrDefault(a => a.Type == ClaimsConstants.AGENT_ID).Value);
+                return Guid.Parse(agentIdClaim.Value);
             }
             catch (ArgumentNullException ex)
             {
-                throw new NotFoundException(ex.Message);
+                throw new Exception(ex.Message);
             }
-
         }
     }
 }

@@ -110,6 +110,20 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
             return true;
         }
+        public async Task<PropertyResponseDto?> GetPropertyById(Guid PropertyId)
+        {
+            var ResidentialProperty = await _residentialPropertyRepo.GetResidentialPropertyByIdAsync(PropertyId);
+            if (ResidentialProperty != null)
+            {
+                return _mapper.Map<PropertyResponseDto>(ResidentialProperty);
+            }
+            var CommercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(PropertyId);
+            if (CommercialProperty != null)
+            {
+                return _mapper.Map<PropertyResponseDto>(CommercialProperty);
+            }
+            return null;
+        }
     }
 
 }
