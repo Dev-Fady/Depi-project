@@ -18,9 +18,9 @@ namespace DEPI_PROJECT.PL.Controllers
     [Authorize]
     public class PropertyController : ControllerBase
     {
-        private readonly PropertyService _propertyService;
+        private readonly IPropertyService _propertyService;
 
-        public PropertyController(PropertyService propertyService)
+        public PropertyController(IPropertyService propertyService)
         {
             _propertyService = propertyService;
         }
