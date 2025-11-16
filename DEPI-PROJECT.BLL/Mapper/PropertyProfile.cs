@@ -14,6 +14,12 @@ namespace DEPI_PROJECT.BLL.Mapper
         public PropertyProfile()
         {
             CreateMap<Property, PropertyResponseDto>();
+
+            CreateMap<CommercialProperty, PropertyResponseDto>()
+            .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Agent.UserId));
+
+            CreateMap<ResidentialProperty, PropertyResponseDto>()
+            .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Agent.UserId));
         }
     }
 }

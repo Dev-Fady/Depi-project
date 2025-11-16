@@ -1,3 +1,4 @@
+using DEPI_PROJECT.BLL.Dtos.Comment;
 using DEPI_PROJECT.BLL.DTOs.Amenity;
 using DEPI_PROJECT.BLL.DTOs.Compound;
 using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
@@ -26,7 +27,7 @@ namespace DEPI_PROJECT.BLL.DTOs.Property
         public DateTime DateListed { get; set; }
 
         public Guid UserId { get; set; }
-        // public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public ICollection<CommentGetDto> Comments { get; set; } = new List<CommentGetDto>();
 
         public AmenityReadDto Amenity { get; set; }
         public ICollection<PropertyGalleryReadDto> Galleries { get; set; } = new List<PropertyGalleryReadDto>();

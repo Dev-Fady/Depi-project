@@ -1,4 +1,5 @@
-﻿using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
+﻿using AutoMapper;
+using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
@@ -12,14 +13,28 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     public class PropertyGalleryService : IPropertyGalleryService
     {
         private readonly IPropertyGalleryRepo _repo;
+        private readonly IPropertyService _propertyService;
+        private readonly IMapper _mapper;
 
-        public PropertyGalleryService(IPropertyGalleryRepo repo)
+        public PropertyGalleryService(IPropertyGalleryRepo repo,
+                                      IPropertyService propertyService,
+                                      IMapper mapper)
         {
             _repo = repo;
+            _propertyService = propertyService;
+            _mapper = mapper;
         }
 
-        public async Task<ResponseDto<string>> AddAsync(PropertyGalleryAddDto dto)
+        public async Task<ResponseDto<string>> AddAsync(Guid UserId, PropertyGalleryAddDto dto)
         {
+            if (await CheckAuthorizedAgent(UserId, dto.PropertyId) == false)
+            {
+                return new ResponseDto<string>
+                {
+                    IsSuccess = false,
+                    Message = "Unauthorized upload"
+                };
+            }
             if (dto.MediaFiles == null || !dto.MediaFiles.Any())
             {
                 throw new BadRequestException("Expected media files");
@@ -67,12 +82,17 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<bool>> DeleteAsync(Guid id)
+        public async Task<ResponseDto<bool>> DeleteAsync(Guid UserId, Guid id)
         {
             var gallery = await _repo.GetByIdAsync(id);
             if (gallery == null)
             {
                 throw new NotFoundException($"No media file found with Id {id}");
+            }
+
+            if(gallery.Property.Agent.UserId != UserId)
+            {
+                throw new UnauthorizedAccessException($"Unauthorized action, mismatch IDs: current {UserId}, authorized {gallery.Property.Agent.UserId}");
             }
 
             string? filePath = null;
@@ -137,16 +157,25 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<IEnumerable<PropertyGallery>>> GetByPropertyIdAsync(Guid propertyId)
+        public async Task<ResponseDto<IEnumerable<PropertyGalleryReadDto>>> GetByPropertyIdAsync(Guid propertyId)
         {
             var data = await _repo.GetByPropertyIdAsync(propertyId);
 
-            return new ResponseDto<IEnumerable<PropertyGallery>>
+            return new ResponseDto<IEnumerable<PropertyGalleryReadDto>>
             {
                 IsSuccess = true,
                 Message = $"Gallery items for property {propertyId} retrieved successfully.",
-                Data = data
+                Data = _mapper.Map<IEnumerable<PropertyGalleryReadDto>>(data)
             };
+        }
+        private async Task<bool> CheckAuthorizedAgent(Guid UserId, Guid propertyId)
+        {
+            var property = await _propertyService.GetPropertyById(propertyId);
+            if (property == null)
+            {
+                throw new NotFoundException($"No property found with ID {propertyId}");
+            }
+            return property.UserId == UserId;
         }
     }
 

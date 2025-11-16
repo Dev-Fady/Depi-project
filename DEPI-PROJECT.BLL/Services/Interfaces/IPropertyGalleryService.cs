@@ -8,8 +8,8 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
     {
         Task<ResponseDto<IEnumerable<PropertyGalleryReadDto>>> GetAllAsync();
         Task<ResponseDto<PropertyGalleryReadDto>> GetByIdAsync(Guid id);
-        Task<ResponseDto<string>> AddAsync(PropertyGalleryAddDto dto);
-        Task<ResponseDto<bool>> DeleteAsync(Guid id);
-        Task<ResponseDto<IEnumerable<DataModel.PropertyGallery>>> GetByPropertyIdAsync(Guid propertyId);
+        Task<ResponseDto<string>> AddAsync(Guid UserId, PropertyGalleryAddDto dto);
+        Task<ResponseDto<bool>> DeleteAsync(Guid UserId, Guid id);
+        Task<ResponseDto<IEnumerable<PropertyGalleryReadDto>>> GetByPropertyIdAsync(Guid propertyId);
     }
 }

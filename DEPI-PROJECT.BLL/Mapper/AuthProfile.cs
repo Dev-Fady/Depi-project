@@ -15,6 +15,7 @@ namespace DEPI_PROJECT.BLL.Mapper
             CreateMap<AuthRegisterDto, Broker>();
 
             CreateMap<AuthRegisterDto, User>()
+            .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Phone))
             .AfterMap((src, dest, context) => {
                 if (src.RoleDiscriminator == UserRoleOptions.Agent)
                 {

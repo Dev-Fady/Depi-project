@@ -14,5 +14,6 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
     {
         Task<ResponseDto<PagedResultDto<AllPropertyReadDto>>> GetAll(PropertyQueryDto propertyQueryDto);
         public Task<bool> CheckPropertyExist(Guid PropertyId);
+        public Task<PropertyResponseDto?> GetPropertyById(Guid PropertyId);
     }
 }

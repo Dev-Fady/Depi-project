@@ -2,6 +2,7 @@
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.PL.Helper_Function;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,8 @@ namespace DEPI_PROJECT.PL.Controllers
         
         public async Task<IActionResult> Upload([FromForm] PropertyGalleryAddDto dto)
         {
-            var response = await _propertyGalleryService.AddAsync(dto);
+            Guid UserId = GetUserIdFromToken.GetCurrentUserId(this);   
+            var response = await _propertyGalleryService.AddAsync(UserId, dto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -83,7 +85,8 @@ namespace DEPI_PROJECT.PL.Controllers
         
         public async Task<IActionResult> Delete(Guid id)
         {
-            var response = await _propertyGalleryService.DeleteAsync(id);
+            Guid UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var response = await _propertyGalleryService.DeleteAsync(UserId, id);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
