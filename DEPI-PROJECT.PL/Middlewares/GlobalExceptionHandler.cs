@@ -111,8 +111,12 @@ namespace DEPI_PROJECT.PL.Middlewares
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = statusCode;
-
-            await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+            var serializeOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true
+            };
+            await context.Response.WriteAsync(JsonSerializer.Serialize(response, serializeOptions));
         }
     }
 }
