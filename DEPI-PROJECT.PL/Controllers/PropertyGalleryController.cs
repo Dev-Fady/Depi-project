@@ -12,7 +12,6 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class PropertyGalleryController : ControllerBase
     {
         private readonly IPropertyGalleryService _propertyGalleryService;
@@ -26,7 +25,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [Consumes("multipart/form-data")]
         [ProducesResponseType(typeof(ResponseDto<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN,AGENT")]
         public async Task<IActionResult> Upload([FromForm] PropertyGalleryAddDto dto)
         {
             Guid UserId = GetUserIdFromToken.GetCurrentUserId(this);   
@@ -82,7 +81,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN,AGENT")]
         public async Task<IActionResult> Delete(Guid id)
         {
             Guid UserId = GetUserIdFromToken.GetCurrentUserId(this);

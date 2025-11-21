@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.Dtos.Comment;
 using DEPI_PROJECT.BLL.DTOs.Agent;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
@@ -102,10 +103,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 throw new NotFoundException($"No comment found with ID {CommentId}");
             }
 
-            if (comment.UserID != UserId)
-            {
-                throw new UnauthorizedAccessException("Unauthorized user interaction, user id conflict, check userId");
-            }
+            CommonFunctions.EnsureAuthorized(comment.UserID);
 
             var Result = await _commentRepository.DeleteComment(comment);
             if (!Result)
@@ -240,11 +238,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 throw new NotFoundException($"No comment found with Id {CommentId}");
 
             }
-            if (existingComment.UserID != UserId)
-            {
-                throw new UnauthorizedAccessException("Unauthorized user interaction, user id conflict, check userId");
+            
+            CommonFunctions.EnsureAuthorized(existingComment.UserID);
 
-            }
             _mapper.Map(commentDto, existingComment); // Map updated fields to existing comment (source , Destination)
             var Result = await _commentRepository.UpdateComment(existingComment);
             if (!Result)

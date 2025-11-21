@@ -13,7 +13,6 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class CommentController : ControllerBase
     {
         private readonly ICommentService _service;
@@ -57,7 +56,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ResponseDto<CommentGetDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-
+        [Authorize]
         public async Task<IActionResult> CreateComment([FromBody]CommentAddDto createCommentDto)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);
@@ -72,7 +71,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-
+        [Authorize]
         public async Task<IActionResult> UpdateComment(Guid id,[FromBody] CommentUpdateDto updateCommentDto)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);
@@ -87,7 +86,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-
+        [Authorize]
         public async Task<IActionResult> DeleteComment(Guid id)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);

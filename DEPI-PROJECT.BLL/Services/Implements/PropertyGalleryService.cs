@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Exceptions;
@@ -90,10 +91,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 throw new NotFoundException($"No media file found with Id {id}");
             }
 
-            if(gallery.Property.Agent.UserId != UserId)
-            {
-                throw new UnauthorizedAccessException($"Unauthorized action, mismatch IDs: current {UserId}, authorized {gallery.Property.Agent.UserId}");
-            }
+            CommonFunctions.EnsureAuthorized(gallery.Property.Agent.UserId);
 
             string? filePath = null;
             if (!string.IsNullOrEmpty(gallery.ImageUrl))

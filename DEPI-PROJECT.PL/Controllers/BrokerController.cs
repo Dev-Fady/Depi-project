@@ -8,6 +8,7 @@ using DEPI_PROJECT.DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DEPI_PROJECT.PL.Controllers
 {
@@ -34,12 +35,12 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{BrokerId}")]
+        [HttpGet("{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<BrokerResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetByIdAsync(Guid BrokerId)
+        public async Task<IActionResult> GetByIdAsync(Guid UserId)
         {
-            var response = await _brokerService.GetByIdAsync(BrokerId);
+            var response = await _brokerService.GetByIdAsync(UserId);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -50,6 +51,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ResponseDto<BrokerResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> CreateAsync(BrokerCreateDto brokerCreateDto)
         {
             var response = await _brokerService.CreateAsync(brokerCreateDto);
@@ -63,6 +65,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "ADMIN,BROKER")]
         public async Task<IActionResult> UpdateAsync(BrokerUpdateDto brokerUpdateDto)
         {
             var response = await _brokerService.UpdateAsync(brokerUpdateDto);
@@ -73,12 +76,13 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{BrokerId}")]
+        [HttpDelete("{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteAsync(Guid BrokerId)
+        [Authorize(Roles = "ADMIN,BROKER")]
+        public async Task<IActionResult> DeleteAsync(Guid UserId)
         {
-            var response = await _brokerService.DeleteAsync(BrokerId);
+            var response = await _brokerService.DeleteAsync(UserId);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);

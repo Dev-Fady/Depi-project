@@ -15,7 +15,6 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class PropertyController : ControllerBase
     {
         private readonly IPropertyService _propertyService;

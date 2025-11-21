@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
@@ -120,10 +121,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         public async Task<ResponseDto<bool>> UpdateCommercialPropertyAsync(Guid UserId, Guid id, CommercialPropertyUpdateDto propertyDto)
         {
             var existing = await _repo.GetPropertyByIdAsync(id);
-            if (existing == null || existing.Agent.UserId != UserId)
+            if (existing == null)
             {
                 throw new NotFoundException($"No property found with ID {id} for UserId {UserId}");
             }
+
+            CommonFunctions.EnsureAuthorized(existing.Agent.UserId);
+
             _mapper.Map(propertyDto, existing);
             if (propertyDto.Amenity != null)
             {
@@ -183,9 +187,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 throw new NotFoundException($"No property found with ID {id} for userId {UserId}");
             }
 
-            if(existing.Agent.UserId != UserId){
-                throw new UnauthorizedAccessException($"Mismatch user Ids: Current {UserId}, given {existing.Agent.UserId}");
-            }
+            CommonFunctions.EnsureAuthorized(existing.Agent.UserId);
 
             await _repo.DeleteCommercialPropertyAsync(id);
             return new ResponseDto<bool>

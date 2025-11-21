@@ -13,7 +13,6 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ResidentialPropertyController : ControllerBase
     {
         private readonly IResidentialPropertyService _residentialPropertyService;
@@ -57,7 +56,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ResponseDto<ResidentialPropertyReadDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "AGENT")]
         public async Task<IActionResult> AddResidentialProperty([FromBody] ResidentialPropertyAddDto propertyDto)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);
@@ -73,7 +72,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN,AGENT")]
         public async Task<IActionResult> UpdateResidentialProperty(Guid id, [FromBody] ResidentialPropertyUpdateDto propertyDto)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);
@@ -88,7 +87,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN,AGENT")]
         public async Task<IActionResult> DeleteResidentialProperty(Guid id)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);

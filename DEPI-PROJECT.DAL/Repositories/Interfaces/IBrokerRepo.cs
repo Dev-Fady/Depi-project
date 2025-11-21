@@ -11,9 +11,9 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
     public interface IBrokerRepo
     {
         public IQueryable<Broker> GetAll();
-        public Task<Broker?> GetByIdAsync(Guid BrokerId);
+        public Task<Broker?> GetByIdAsync(Guid UserId);
         public Task<Broker?> CreateAsync(Broker Broker);
         public Task<bool> UpdateAsync(Broker Broker);
-        public Task<bool> DeleteAsync(Guid BrokerId);
+        public Task<bool> DeleteAsync(Guid UserId);
     }
 }

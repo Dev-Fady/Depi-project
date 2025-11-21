@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.DTOs.Agent;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
@@ -61,13 +62,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<AgentResponseDto>> GetByIdAsync(Guid AgentId)
+        public async Task<ResponseDto<AgentResponseDto>> GetByIdAsync(Guid UserId)
         {
-            var agent = await _agentRepo.GetByIdAsync(AgentId);
+            var agent = await _agentRepo.GetByIdAsync(UserId);
 
             if (agent == null)
             {
-                throw new NotFoundException($"No Agent found with userId {AgentId}");
+                throw new NotFoundException($"No Agent found with userId {UserId}");
             }
 
             var AgentResponseDto = _mapper.Map<Agent, AgentResponseDto>(agent);
@@ -103,13 +104,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<bool>> UpdateAsync(Guid AgentId, AgentUpdateDto agentUpdateDto)
+        public async Task<ResponseDto<bool>> UpdateAsync(AgentUpdateDto agentUpdateDto)
         {
-            var agent = await _agentRepo.GetByIdAsync(AgentId);
+            var agent = await _agentRepo.GetByIdAsync(agentUpdateDto.UserId);
             if (agent == null)
             {
-                throw new NotFoundException($"No agent found with ID {AgentId}");
+                throw new NotFoundException($"No agent found with ID {agentUpdateDto.UserId}");
             }
+
+            CommonFunctions.EnsureAuthorized(agentUpdateDto.UserId);
 
             _mapper.Map<AgentUpdateDto, Agent>(agentUpdateDto, agent);
             
@@ -124,8 +127,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 IsSuccess = true
             };
         }
-        public async Task<ResponseDto<bool>> DeleteAsync(Guid userId, Guid AgentId)
+        public async Task<ResponseDto<bool>> DeleteAsync(Guid userId)
         {
+            CommonFunctions.EnsureAuthorized(userId);
             var response = await _userRoleService.RemoveUserFromRoleByRoleName(new UserRoleByRoleNameDto { UserId = userId, RoleName = UserRoleOptions.Agent.ToString() });
 
             if (!response.IsSuccess)
@@ -133,7 +137,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 return response;
             }
 
-            bool result = await _agentRepo.DeleteAsync(AgentId);
+            bool result = await _agentRepo.DeleteAsync(userId);
             if (!result)
             {
                 throw new Exception("An error occurred while deleting agent");

@@ -10,6 +10,7 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "ADMIN")]
     public class RoleController : ControllerBase
     {
         private readonly IRoleService _roleService;

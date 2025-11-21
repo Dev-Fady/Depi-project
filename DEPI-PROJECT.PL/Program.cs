@@ -85,6 +85,7 @@ namespace DEPI_PROJECT.PL
             // Authentication & Authorization middleware (order is important!)
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<SetAuthorizationContext>();
 
             app.MapControllers();
 

@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.DTOs.Broker;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
@@ -60,13 +61,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<BrokerResponseDto>> GetByIdAsync(Guid BrokerId)
+        public async Task<ResponseDto<BrokerResponseDto>> GetByIdAsync(Guid UserId)
         {
-            var Broker = await _BrokerRepo.GetByIdAsync(BrokerId);
+            var Broker = await _BrokerRepo.GetByIdAsync(UserId);
 
             if (Broker == null)
             {
-                throw new NotFoundException($"No Broker found with ID {BrokerId}");
+                throw new NotFoundException($"No Broker found with ID {UserId}");
             }
 
             var BrokerResponseDto = _mapper.Map<Broker, BrokerResponseDto>(Broker);
@@ -105,11 +106,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> UpdateAsync(BrokerUpdateDto BrokerUpdateDto)
         {
-            var Broker = await _BrokerRepo.GetByIdAsync(BrokerUpdateDto.Id);
+            var Broker = await _BrokerRepo.GetByIdAsync(BrokerUpdateDto.UserId);
             if (Broker == null)
             {
-                throw new NotFoundException($"No Broker found with ID {BrokerUpdateDto.Id}");
+                throw new NotFoundException($"No Broker found with User ID {BrokerUpdateDto.UserId}");
             }
+
+            CommonFunctions.EnsureAuthorized(Broker.UserId);
 
             _mapper.Map<BrokerUpdateDto, Broker>(BrokerUpdateDto, Broker);
             
@@ -124,9 +127,18 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 IsSuccess = true
             };
         }
-        public async Task<ResponseDto<bool>> DeleteAsync(Guid BrokerId)
+        public async Task<ResponseDto<bool>> DeleteAsync(Guid UserId)
         {
-            bool result = await _BrokerRepo.DeleteAsync(BrokerId);
+            CommonFunctions.EnsureAuthorized(UserId);
+
+            var response = await _userRoleService.RemoveUserFromRoleByRoleName(new UserRoleByRoleNameDto { UserId = UserId, RoleName = UserRoleOptions.Agent.ToString() });
+
+            if (!response.IsSuccess)
+            {
+                return response;
+            }
+
+            bool result = await _BrokerRepo.DeleteAsync(UserId);
 
             if (!result)
             {

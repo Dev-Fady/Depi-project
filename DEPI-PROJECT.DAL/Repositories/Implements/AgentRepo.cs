@@ -33,7 +33,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                             .AsQueryable();
         }
 
-        public async Task<Agent?> GetByIdAsync(Guid AgentId)
+        public async Task<Agent?> GetByIdAsync(Guid UserId)
         {
             return await _context.Agents
                             .Include(a => a.User)
@@ -43,7 +43,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                                 .ThenInclude(a => a.PropertyGalleries)
                             .Include(a => a.Properties)
                                 .ThenInclude(a => a.Amenity)
-                            .FirstOrDefaultAsync(a => a.Id == AgentId);
+                            .FirstOrDefaultAsync(a => a.UserId == UserId);
                             
         }
 
@@ -65,9 +65,9 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> DeleteAsync(Guid AgentId)
+        public async Task<bool> DeleteAsync(Guid UserId)
         {
-            var agent = await _context.Agents.FirstOrDefaultAsync(a => a.Id == AgentId);
+            var agent = await _context.Agents.FirstOrDefaultAsync(a => a.UserId == UserId);
             if (agent == null)
             {
                 return false;

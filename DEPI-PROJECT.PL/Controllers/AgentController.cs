@@ -6,6 +6,7 @@ using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.PL.Helper_Function;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -41,8 +42,8 @@ namespace DEPI_PROJECT.PL.Controllers
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetByIdAsync(Guid UserId)
         {
-            var AgentId = GetAgentId.GetAgentIdFromUserId(this, UserId);
-            var response = await _agentService.GetByIdAsync(AgentId);
+            // var AgentId = GetAgentId.GetAgentIdFromUserId(this, UserId);
+            var response = await _agentService.GetByIdAsync(UserId);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -53,6 +54,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ResponseDto<AgentResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> CreateAsync(AgentCreateDto agentCreateDto)
         {
             var response = await _agentService.CreateAsync(agentCreateDto);
@@ -66,10 +68,10 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "ADMIN,AGENT")]
         public async Task<IActionResult> UpdateAsync(AgentUpdateDto agentUpdateDto)
         {
-            var AgentId = GetAgentId.GetAgentIdFromUserId(this, agentUpdateDto.UserId);
-            var response = await _agentService.UpdateAsync(AgentId, agentUpdateDto);
+            var response = await _agentService.UpdateAsync(agentUpdateDto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -80,10 +82,10 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpDelete("{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "ADMIN,AGENT")]
         public async Task<IActionResult> DeleteAsync(Guid UserId)
         {
-            var AgentId = GetAgentId.GetAgentIdFromUserId(this, UserId);
-            var response = await _agentService.DeleteAsync(UserId, AgentId);
+            var response = await _agentService.DeleteAsync(UserId);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
