@@ -126,7 +126,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             //count total comments after filter
             var totalComments = await comments.CountAsync();
-            
+
             //apply order and pagination
             var orderedComments = comments.OrderByExtended(new List<Tuple<bool, Expression<Func<Comment, object>>>>
                                                     {
@@ -134,62 +134,19 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                                     },
                                                   queryDto.IsDesc
                                                   );
-            var pagedComments =  orderedComments
+            var pagedComments = orderedComments
                                 .Paginate(queryDto);
 
             //execute query
             var Result = await pagedComments.ToListAsync();
-            var mappedcomments =  _mapper.Map<IEnumerable<CommentGetDto>>(Result);
+            var mappedcomments = _mapper.Map<IEnumerable<CommentGetDto>>(Result);
 
             //Add Islike , count for each comment
-            var CommentIds = mappedcomments.Select(c => c.CommentId).ToList();
-            var CountCommentDic = await _likeCommentRepo.GetAllLikesByCommentsId(CommentIds)
-                                    .GroupBy(lc => lc.CommentId)
-                                    .Select(n => new
-                                    {
-                                        CommentId = n.Key,
-                                        Count = n.Count()
-                                    })
-                                    .ToDictionaryAsync(n => n.CommentId , n => n.Count);
+            await AddIsLikeAndCountOfLikes(CurrentUserId, mappedcomments);
 
-            var IsLikedHash = await _likeCommentRepo.GetAllLikesByCommentsId(CommentIds)
-                                    .Where(lc => lc.UserID == CurrentUserId)
-                                    .Select(n => n.CommentId)
-                                    .ToHashSetAsync();
-
-            foreach(var comment in mappedcomments)
-            {
-                if(CountCommentDic.TryGetValue(comment.CommentId, out var count))
-                {
-                    comment.LikesCount = count;
-                }
-                else
-                {
-                    comment.LikesCount = 0;
-                }
-                if (IsLikedHash.Contains(comment.CommentId))
-                {
-                    comment.IsLiked = true;
-                }
-                else
-                {
-                    comment.IsLiked = false;
-                }
-            }
-
-            //very slow --> make (N+1)problem
-            ////Add Islike , count for each comment
-            //foreach (var commentDto in mappedcomments)
-            //{
-            //    //count likes --> call likeCommentRepo
-            //    commentDto.LikesCount = await _likeCommentRepo.CountLikesByCommentId(commentDto.CommentId);
-            //    //check is liked by Current user
-            //    commentDto.IsLiked = await _likeCommentRepo.GetLikeCommentByUserAndCommentId(CurrentUserId, commentDto.CommentId) !=null;
-
-            //}
 
             //create paged result
-            var pagedResult = new PagedResultDto<CommentGetDto>(mappedcomments , queryDto.PageNumber , totalComments , queryDto.PageSize);
+            var pagedResult = new PagedResultDto<CommentGetDto>(mappedcomments, queryDto.PageNumber, totalComments, queryDto.PageSize);
             //return response 
             return new ResponseDto<PagedResultDto<CommentGetDto>>()
             {
@@ -198,6 +155,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 Data = pagedResult
             };
         }
+
+       
 
         public async Task<ResponseDto<CommentGetDto?>> GetCommentById(Guid CurrentUserId ,Guid commentId)
         {
@@ -254,6 +213,44 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 Data = true
             };
 
+        }
+
+        private async Task AddIsLikeAndCountOfLikes(Guid CurrentUserId, IEnumerable<CommentGetDto> mappedcomments)
+        {
+            var CommentIds = mappedcomments.Select(c => c.CommentId).ToList();
+            var CountCommentDic = await _likeCommentRepo.GetAllLikesByCommentsId(CommentIds)
+                                    .GroupBy(lc => lc.CommentId)
+                                    .Select(n => new
+                                    {
+                                        CommentId = n.Key,
+                                        Count = n.Count()
+                                    })
+                                    .ToDictionaryAsync(n => n.CommentId, n => n.Count);
+
+            var IsLikedHash = await _likeCommentRepo.GetAllLikesByCommentsId(CommentIds)
+                                    .Where(lc => lc.UserID == CurrentUserId)
+                                    .Select(n => n.CommentId)
+                                    .ToHashSetAsync();
+
+            foreach (var comment in mappedcomments)
+            {
+                if (CountCommentDic.TryGetValue(comment.CommentId, out var count))
+                {
+                    comment.LikesCount = count;
+                }
+                else
+                {
+                    comment.LikesCount = 0;
+                }
+                if (IsLikedHash.Contains(comment.CommentId))
+                {
+                    comment.IsLiked = true;
+                }
+                else
+                {
+                    comment.IsLiked = false;
+                }
+            }
         }
     }
 
