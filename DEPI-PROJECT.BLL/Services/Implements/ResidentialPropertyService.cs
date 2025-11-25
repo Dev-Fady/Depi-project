@@ -52,50 +52,14 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                     .IF(queryDto.KitchenType != null, a => a.KitchenType == queryDto.KitchenType)
                                     .Paginate(new PagedQueryDto { PageNumber = queryDto.PageNumber, PageSize = queryDto.PageSize })
                                     .ToListAsync();
-            
+
             var mappedData = _mapper.Map<List<ResidentialPropertyReadDto>>(result);
 
-            #region Add Islike , count for each comment
+            await AddIsLikeAndCountOfLikes(UserId, mappedData);
 
-            //Add Islike , count for each comment
-            var PropertiesIds = mappedData.Select(p => p.PropertyId).ToList();
-            var CountPropertyDic = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
-                                    .GroupBy(lc => lc.PropertyId)
-                                    .Select(n => new
-                                    {
-                                        PropertyId = n.Key,
-                                        Count = n.Count()
-                                    })
-                                    .ToDictionaryAsync(n => n.PropertyId, n => n.Count);
-
-            var IsLikedHash = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
-                                    .Where(lc => lc.UserID == UserId)
-                                    .Select(n => n.PropertyId)
-                                    .ToHashSetAsync();
-
-            foreach (var property in mappedData)
-            {
-                if (CountPropertyDic.TryGetValue(property.PropertyId, out var count))
-                {
-                    property.LikesCount = count;
-                }
-                else
-                {
-                    property.LikesCount = 0;
-                }
-                if (IsLikedHash.Contains(property.PropertyId))
-                {
-                    property.IsLiked = true;
-                }
-                else
-                {
-                    property.IsLiked = false;
-                }
-            } 
-            #endregion
 
             var pagedResult = new PagedResultDto<ResidentialPropertyReadDto>(mappedData, queryDto.PageNumber, query.Count(), queryDto.PageSize);
-            
+
 
             return new ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>
             {
@@ -104,6 +68,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 Data = pagedResult
             };
         }
+
 
         public async Task<ResponseDto<ResidentialPropertyReadDto>> GetResidentialPropertyByIdAsync(Guid UserId, Guid id)
         {
@@ -115,12 +80,11 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             var mapped = _mapper.Map<ResidentialPropertyReadDto>(property);
 
-            #region Add Islike , count for each comment
+
             //count likes --> call likeCommentRepo
             mapped.LikesCount = await _likePropertyRepo.CountLikesByPropertyId(mapped.PropertyId);
             //check is liked by Current user
             mapped.IsLiked = await _likePropertyRepo.GetLikePropertyByUserAndPropertyId(UserId, mapped.PropertyId) != null; 
-            #endregion
 
             return new ResponseDto<ResidentialPropertyReadDto>
             {
@@ -223,6 +187,45 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 Data = true
             };
         }
+
+        private async Task AddIsLikeAndCountOfLikes(Guid UserId, List<ResidentialPropertyReadDto> mappedData)
+        {
+            var PropertiesIds = mappedData.Select(p => p.PropertyId).ToList();
+            var CountPropertyDic = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
+                                    .GroupBy(lc => lc.PropertyId)
+                                    .Select(n => new
+                                    {
+                                        PropertyId = n.Key,
+                                        Count = n.Count()
+                                    })
+                                    .ToDictionaryAsync(n => n.PropertyId, n => n.Count);
+
+            var IsLikedHash = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
+                                    .Where(lc => lc.UserID == UserId)
+                                    .Select(n => n.PropertyId)
+                                    .ToHashSetAsync();
+
+            foreach (var property in mappedData)
+            {
+                if (CountPropertyDic.TryGetValue(property.PropertyId, out var count))
+                {
+                    property.LikesCount = count;
+                }
+                else
+                {
+                    property.LikesCount = 0;
+                }
+                if (IsLikedHash.Contains(property.PropertyId))
+                {
+                    property.IsLiked = true;
+                }
+                else
+                {
+                    property.IsLiked = false;
+                }
+            }
+        }
+
     }
 
 }
