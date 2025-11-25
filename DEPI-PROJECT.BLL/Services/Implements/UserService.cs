@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.DTOs.Agent;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
@@ -85,6 +86,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> UpdateUserAsync(UserUpdateDto userUpdateDto)
         {
+            CommonFunctions.EnsureAuthorized(userUpdateDto.UserId);
             var User = await _userManager.FindByIdAsync(userUpdateDto.UserId.ToString());
 
             if (User == null)
@@ -109,6 +111,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         }
         public async Task<ResponseDto<bool>> DeleteUserAsync(Guid UserId)
         {
+            CommonFunctions.EnsureAuthorized(UserId);
             var user = await _userManager.FindByIdAsync(UserId.ToString());
 
             if(user == null)

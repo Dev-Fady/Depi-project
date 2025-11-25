@@ -10,7 +10,7 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "ADMIN")]
+    
     public class UserRoleController : ControllerBase
     {
         private readonly IUserRoleService _userRoleService;
@@ -23,7 +23,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpGet("users-role/{RoleId}")]
         [ProducesResponseType(typeof(ResponseDto<List<UserResponseDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetUsersRole(Guid RoleId)
         {
             var response = await _userRoleService.GetUsersFromRole(RoleId);
@@ -37,7 +37,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpGet("user-roles/{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<UserRolesDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize]
         public async Task<IActionResult> GetUserRolesAsync(Guid UserId)
         {
             var response = await _userRoleService.GetRolesFromUser(UserId);
@@ -51,7 +51,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPost("assign-user-to-role")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> AssignToRoleAsync(UserRoleDto userRoleDto)
         {
             var response = await _userRoleService.AssignUserToRole(userRoleDto);
@@ -65,7 +65,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpDelete("remove-user-from-role")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> RemoveFromRoleAsync(UserRoleDto userRoleDto)
         {
             var response = await _userRoleService.RemoveUserFromRole(userRoleDto);

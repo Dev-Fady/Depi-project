@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.Role;
 using DEPI_PROJECT.BLL.DTOs.User;
@@ -58,7 +59,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         
         public async Task<ResponseDto<UserRolesDto>> GetRolesFromUser(Guid UserId)
         {
-        
+            CommonFunctions.EnsureAuthorized(UserId);
             var User = await _userManager.FindByIdAsync(UserId.ToString());
             if (User == null)
             {

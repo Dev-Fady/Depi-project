@@ -11,7 +11,6 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "ADMIN")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -24,7 +23,8 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ResponseDto<PagedResultDto<UserResponseDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN")]
+
         public async Task<IActionResult> GetAllAsync([FromQuery] UserQueryDto userQueryDto)
         {
             var response = await _userService.GetAllUsersAsync(userQueryDto);
@@ -38,7 +38,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpGet("{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<UserResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize]
         public async Task<IActionResult> GetByIdAsync(Guid UserId)
         {
             var response = await _userService.GetUserByIdAsync(UserId);
@@ -52,7 +52,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize]
         public async Task<IActionResult> UpdateAsync(UserUpdateDto userUpdateDto)
         {
             var response = await _userService.UpdateUserAsync(userUpdateDto);
@@ -66,7 +66,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpDelete("{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize]
         public async Task<IActionResult> DeleteAsync(Guid UserId)
         {
             var response = await _userService.DeleteUserAsync(UserId);
