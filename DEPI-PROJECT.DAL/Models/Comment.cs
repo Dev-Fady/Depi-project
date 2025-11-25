@@ -3,7 +3,7 @@
     public class Comment
     {
         public Guid CommentId { get; set; }
-        public string CommentText { get; set; }
+        public string CommentText { get; set; } = string.Empty;
         public DateTime DateComment { get; set; }
 
         public Guid UserID { get; set; }

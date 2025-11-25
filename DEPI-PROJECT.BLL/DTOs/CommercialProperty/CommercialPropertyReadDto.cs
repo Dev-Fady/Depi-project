@@ -13,11 +13,9 @@ namespace DEPI_PROJECT.BLL.DTOs.CommercialProperty
 {
     public class CommercialPropertyReadDto : PropertyResponseDto
     {
-        public string BusinessType { get; set; }
-        public int FloorNumber { get; set; }
-        public bool HasStorage { get; set; }
-        public AmenityReadDto Amenity { get; set; }
-        public List<PropertyGalleryReadDto> Galleries { get; set; }
+        public required string BusinessType { get; set; }
+        public required int FloorNumber { get; set; }
+        public required bool HasStorage { get; set; }
         
         //this part is new --> count of likes and is liked by user
         public int LikesCount { get; set; }

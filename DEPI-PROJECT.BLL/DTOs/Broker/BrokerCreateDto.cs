@@ -4,8 +4,8 @@ namespace DEPI_PROJECT.BLL.DTOs.Broker
 {
     public class BrokerCreateDto
     {
-        public Guid UserId { get; set; }
-        public string NationalID { get; set; }
-        public string LicenseID { get; set; }
+        public required Guid UserId { get; set; }
+        public required string NationalID { get; set; }
+        public required string LicenseID { get; set; }
     }
 }

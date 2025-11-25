@@ -13,7 +13,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
         public Task<bool> DeleteLikeProperty(LikeProperty likeProperty);
         public Task<int> CountLikesByPropertyId(Guid propertyId);
         public Task<LikeProperty?> GetLikePropertyByUserAndPropertyId(Guid userId, Guid propertyId);
-        public IQueryable<LikeProperty>? GetAllLikesByPropertyId(Guid PropertyId);
-        public IQueryable<LikeProperty>? GetAllLikesByPropertyIds(List<Guid> PropertyIds);
+        public IQueryable<LikeProperty> GetAllLikesByPropertyId(Guid PropertyId);
+        public IQueryable<LikeProperty> GetAllLikesByPropertyIds(List<Guid> PropertyIds);
     }
 }

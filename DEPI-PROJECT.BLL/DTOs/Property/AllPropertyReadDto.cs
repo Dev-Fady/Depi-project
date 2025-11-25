@@ -6,8 +6,8 @@ namespace DEPI_PROJECT.BLL.DTOs.Property
 {
     public class AllPropertyReadDto
     {
-        public IEnumerable<CommercialPropertyReadDto> CommercialProperties { get; set; }
-        public IEnumerable<ResidentialPropertyReadDto> ResidentialProperties { get; set; }
+        public required IEnumerable<CommercialPropertyReadDto> CommercialProperties { get; set; }
+        public required IEnumerable<ResidentialPropertyReadDto> ResidentialProperties { get; set; }
         
     }
 }

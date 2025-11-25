@@ -8,9 +8,9 @@ using DEPI_PROJECT.DAL.Models.Enums;
 
 namespace DEPI_PROJECT.BLL.DTOs.Property
 {
-    public class PropertyResponseDto
+    public class PropertyAddDto
     {
-        public required Guid PropertyId { get; set; }
+        public Guid PropertyId { get; set; }
         public required string Title { get; set; }
         public required string City { get; set; }
         public required string Address { get; set; }
@@ -22,16 +22,13 @@ namespace DEPI_PROJECT.BLL.DTOs.Property
 
         public required decimal Price {  get; set; }
         public required float Square {  get; set; }
-        public required string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         public DateTime DateListed { get; set; }
 
         public required Guid UserId { get; set; }
-        public required ICollection<CommentGetDto> Comments { get; set; } = new List<CommentGetDto>();
-
-        public required AmenityReadDto Amenity { get; set; }
-        public required ICollection<PropertyGalleryReadDto> Galleries { get; set; } = new List<PropertyGalleryReadDto>();
-        public CompoundReadDto? Compound { get; set; }
+        public Guid? CompoundId { get; set; }
+        public required AmenityAddDto Amenity { get; set; }
 
     }
 }

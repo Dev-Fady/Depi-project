@@ -35,7 +35,7 @@ namespace DEPI_PROJECT.PL.DependencyInjection
                     {
                         var principal = context.Principal;
                         var _userManager = context.HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
-                        var user = _userManager.GetUserAsync(principal).GetAwaiter().GetResult();
+                        var user = _userManager.GetUserAsync(principal!).GetAwaiter().GetResult();
 
                         if (user == null)
                         {
@@ -51,9 +51,9 @@ namespace DEPI_PROJECT.PL.DependencyInjection
                             return;
                         }
 
-                        Claim TokenVersionClaim = userClaims.ToList().FirstOrDefault(c => c.Type == ClaimTypes.Version);
+                        Claim TokenVersionClaim = userClaims.ToList().FirstOrDefault(c => c.Type == ClaimTypes.Version)!;
 
-                        if (!principal.HasClaim(c => c.Type == ClaimTypes.Version && c.Value == TokenVersionClaim.Value))
+                        if (!principal!.HasClaim(c => c.Type == ClaimTypes.Version && c.Value == TokenVersionClaim!.Value))
                         {
                             // context.Fail()
                             context.Fail("Token version not matched");

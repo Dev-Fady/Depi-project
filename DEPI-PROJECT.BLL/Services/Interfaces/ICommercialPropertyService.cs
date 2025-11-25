@@ -13,7 +13,7 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
     {
         Task<ResponseDto<PagedResultDto<CommercialPropertyReadDto>>> GetAllPropertiesAsync(Guid UserId, CommercialPropertyQueryDto queryDto);
         Task<ResponseDto<CommercialPropertyReadDto>> GetPropertyByIdAsync(Guid UserId, Guid id);
-        Task<ResponseDto<CommercialPropertyReadDto>> AddPropertyAsync(Guid UserId, Guid AgentId, CommercialPropertyAddDto propertyDto);
+        Task<ResponseDto<CommercialPropertyReadDto>> AddPropertyAsync(Guid UserId, CommercialPropertyAddDto propertyDto);
         Task<ResponseDto<bool>> UpdateCommercialPropertyAsync(Guid UserId, Guid id, CommercialPropertyUpdateDto propertyDto);
         Task<ResponseDto<bool>> DeleteCommercialPropertyAsync(Guid UserId, Guid id);
     }

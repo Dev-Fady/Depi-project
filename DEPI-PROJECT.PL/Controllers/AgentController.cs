@@ -42,7 +42,6 @@ namespace DEPI_PROJECT.PL.Controllers
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetByIdAsync(Guid UserId)
         {
-            // var AgentId = GetAgentId.GetAgentIdFromUserId(this, UserId);
             var response = await _agentService.GetByIdAsync(UserId);
             if (!response.IsSuccess)
             {

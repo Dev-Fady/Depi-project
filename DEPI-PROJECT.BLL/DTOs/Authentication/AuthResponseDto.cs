@@ -4,7 +4,7 @@ namespace DEPI_PROJECT.BLL.DTOs.Authentication
 {
     public class AuthResponseDto
     {
-        public Guid UserId { get; set; }
-        public string JwtToken { get; set; }   
+        public required Guid UserId { get; set; }
+        public required string JwtToken { get; set; }   
     }
 }

@@ -26,11 +26,20 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly IResidentialPropertyRepo _repo;
         private readonly IMapper _mapper;
         private readonly ILikePropertyRepo _likePropertyRepo;
-        public ResidentialPropertyService(IMapper mapper, IResidentialPropertyRepo repo , ILikePropertyRepo likePropertyRepo)
+        private readonly IAgentService _agentService;
+        private readonly ICompoundService _compoundService;
+
+        public ResidentialPropertyService(IMapper mapper, 
+                                          IResidentialPropertyRepo repo, 
+                                          ILikePropertyRepo likePropertyRepo,
+                                          IAgentService agentService,
+                                          ICompoundService compoundService)
         {
             _mapper = mapper;
             _repo = repo;
             _likePropertyRepo = likePropertyRepo;
+            _agentService = agentService;
+            _compoundService = compoundService;
         }
         public async Task<ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>> GetAllResidentialPropertyAsync(Guid UserId, ResidentialPropertyQueryDto queryDto)
         {
@@ -121,14 +130,23 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<ResidentialPropertyReadDto>> AddResidentialPropertyAsync(Guid UserId, Guid AgentId, ResidentialPropertyAddDto propertyDto)
+        public async Task<ResponseDto<ResidentialPropertyReadDto>> AddResidentialPropertyAsync(Guid UserId, ResidentialPropertyAddDto propertyDto)
         {
             if(propertyDto.UserId != UserId)
             {
                 throw new UnauthorizedAccessException($"Current user unauthorized to do such action, mismatch Ids: Current ID {UserId}, givenId {propertyDto.UserId}");
             }
-            var property = _mapper.Map<EntityResidentialProperty>(propertyDto);
-            property.AgentId = AgentId;
+
+            // check if compound exists in request body and database
+            if(propertyDto.CompoundId.HasValue){
+                await _compoundService.GetCompoundIfExistsAsync(propertyDto.CompoundId.Value);
+            }
+
+            var property = _mapper.Map<ResidentialProperty>(propertyDto);
+            
+            // find if agent exist
+            var agent = await _agentService.GetByIdAsync(UserId);
+            property.AgentId = agent.Data!.Id;
             await _repo.AddResidentialPropertyAsync(property);
 
             if (propertyDto.Amenity != null)

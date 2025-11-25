@@ -40,13 +40,13 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                                     .FirstOrDefaultAsync(LP => LP.PropertyId == propertyId && LP.UserID == userId);
             return likeProperty;
         }
-        public IQueryable<LikeProperty>? GetAllLikesByPropertyId(Guid PropertyId)
+        public IQueryable<LikeProperty> GetAllLikesByPropertyId(Guid PropertyId)
         {
             var likes = _appDbContext.LikeProperties
                                     .Where(lp => lp.PropertyId == PropertyId);
             return likes;
         }
-        public IQueryable<LikeProperty>? GetAllLikesByPropertyIds(List<Guid> PropertyIds)
+        public IQueryable<LikeProperty> GetAllLikesByPropertyIds(List<Guid> PropertyIds)
         {
             var likes = _appDbContext.LikeProperties
                                     .Where(lp => PropertyIds.Contains(lp.PropertyId));

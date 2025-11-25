@@ -36,7 +36,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             return await _appDbContext.SaveChangesAsync() > 0;
         }
 
-        public  IQueryable<Comment>? GetAllCommentsByPropertyId(Guid propertyId)
+        public  IQueryable<Comment> GetAllCommentsByPropertyId(Guid propertyId)
         {
             var comments = _appDbContext.Comments
                                         .Where(c => c.PropertyId == propertyId);

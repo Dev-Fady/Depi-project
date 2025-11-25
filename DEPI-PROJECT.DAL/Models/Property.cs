@@ -5,10 +5,10 @@ namespace DEPI_PROJECT.DAL.Models
     public class Property
     {
         public Guid PropertyId { get; set; }
-        public string Title { get; set; }
-        public string City { get; set; }
-        public string Address { get; set; }
-        public string GoogleMapsUrl { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
+        public string GoogleMapsUrl { get; set; } = string.Empty;
 
         public PropertyType PropertyType { get; set; }
         public PropertyPurpose PropertyPurpose { get; set; }
@@ -16,7 +16,7 @@ namespace DEPI_PROJECT.DAL.Models
 
         public decimal Price {  get; set; }
         public float Square {  get; set; }
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         public DateTime DateListed { get; set; }
 

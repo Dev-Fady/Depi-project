@@ -37,7 +37,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             return await _appDbContext.SaveChangesAsync() > 0;
         }
 
-        public IQueryable<Wishlist>? GetAllWishList()
+        public IQueryable<Wishlist> GetAllWishList()
         {
             var WishLists = _appDbContext.Wishlists.Include(R => R.Property);
             return WishLists; //cannot use await here as IQueryable is not awaitable --> not accessing database yet

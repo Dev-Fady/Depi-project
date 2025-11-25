@@ -63,8 +63,7 @@ namespace DEPI_PROJECT.PL.Controllers
         public async Task<IActionResult> AddCommercialProperty([FromBody] CommercialPropertyAddDto propertyDto)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);
-            var AgentId = GetAgentId.GetAgentIdFromUserId(this, UserId);
-            var response = await _commercialPropertyService.AddPropertyAsync(UserId, AgentId, propertyDto);
+            var response = await _commercialPropertyService.AddPropertyAsync(UserId, propertyDto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);

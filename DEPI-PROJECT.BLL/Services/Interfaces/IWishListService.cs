@@ -14,7 +14,7 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
     {
         public Task<ResponseDto<WishListGetDto?>> AddItemInWishList(Guid CurrentUserId,WishListAddDto wishlistDto);
         public Task<ResponseDto<bool>> DeleteItemInWishList(Guid CurrentUserId,  WishListDeleteDto wishlistDto);
-        public Task<ResponseDto<PagedResultDto<WishListGetDto?>>> GetAllWishList(Guid CurrentUserId, WishListQueryDto queryDto);
+        public Task<ResponseDto<PagedResultDto<WishListGetDto>>> GetAllWishList(Guid CurrentUserId, WishListQueryDto queryDto);
         public Task<ResponseDto<WishListGetDto?>> GetWishList(Guid CurrentUserId, Guid PropertyId);
     }
 

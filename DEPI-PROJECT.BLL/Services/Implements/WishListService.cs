@@ -64,12 +64,16 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             //not include property details in mapping so manually adding them
             var fullWishlist = await _wishListRepository.GetWishList(wishlist.UserID, wishlist.PropertyID);
+
+            if(fullWishlist == null)
+            {
+                throw new NotFoundException($"No wishlist Found for user ID {wishlist.UserID}");
+            }
+
             var mappedWishList = _mapper.Map<WishListGetDto>(fullWishlist);
             mappedWishList.Price = fullWishlist.Property.Price;
-            mappedWishList.Title = fullWishlist.Property.Address + "-" + fullWishlist.Property.City;
-            //not correct way to do it but due to time constraint doing it this way
-            //addedWishList.Price = wishlist.Property.Price;
-            //addedWishList.Title = wishlist.Property.Address + "-" + wishlist.Property.City;
+            mappedWishList.Title = fullWishlist.Property.Title;
+            
             return new ResponseDto<WishListGetDto?>
             {
                 IsSuccess = true,
@@ -98,7 +102,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<PagedResultDto<WishListGetDto?>>> GetAllWishList(Guid CurrentUserId, WishListQueryDto queryDto)
+        public async Task<ResponseDto<PagedResultDto<WishListGetDto>>> GetAllWishList(Guid CurrentUserId, WishListQueryDto queryDto)
         {
             var Result = _wishListRepository.GetAllWishList();
 
@@ -122,14 +126,14 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 if (originalItem != null)
                 {
                     item.Price = originalItem.Property.Price;
-                    item.Title = originalItem.Property.Address + "-" + originalItem.Property.City;
+                    item.Title = originalItem.Property.Title;
                 }
             }
 
             var pagedResult = new PagedResultDto<WishListGetDto>(MappedWishList , queryDto.PageNumber , Count , queryDto.PageSize);
 
 
-            return new ResponseDto<PagedResultDto<WishListGetDto?>>
+            return new ResponseDto<PagedResultDto<WishListGetDto>>
             {
                 IsSuccess = true,
                 Message = "WishList retrieved successfully.",
@@ -156,7 +160,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
             var mappedWishList = _mapper.Map<WishListGetDto>(wishlist);
             mappedWishList.Price = wishlist.Property.Price;
-            mappedWishList.Title = wishlist.Property.Address + "-" + wishlist.Property.City;
+            mappedWishList.Title = wishlist.Property.Title;
             return new ResponseDto<WishListGetDto?>
             {
                 IsSuccess = true,
