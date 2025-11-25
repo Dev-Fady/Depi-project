@@ -11,10 +11,10 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
 {
     public interface ICommercialPropertyService
     {
-        Task<ResponseDto<PagedResultDto<CommercialPropertyReadDto>>> GetAllPropertiesAsync(Guid CurrentUserId, CommercialPropertyQueryDto queryDto);
-        Task<ResponseDto<CommercialPropertyReadDto>> GetPropertyByIdAsync(Guid CurrentUserId, Guid id);
-        Task<ResponseDto<CommercialPropertyReadDto>> AddPropertyAsync(CommercialPropertyAddDto propertyDto);
-        Task<ResponseDto<bool>> UpdateCommercialPropertyAsync(Guid id, CommercialPropertyUpdateDto propertyDto);
-        Task<ResponseDto<bool>> DeleteCommercialPropertyAsync(Guid id);
+        Task<ResponseDto<PagedResultDto<CommercialPropertyReadDto>>> GetAllPropertiesAsync(Guid UserId, CommercialPropertyQueryDto queryDto);
+        Task<ResponseDto<CommercialPropertyReadDto>> GetPropertyByIdAsync(Guid UserId, Guid id);
+        Task<ResponseDto<CommercialPropertyReadDto>> AddPropertyAsync(Guid UserId, CommercialPropertyAddDto propertyDto);
+        Task<ResponseDto<bool>> UpdateCommercialPropertyAsync(Guid UserId, Guid id, CommercialPropertyUpdateDto propertyDto);
+        Task<ResponseDto<bool>> DeleteCommercialPropertyAsync(Guid UserId, Guid id);
     }
 }

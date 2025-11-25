@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Azure;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using Microsoft.AspNetCore.Identity;
@@ -27,15 +28,11 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         }
         public string GenerateToken(List<Claim> claims)
         {
+            string securityKey = _configuration.GetSection("JWT").GetSection("SecurityKey").Value 
+                                ?? throw new Exception("No Section Named \"SecurityKey\" in section \"JWT\", Check your appsettings.json");
 
-            string securityKey = _configuration.GetSection("JWT").GetSection("SecurityKey").Value;
-            if (securityKey == null)
-            {
-                throw new Exception("No Section Named \"SecurityKey\" in section \"JWT\", Check your appsettings.json");
-            }
-            double ExpirationTimeInMinutes;
 
-            if (!Double.TryParse(_configuration.GetSection("JWT").GetSection("ExpirationTimeInMinutes").Value, out ExpirationTimeInMinutes))
+            if (!Double.TryParse(_configuration.GetSection("JWT").GetSection("ExpirationTimeInMinutes").Value, out double ExpirationTimeInMinutes))
             {
                 throw new Exception("No Section Named \"ExpirationTimeInMinutes\" in section \"JWT\", Check your appsettings.json");
             }
@@ -63,6 +60,10 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         public async Task<ResponseDto<bool>> InvalidateToken(User user){
             var claims = await _userManager.GetClaimsAsync(user);
             var OldClaim = claims.ToList().FirstOrDefault(c => c.Type == ClaimTypes.Version);
+            if(OldClaim == null){
+                throw new NotFoundException($"No claims associated with the user Id {user.UserId}");
+            }
+
             int newTokenVersion = int.Parse(OldClaim.Value) + 1;
 
 
@@ -70,11 +71,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var identityResult = await _userManager.ReplaceClaimAsync(user, OldClaim, NewClaim);
             if (!identityResult.Succeeded)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = "An error occured while invalidating the token",
-                    IsSuccess = false
-                };
+                throw new BadRequestException(identityResult.Errors.ElementAt(0).Description
+                        ?? "An error occurred while invalidating the token");
             }
             return new ResponseDto<bool>
             {

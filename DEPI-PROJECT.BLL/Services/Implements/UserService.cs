@@ -6,6 +6,7 @@ using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.User;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
@@ -30,8 +31,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             var searchBy = userQueryDto.SearchText;
             var query = _userManager.Users
-                              .IF(searchBy != null, a => a.UserName.Contains(searchBy) ||
-                                                        a.Email.Contains(searchBy))
+                              .IF(searchBy != null, a => a.UserName!.Contains(searchBy ?? "") ||
+                                                        a.Email!.Contains(searchBy ?? ""))
                               .OrderByExtended(new List<Tuple<bool, Expression<Func<User, object>>>>
                               {
                                   new (userQueryDto.OrderByOption == OrderByUserOptions.DataJoind, a => a.DateJoined)
@@ -69,11 +70,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var user = await _userManager.FindByIdAsync(UserId.ToString());
             if (user == null)
             {
-                return new ResponseDto<UserResponseDto>
-                {
-                    Message = $"No user found with Id {UserId}",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No user found with Id {UserId}");
             }
 
             var userResponseDto = _mapper.Map<User, UserResponseDto>(user);
@@ -92,23 +89,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             if (User == null)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = $"No user found with the given ID {userUpdateDto.UserId}",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No user found with Id {userUpdateDto.UserId}");
             }
             _mapper.Map<UserUpdateDto, User>(userUpdateDto, User);
 
             var identityResult = await _userManager.UpdateAsync(User);
             if (!identityResult.Succeeded)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = identityResult.Errors.ElementAt(0).Description
-                                ?? "An error occured while updating user, please try again",
-                    IsSuccess = false
-                };
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
+                                ?? "An error occured while updating user, please try again");
             }
 
             return new ResponseDto<bool>
@@ -124,22 +113,14 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             if(user == null)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = $"No user found with Id {UserId}, please try again",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No user found with Id {UserId}");
             }
 
             var identityResult = await _userManager.DeleteAsync(user);
             if (!identityResult.Succeeded)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = identityResult.Errors.ElementAt(0).Description 
-                                ?? "An error occured while Deleting user, please try again",
-                    IsSuccess = false
-                };
+                throw new Exception(identityResult.Errors.ElementAt(0).Description 
+                               ?? "An error occured while Deleting user, please try again");
             }
 
             return new ResponseDto<bool>

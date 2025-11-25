@@ -4,10 +4,10 @@ namespace DEPI_PROJECT.BLL.DTOs.User
 {
     public class UserResponseDto
     {
-        public Guid UserId { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public DateTime DateJoined { get; set; }
+        public required Guid UserId { get; set; }
+        public required string Username { get; set; }
+        public required string Email { get; set; }
+        public required string PhoneNumber { get; set; }
+        public required DateTime DateJoined { get; set; }
     }
 }

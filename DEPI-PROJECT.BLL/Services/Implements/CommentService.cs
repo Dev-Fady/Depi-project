@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.Dtos.Comment;
 using DEPI_PROJECT.BLL.DTOs.Agent;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.User;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
@@ -24,25 +26,31 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
         private readonly ILikeCommentRepo _likeCommentRepo;
+        private readonly IPropertyService _propertyService;
 
-        public CommentService(ICommentRepository commentRepository, IMapper mapper , ILikeCommentRepo likeCommentRepo)
+        public CommentService(ICommentRepository commentRepository,
+                            IMapper mapper,
+                            ILikeCommentRepo likeCommentRepo,
+                            IPropertyService propertyService)
         {
             _commentRepository = commentRepository;
             _mapper = mapper;
             _likeCommentRepo = likeCommentRepo;
+            _propertyService = propertyService;
         }
 
         public async Task<ResponseDto<CommentGetDto?>> AddComment(Guid UserId, CommentAddDto commentDto)
         {
             if (UserId == Guid.Empty || commentDto == null)
             {
-                return new ResponseDto<CommentGetDto?>()
-                {
-                    IsSuccess = false,
-                    Message = "Invalid input data",
-                    Data = null
-                };
+                throw new BadRequestException("User Id or comment cannot be null");
             }
+
+            if (await _propertyService.CheckPropertyExist(commentDto.PropertyId) == false)
+            {
+                throw new NotFoundException($"No property found with Id {commentDto.PropertyId}");
+            }
+
             var CommentEntity = _mapper.Map<Comment>(commentDto);
             CommentEntity.UserID = UserId;
             CommentEntity.DateComment = DateTime.UtcNow;
@@ -50,12 +58,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var Result = await _commentRepository.AddComment(CommentEntity);
             if (!Result)
             {
-                return new ResponseDto<CommentGetDto?>()
-                {
-                    IsSuccess = false,
-                    Message = "Failed to add comment",
-                    Data = null
-                };
+                throw new Exception("An unexpected error ocurred while adding comment, please try again");
             }
             var getComment = _mapper.Map<CommentGetDto>(CommentEntity);
             return new ResponseDto<CommentGetDto?>()
@@ -71,23 +74,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             if (PropertyId == Guid.Empty)
             {
-                return new ResponseDto<int>()
-                {
-                    IsSuccess = false,
-                    Message = "Invalid PropertyId",
-                    Data = 0
-                };
+                throw new BadRequestException("Property Id cannot be null");
             }
-            var count = await _commentRepository.CountAllComments(PropertyId);
-            if (count < 0)
+            
+            if (await _propertyService.CheckPropertyExist(PropertyId) == false)
             {
-                return new ResponseDto<int>()
-                {
-                    IsSuccess = false,
-                    Message = "Failed to count comments",
-                    Data = 0
-                };
+                throw new NotFoundException($"No property found with Id {PropertyId}");
             }
+
+            var count = await _commentRepository.CountAllComments(PropertyId);
             return new ResponseDto<int>()
             {
                 IsSuccess = true,
@@ -100,43 +95,20 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             if (UserId == Guid.Empty || CommentId == Guid.Empty)
             {
-                return new ResponseDto<bool>()
-                {
-                    IsSuccess = false,
-                    Message = "Invalid input data",
-                    Data = false
-                };
+                throw new BadRequestException("User Id or comment Id cannot be null");
             }
             var comment = await _commentRepository.GetCommentById(CommentId);
             if (comment == null)
             {
-                return new ResponseDto<bool>()
-                {
-                    IsSuccess = false,
-                    Message = "Comment not found",
-                    Data = false
-                };
+                throw new NotFoundException($"No comment found with ID {CommentId}");
             }
 
-            if (comment.UserID != UserId)
-            {
-                return new ResponseDto<bool>()
-                {
-                    IsSuccess = false,
-                    Message = "User not authorized to delete this comment",
-                    Data = false
-                };
-            }
+            CommonFunctions.EnsureAuthorized(comment.UserID);
 
             var Result = await _commentRepository.DeleteComment(comment);
             if (!Result)
             {
-                return new ResponseDto<bool>()
-                {
-                    IsSuccess = false,
-                    Message = "Failed to delete comment",
-                    Data = false
-                };
+                throw new Exception("An error occurred while deleting the comment, please try again");
             }
             return new ResponseDto<bool>()
             {
@@ -147,17 +119,16 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         }
 
-        public async Task<ResponseDto<PagedResultDto<CommentGetDto?>>> GetAllCommentsByPropertyId(Guid CurrentUserId , CommentQueryDto queryDto)
+        public async Task<ResponseDto<PagedResultDto<CommentGetDto>>> GetAllCommentsByPropertyId(Guid CurrentUserId , Guid PropertyId, CommentQueryDto queryDto)
         {
             //call all comments 
-            var comments = _commentRepository.GetAllCommentsByPropertyId();
-            //make conditions
-            var filteredComments =  comments.IF(queryDto.PropertyId != Guid.Empty, c => c.PropertyId == queryDto.PropertyId);
+            var comments = _commentRepository.GetAllCommentsByPropertyId(PropertyId);
 
             //count total comments after filter
-            var totalComments = await  filteredComments.CountAsync();
+            var totalComments = await comments.CountAsync();
+            
             //apply order and pagination
-            var orderedComments = filteredComments.OrderByExtended(new List<Tuple<bool, Expression<Func<Comment, object>>>>
+            var orderedComments = comments.OrderByExtended(new List<Tuple<bool, Expression<Func<Comment, object>>>>
                                                     {
                                                      new (queryDto.OrderBy == OrderByCommentOptions.DateComment, c => c.DateComment),
                                                     },
@@ -172,8 +143,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             //Add Islike , count for each comment
             var CommentIds = mappedcomments.Select(c => c.CommentId).ToList();
-            var CountCommentDic = await _likeCommentRepo.GetAllLikesByCommentId()
-                                    .Where(lc => CommentIds.Contains(lc.CommentId))
+            var CountCommentDic = await _likeCommentRepo.GetAllLikesByCommentsId(CommentIds)
                                     .GroupBy(lc => lc.CommentId)
                                     .Select(n => new
                                     {
@@ -182,8 +152,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                     })
                                     .ToDictionaryAsync(n => n.CommentId , n => n.Count);
 
-            var IsLikedHash = await _likeCommentRepo.GetAllLikesByCommentId()
-                                    .Where(lc => lc.UserID == CurrentUserId && CommentIds.Contains(lc.CommentId))
+            var IsLikedHash = await _likeCommentRepo.GetAllLikesByCommentsId(CommentIds)
+                                    .Where(lc => lc.UserID == CurrentUserId)
                                     .Select(n => n.CommentId)
                                     .ToHashSetAsync();
 
@@ -221,7 +191,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             //create paged result
             var pagedResult = new PagedResultDto<CommentGetDto>(mappedcomments , queryDto.PageNumber , totalComments , queryDto.PageSize);
             //return response 
-            return new ResponseDto<PagedResultDto<CommentGetDto?>>()
+            return new ResponseDto<PagedResultDto<CommentGetDto>>()
             {
                 IsSuccess = true,
                 Message = "Comments retrieved successfully",
@@ -233,22 +203,12 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             if (commentId == Guid.Empty)
             {
-                return new ResponseDto<CommentGetDto?>()
-                {
-                    IsSuccess = false,
-                    Message = "Invalid CommentId",
-                    Data = null
-                };
+                throw new BadRequestException("Comment Id cannot be null");
             }
             var comment = await _commentRepository.GetCommentById(commentId);
             if (comment == null)
             {
-                return new ResponseDto<CommentGetDto?>()
-                {
-                    IsSuccess = false,
-                    Message = "Comment not found",
-                    Data = null
-                };
+                throw new NotFoundException($"No comment found with Id {commentId}");
             }
             var mappedComment = _mapper.Map<CommentGetDto>(comment);
 
@@ -270,42 +230,22 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             if (UserId == Guid.Empty || commentDto == null || CommentId == Guid.Empty)
             {
-                return new ResponseDto<bool>()
-                {
-                    IsSuccess = false,
-                    Message = "Invalid input data",
-                    Data = false
-                };
+                throw new BadRequestException("User id, commentId cannot be null");
             }
             var existingComment = await _commentRepository.GetCommentById(CommentId);
             if (existingComment == null)
             {
-                return new ResponseDto<bool>()
-                {
-                    IsSuccess = false,
-                    Message = "Comment not found",
-                    Data = false
-                };
+                throw new NotFoundException($"No comment found with Id {CommentId}");
+
             }
-            if (existingComment.UserID != UserId)
-            {
-                return new ResponseDto<bool>()
-                {
-                    IsSuccess = false,
-                    Message = "User not authorized to update this comment",
-                    Data = false
-                };
-            }
+            
+            CommonFunctions.EnsureAuthorized(existingComment.UserID);
+
             _mapper.Map(commentDto, existingComment); // Map updated fields to existing comment (source , Destination)
             var Result = await _commentRepository.UpdateComment(existingComment);
             if (!Result)
             {
-                return new ResponseDto<bool>()
-                {
-                    IsSuccess = false,
-                    Message = "Failed to update comment",
-                    Data = false
-                };
+                throw new Exception("An error occurred while updating the comment, please try again");
             }
             return new ResponseDto<bool>()
             {

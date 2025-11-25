@@ -4,10 +4,13 @@ using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.Role;
 using DEPI_PROJECT.BLL.DTOs.User;
 using DEPI_PROJECT.BLL.DTOs.UserRole;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Models.Enums;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace DEPI_PROJECT.BLL.Services.Implements
 {
@@ -15,46 +18,33 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
+        private readonly AppDbContext _context;
         private readonly IJwtService _jwtService;
         private readonly IMapper _mapper;
 
         public UserRoleService(UserManager<User> userManager,
                                RoleManager<Role> roleManager,
                                IJwtService jwtService,
-                               IMapper mapper)
+                               IMapper mapper,
+                               AppDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _jwtService = jwtService;
             _mapper = mapper;
+            _context = context;
         }
         public async Task<ResponseDto<List<UserResponseDto>>> GetUsersFromRole(Guid RoleId)
         {
-            Role role = await _roleManager.FindByIdAsync(RoleId.ToString());
+            Role? role = await _roleManager.FindByIdAsync(RoleId.ToString());
 
             if (role == null)
             {
-                return new ResponseDto<List<UserResponseDto>>
-                {
-                    Data = [],
-                    Message = $"No role found by id {RoleId}",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No role found with Id {RoleId}");
             }
 
 
-            var users = await _userManager.GetUsersInRoleAsync(role.Name);
-
-            
-            if(users.Count == 0)
-            {
-                return new ResponseDto<List<UserResponseDto>>
-                {
-                    Data = [],
-                    Message = "No user associated with the current role",
-                    IsSuccess = true
-                };
-            }
+            var users = await _userManager.GetUsersInRoleAsync(role.Name!);
 
             var userResponseDtos = _mapper.Map<IEnumerable<User>, IEnumerable<UserResponseDto>>(users);
 
@@ -72,28 +62,14 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var User = await _userManager.FindByIdAsync(UserId.ToString());
             if (User == null)
             {
-                return new ResponseDto<UserRolesDto>
-                {
-                    Message = $"No User associated with the given ID {UserId}",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No User associated with the given ID {UserId}");
             }
-            var Roles = await _userManager.GetRolesAsync(User);
-
-            if(Roles.Count == 0)
-            {
-                return new ResponseDto<UserRolesDto>
-                {
-                    Data = null,
-                    Message = "No Roles associated with the current user",
-                    IsSuccess = true
-                };
-            }
+            var Roles = await _GetRolesFromUser(User);
 
             UserRolesDto userRolesDto = new UserRolesDto
             {
                 UserId = UserId,
-                Roles = (List<string>)Roles
+                Roles = Roles
             };
 
             return new ResponseDto<UserRolesDto>
@@ -103,45 +79,31 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 IsSuccess = true
             };
         }
-        
+
         public async Task<ResponseDto<bool>> AssignUserToRole(UserRoleDto userRoleDto)
         {
-            (User? user, Role? role, ResponseDto<bool> responseDto) = await GetUserAndRole(userRoleDto);
+            (User user, Role role) = await GetUserAndRole(userRoleDto);
 
-            if (user == null || role == null)
-            {
-                return responseDto;
-            }
-
-            var identityResult = await _userManager.AddToRoleAsync(user, role.Name);
+            var identityResult = await _userManager.AddToRoleAsync(user, role.Name!);
             if (!identityResult.Succeeded)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = identityResult.Errors.ElementAt(0).ToString() ?? "An error occurred while assignning user role",
-                    IsSuccess = false
-                };
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
+                            ?? "An error occurred while assignning user role");
             }
-            Claim claim = new Claim(ClaimTypes.Role, role.NormalizedName);
-            identityResult = await _userManager.AddClaimAsync(user, claim);
+
+            List<Claim> claims = new List<Claim>{
+                new Claim(ClaimTypes.Role, role.NormalizedName!)
+            };
+
+            identityResult = await _userManager.AddClaimsAsync(user, claims);
 
             if (!identityResult.Succeeded)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = identityResult.Errors.ElementAt(0).ToString() 
-                                ?? $"An error occurred while adding user to role {role.Name}",
-                    IsSuccess = false
-                };
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
+                            ?? $"An error occurred while adding user to role {role.Name}");
             }
 
             var result = await _jwtService.InvalidateToken(user);
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
-
 
             return new ResponseDto<bool>
             {
@@ -149,47 +111,51 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 IsSuccess = true
             };
         }
+        
+        public async Task<ResponseDto<bool>> RemoveUserFromRoleByRoleName(UserRoleByRoleNameDto userRoleDto){
+            var Role = await _roleManager.FindByNameAsync(userRoleDto.RoleName);
+            if (Role == null)
+            {
+                throw new NotFoundException($"No role found with name {userRoleDto.RoleName}");
+            }
+            var response = await RemoveUserFromRole(new UserRoleDto { UserId = userRoleDto.UserId, RoleId = Role.Id });
+            return response;
+        }
 
         public async Task<ResponseDto<bool>> RemoveUserFromRole(UserRoleDto userRoleDto)
         {
-            (User? user, Role? role, ResponseDto<bool> responseDto) = await GetUserAndRole(userRoleDto);
+            (User user, Role role) = await GetUserAndRole(userRoleDto);
 
-            if (user == null || role == null)
+            var identityResult = await _userManager.RemoveFromRoleAsync(user, role.Name!);
+            if (!identityResult.Succeeded)
             {
-                return responseDto;
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
+                        ?? $"An error occurred while removing user from role {role.Name}");
             }
 
-            var identityResult = await _userManager.RemoveFromRoleAsync(user, role.Name);
+            var claims = await _userManager.GetClaimsAsync(user);
+
+            var roleClaim = claims.FirstOrDefault(a => a.Type == ClaimTypes.Role);
+            if (roleClaim == null)
+            {
+                // User has no role claim to remove, but this might be OK
+                return new ResponseDto<bool>
+                {
+                    Message = $"User removed from role {role.Name} successfully (no role claim found)",
+                    IsSuccess = true
+                };
+            }
+
+            List<Claim> claimsToDelete = [roleClaim];
             
+            identityResult = await _userManager.RemoveClaimsAsync(user, claimsToDelete);
             if (!identityResult.Succeeded)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = identityResult.Errors.ElementAt(0).ToString() 
-                                ?? $"An error occurred while removing user from role {role.Name}",
-                    IsSuccess = false
-                };
-            }
-            Claim claim = new Claim(ClaimTypes.Role, role.NormalizedName);
-
-            identityResult = await _userManager.RemoveClaimAsync(user, claim);
-
-            if (!identityResult.Succeeded)
-            {
-                return new ResponseDto<bool>
-                {
-                    Message = identityResult.Errors.ElementAt(0).ToString() 
-                                ?? $"An error occurred while removing claim role {role.NormalizedName}",
-                    IsSuccess = false
-                };
+                throw new Exception(identityResult.Errors.ElementAt(0).Description 
+                        ?? $"An error occurred while removing claim role {role.NormalizedName}");
             }
 
             var result = await _jwtService.InvalidateToken(user);
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
             
             return new ResponseDto<bool>
             {
@@ -198,46 +164,37 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        private async Task<Tuple<User?, Role?, ResponseDto<bool>>> GetUserAndRole(UserRoleDto userRoleDto)
+        private async Task<Tuple<User, Role>> GetUserAndRole(UserRoleDto userRoleDto)
         {
             var role = await _roleManager.FindByIdAsync(userRoleDto.RoleId.ToString());
             if (role == null)
             {
-                return new(
-                    null,
-                    null,
-                    new ResponseDto<bool>
-                    {
-                        Message = $"No role found with Id {userRoleDto.RoleId}",
-                        IsSuccess = false
-                    }
-                ); 
+                throw new NotFoundException($"No role found with Id {userRoleDto.RoleId}");
             }
 
             var user = await _userManager.FindByIdAsync(userRoleDto.UserId.ToString());
             if (user == null)
             {
-                return new(
-                    null,
-                    null,
-                    new ResponseDto<bool>
-                    {
-                        Message = $"No role found with Id {userRoleDto.RoleId}",
-                        IsSuccess = false
-                    }
-                );
+                throw new NotFoundException($"No user found with Id {userRoleDto.UserId}");
             }
 
-            return new (
-                    user,
-                    role,
-                    new ResponseDto<bool>
-                    {
-                        Message = "User and Role retrived",
-                        IsSuccess = true
-                    }
-                );
+            return new(user, role);
+        }
 
+        private async Task<List<RoleResponseDto>> _GetRolesFromUser(User user)
+        {
+            var Roles = await _context.UserRoles
+                    .Where(ur => ur.UserId == user.Id)
+                    .Join(_context.Roles,
+                          ur => ur.RoleId,
+                          r => r.Id,
+                          (ur, r) => new RoleResponseDto{
+                            RoleId = ur.RoleId,
+                            RoleName = r.Name!
+                          }
+                    )
+                    .ToListAsync();
+            return Roles;
         }
     }
 }

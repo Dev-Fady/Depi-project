@@ -12,7 +12,6 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class CompoundController : ControllerBase
     {
         private readonly ICompoundService _compundService;
@@ -51,7 +50,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ResponseDto<CompoundReadDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> AddCompound([FromBody] CompoundAddDto Dto)
         {
             var response = await _compundService.AddCompoundAsync(Dto);
@@ -63,10 +62,9 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
         [HttpDelete("{id}")]
-
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DeleteCompound(Guid id)
         {
             var response = await _compundService.DeleteCompoundAsync(id);
@@ -80,7 +78,7 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateCompound(Guid id, [FromBody] CompoundUpdateDto Dto)
         {
             var response = await _compundService.UpdateCompoundAsync(id, Dto);

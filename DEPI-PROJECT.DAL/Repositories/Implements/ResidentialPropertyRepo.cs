@@ -23,7 +23,8 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             var query = context.ResidentialProperties
                 .Include(x => x.Agent)
                 .Include(x => x.Compound)
-                .Include(x=>x.Amenity)
+                .Include(x => x.Amenity)
+                .Include(x => x.Comments)
                 .Include(x => x.PropertyGalleries);
 
             return query;
@@ -34,6 +35,10 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
         {
             return await context.ResidentialProperties
                 .Include(x=>x.Amenity)
+                .Include(x => x.Agent)
+                .Include(x => x.Compound)
+                .Include(x => x.PropertyGalleries)
+                .Include(x => x.Comments)
                 .FirstOrDefaultAsync(rp => rp.PropertyId == id);
         }
         public async Task AddResidentialPropertyAsync(ResidentialProperty property)

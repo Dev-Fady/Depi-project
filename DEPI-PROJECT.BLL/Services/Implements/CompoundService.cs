@@ -3,8 +3,10 @@ using DEPI_PROJECT.BLL.DTOs.Compound;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
+using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,8 +34,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var query = _repo.GetAllCompounds();
 
             var result = await query.IF(compoundQueryDto.City != null, a => a.City == compoundQueryDto.City)
-                                    .IF(compoundQueryDto.Address != null, a => a.Address.Contains(compoundQueryDto.Address))
-                                    .IF(compoundQueryDto.Description != null, a => a.Description.Contains(compoundQueryDto.Description))
+                                    .IF(compoundQueryDto.Address != null, a => a.Address.Contains(compoundQueryDto.Address ?? ""))
+                                    .IF(compoundQueryDto.Description != null, a => a.Description.Contains(compoundQueryDto.Description ?? ""))
                                     .Paginate(new PagedQueryDto { PageNumber = compoundQueryDto.PageNumber, PageSize = compoundQueryDto.PageSize })
                                     .ToListAsync();
 
@@ -50,15 +52,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<CompoundReadDto>> GetCompoundByIdAsync(Guid id)
         {
-            var compound = await _repo.GetCompoundByIdAsync(id);
-            if (compound == null)
-            {
-                return new ResponseDto<CompoundReadDto>
-                {
-                    IsSuccess = false,
-                    Message = "Compound not found."
-                };
-            }
+            var compound = await GetCompoundIfExistsAsync(id);
             var mapped = _mapper.Map<CompoundReadDto>(compound);
             return new ResponseDto<CompoundReadDto>
             {
@@ -70,16 +64,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> UpdateCompoundAsync(Guid id, CompoundUpdateDto compoundDto)
         {
-            var existing = await _repo.GetCompoundByIdAsync(id);
-            if (existing == null)
-            {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Compound not found.",
-                    Data = false
-                };
-            }
+            var existing = await GetCompoundIfExistsAsync(id);
             _mapper.Map(compoundDto, existing);
             await _repo.UpdateCompoundAsync(id, existing);
             return new ResponseDto<bool>
@@ -103,16 +88,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> DeleteCompoundAsync(Guid id)
         {
-           var existing = await _repo.GetCompoundByIdAsync(id);
-            if (existing == null)
-            {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Compound not found.",
-                    Data = false
-                };
-            }
+            await GetCompoundIfExistsAsync(id);
+
             await _repo.DeleteCompoundAsync(id);
             return new ResponseDto<bool>
             {
@@ -120,6 +97,11 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 Message = "Compound deleted successfully.",
                 Data = true
             };
+        }
+
+        public async Task<Compound> GetCompoundIfExistsAsync(Guid id)
+        {
+            return await _repo.GetCompoundByIdAsync(id) ?? throw new NotFoundException($"No compund found with Id {id}");
         }
 
     }

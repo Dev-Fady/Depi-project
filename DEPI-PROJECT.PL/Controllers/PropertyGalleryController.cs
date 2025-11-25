@@ -2,6 +2,7 @@
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.PL.Helper_Function;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,6 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class PropertyGalleryController : ControllerBase
     {
         private readonly IPropertyGalleryService _propertyGalleryService;
@@ -25,10 +25,11 @@ namespace DEPI_PROJECT.PL.Controllers
         [Consumes("multipart/form-data")]
         [ProducesResponseType(typeof(ResponseDto<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN,AGENT")]
         public async Task<IActionResult> Upload([FromForm] PropertyGalleryAddDto dto)
         {
-            var response = await _propertyGalleryService.AddAsync(dto);
+            Guid UserId = GetUserIdFromToken.GetCurrentUserId(this);   
+            var response = await _propertyGalleryService.AddAsync(UserId, dto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -80,10 +81,11 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN,AGENT")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var response = await _propertyGalleryService.DeleteAsync(id);
+            Guid UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var response = await _propertyGalleryService.DeleteAsync(UserId, id);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);

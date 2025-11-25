@@ -23,17 +23,27 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
         public IQueryable<Agent> GetAll()
         {
             return _context.Agents
-                            .Include(a => a.Properties)
                             .Include(a => a.User)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.Compound)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.PropertyGalleries)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.Amenity)
                             .AsQueryable();
         }
 
-        public async Task<Agent?> GetByIdAsync(Guid AgentId)
+        public async Task<Agent?> GetByIdAsync(Guid UserId)
         {
             return await _context.Agents
-                            .Include(a => a.Properties)
                             .Include(a => a.User)
-                            .FirstOrDefaultAsync(a => a.Id == AgentId);
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.Compound)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.PropertyGalleries)
+                            .Include(a => a.Properties)
+                                .ThenInclude(a => a.Amenity)
+                            .FirstOrDefaultAsync(a => a.UserId == UserId);
                             
         }
 
@@ -55,9 +65,9 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> DeleteAsync(Guid AgentId)
+        public async Task<bool> DeleteAsync(Guid UserId)
         {
-            var agent = await _context.Agents.FirstOrDefaultAsync(a => a.Id == AgentId);
+            var agent = await _context.Agents.FirstOrDefaultAsync(a => a.UserId == UserId);
             if (agent == null)
             {
                 return false;

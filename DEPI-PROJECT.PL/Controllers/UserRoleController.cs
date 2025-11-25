@@ -2,6 +2,7 @@ using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.User;
 using DEPI_PROJECT.BLL.DTOs.UserRole;
 using DEPI_PROJECT.BLL.Services.Interfaces;
+using DEPI_PROJECT.DAL.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "ADMIN")]
     public class UserRoleController : ControllerBase
     {
         private readonly IUserRoleService _userRoleService;
@@ -22,7 +24,6 @@ namespace DEPI_PROJECT.PL.Controllers
         [ProducesResponseType(typeof(ResponseDto<List<UserResponseDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         
-        // [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetUsersRole(Guid RoleId)
         {
             var response = await _userRoleService.GetUsersFromRole(RoleId);
@@ -37,7 +38,6 @@ namespace DEPI_PROJECT.PL.Controllers
         [ProducesResponseType(typeof(ResponseDto<UserRolesDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         
-        // [Authorize(Roles = "AGENT")]
         public async Task<IActionResult> GetUserRolesAsync(Guid UserId)
         {
             var response = await _userRoleService.GetRolesFromUser(UserId);

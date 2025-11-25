@@ -24,6 +24,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                  .Include(x => x.Agent)
                 .Include(x => x.Compound)
                 .Include(x => x.Amenity)
+                .Include(x => x.Comments)
                 .Include(x => x.PropertyGalleries);
 
             return query;
@@ -35,6 +36,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                                 .Include(p => p.Amenity)
                                 .Include(p => p.PropertyGalleries)
                                 .Include(p => p.Agent)
+                                .Include(x => x.Comments)
                                 .Include(p => p.Compound)
                                 .FirstOrDefaultAsync(x => x.PropertyId == id);
         }

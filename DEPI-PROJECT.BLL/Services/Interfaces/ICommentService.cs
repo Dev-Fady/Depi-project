@@ -16,7 +16,7 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
         public Task<ResponseDto<CommentGetDto?>> AddComment(Guid UserId, CommentAddDto commentDto);
         public Task<ResponseDto<bool>> DeleteComment(Guid UserId, Guid CommentId);
         public Task<ResponseDto<bool>> UpdateComment(Guid UserId, CommentUpdateDto commentDto , Guid CommentId);
-        public Task<ResponseDto<PagedResultDto<CommentGetDto?>>> GetAllCommentsByPropertyId(Guid CurrentUserId , CommentQueryDto queryDto);
+        public Task<ResponseDto<PagedResultDto<CommentGetDto>>> GetAllCommentsByPropertyId(Guid CurrentUserId , Guid PropertyId, CommentQueryDto queryDto);
         public Task<ResponseDto<CommentGetDto?>> GetCommentById(Guid CurrentUserId ,Guid commentId);
         public Task<ResponseDto<int>> CountAllComments(Guid PropertyId);
     }

@@ -11,6 +11,7 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "ADMIN")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -24,7 +25,6 @@ namespace DEPI_PROJECT.PL.Controllers
         [ProducesResponseType(typeof(ResponseDto<PagedResultDto<UserResponseDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         
-        // [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetAllAsync([FromQuery] UserQueryDto userQueryDto)
         {
             var response = await _userService.GetAllUsersAsync(userQueryDto);

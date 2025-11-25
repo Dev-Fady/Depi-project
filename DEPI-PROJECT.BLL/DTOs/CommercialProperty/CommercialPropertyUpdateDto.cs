@@ -1,4 +1,5 @@
-﻿using DEPI_PROJECT.DAL.Models.Enums;
+﻿using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
+using DEPI_PROJECT.DAL.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,7 @@ namespace DEPI_PROJECT.BLL.DTOs.CommercialProperty
 {
     public class CommercialPropertyUpdateDto
     {
-        public Guid? PropertyId { get; set; }
-
+        public string? Title { get; set; }
         public string? City { get; set; }
         public string? Address { get; set; }
         public string? GoogleMapsUrl { get; set; }
@@ -28,6 +28,6 @@ namespace DEPI_PROJECT.BLL.DTOs.CommercialProperty
         public string? BusinessType { get; set; }
         public int? FloorNumber { get; set; }
         public bool? HasStorage { get; set; }
-        public CommercialAmenityAddDto? Amenity { get; set; }
+        public AmenityAddDto? Amenity { get; set; }
     }
 }

@@ -11,9 +11,9 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
     public interface IAgentRepo
     {
         public IQueryable<Agent> GetAll();
-        public Task<Agent?> GetByIdAsync(Guid AgentId);
+        public Task<Agent?> GetByIdAsync(Guid UserId);
         public Task<Agent?> CreateAsync(Agent agent);
         public Task<bool> UpdateAsync(Agent agent);
-        public Task<bool> DeleteAsync(Guid AgentId);
+        public Task<bool> DeleteAsync(Guid UserId);
     }
 }

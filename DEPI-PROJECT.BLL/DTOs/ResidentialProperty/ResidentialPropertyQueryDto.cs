@@ -7,6 +7,7 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
 {
     public class ResidentialPropertyQueryDto : PagedQueryDto
     {
+        public Guid? UserId { get; set; } 
         public int? Bedrooms { get; set; }
         public int? Bathrooms { get; set; }
         public int? Floors { get; set; }

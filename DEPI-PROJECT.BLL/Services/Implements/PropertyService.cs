@@ -35,7 +35,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             _residentialPropertyRepo = residentialPropertyRepo;
             _mapper = mapper;
         }
-        public async Task<ResponseDto<PagedResultDto<PropertyReadDto>>> GetAll(PropertyQueryDto propertyQueryDto)
+        public async Task<ResponseDto<PagedResultDto<AllPropertyReadDto>>> GetAll(PropertyQueryDto propertyQueryDto)
         {
             var query1 = _commercialPropertyRepo.GetAllProperties();
             var query2 = _residentialPropertyRepo.GetAllResidentialProperty();
@@ -45,8 +45,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                         .IF(propertyQueryDto.PropertyType != null, a => a.PropertyType == propertyQueryDto.PropertyType)
                         .IF(propertyQueryDto.PropertyStatus != null, a => a.PropertyStatus == propertyQueryDto.PropertyStatus)
                         .IF(propertyQueryDto.PropertyPurpose != null, a => a.PropertyPurpose == propertyQueryDto.PropertyPurpose)
-                        .IF(propertyQueryDto.Address != null, a => a.Address.Contains(propertyQueryDto.Address))
-                        .IF(propertyQueryDto.Description != null, a => a.Description.Contains(propertyQueryDto.Description))
+                        .IF(propertyQueryDto.Address != null, a => a.Address.Contains(propertyQueryDto.Address ?? ""))
+                        .IF(propertyQueryDto.Title != null, a => a.Title.Contains(propertyQueryDto.Title ?? ""))
+                        .IF(propertyQueryDto.Description != null, a => a.Description.Contains(propertyQueryDto.Description ?? ""))
                         .IF(propertyQueryDto.UpToPrice != null, a => a.Price <= propertyQueryDto.UpToPrice)
                         .IF(propertyQueryDto.UpToSquare != null, a => a.Square <= propertyQueryDto.UpToSquare)
                         .Paginate(new PagedQueryDto { PageNumber = propertyQueryDto.PageNumber, PageSize = propertyQueryDto.PageSize })
@@ -65,8 +66,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                     .IF(propertyQueryDto.PropertyType != null, a => a.PropertyType == propertyQueryDto.PropertyType)
                     .IF(propertyQueryDto.PropertyStatus != null, a => a.PropertyStatus == propertyQueryDto.PropertyStatus)
                     .IF(propertyQueryDto.PropertyPurpose != null, a => a.PropertyPurpose == propertyQueryDto.PropertyPurpose)
-                    .IF(propertyQueryDto.Address != null, a => a.Address.Contains(propertyQueryDto.Address))
-                    .IF(propertyQueryDto.Description != null, a => a.Description.Contains(propertyQueryDto.Description))
+                    .IF(propertyQueryDto.Address != null, a => a.Address.Contains(propertyQueryDto.Address ?? ""))
+                    .IF(propertyQueryDto.Description != null, a => a.Description.Contains(propertyQueryDto.Description ?? ""))
                     .IF(propertyQueryDto.UpToPrice != null, a => a.Price <= propertyQueryDto.UpToPrice)
                     .IF(propertyQueryDto.UpToSquare != null, a => a.Square <= propertyQueryDto.UpToSquare)
                     .Paginate(new PagedQueryDto { PageNumber = propertyQueryDto.PageNumber, PageSize = propertyQueryDto.PageSize })
@@ -80,23 +81,48 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                             propertyQueryDto.IsDesc
                     ).ToListAsync();
 
-            List<PropertyReadDto> propertyReadDto = new List<PropertyReadDto>
+            List<AllPropertyReadDto> propertyReadDto = new List<AllPropertyReadDto>
             {
-                new PropertyReadDto{
+                new AllPropertyReadDto{
                     CommercialProperties = _mapper.Map<IEnumerable<CommercialPropertyReadDto>>(commercials),
                     ResidentialProperties = _mapper.Map<IEnumerable<ResidentialPropertyReadDto>>(residentials),
                 }
             };
 
             int totalCount = query1.Count() + query2.Count();
-            var pagedResult = new PagedResultDto<PropertyReadDto>(propertyReadDto, propertyQueryDto.PageNumber, totalCount, propertyQueryDto.PageSize);
+            var pagedResult = new PagedResultDto<AllPropertyReadDto>(propertyReadDto, propertyQueryDto.PageNumber, totalCount, propertyQueryDto.PageSize);
 
-            return new ResponseDto<PagedResultDto<PropertyReadDto>>
+            return new ResponseDto<PagedResultDto<AllPropertyReadDto>>
             {
                 Data = pagedResult,
                 Message = "Properties returned successfully",
                 IsSuccess = true
             };
+        }
+
+        public async Task<bool> CheckPropertyExist(Guid PropertyId)
+        {
+            var ResidentialProperty = await _residentialPropertyRepo.GetResidentialPropertyByIdAsync(PropertyId);
+            var commercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(PropertyId);
+            if (ResidentialProperty == null && commercialProperty == null)
+            {
+                return false;
+            }
+            return true;
+        }
+        public async Task<PropertyResponseDto?> GetPropertyById(Guid PropertyId)
+        {
+            var ResidentialProperty = await _residentialPropertyRepo.GetResidentialPropertyByIdAsync(PropertyId);
+            if (ResidentialProperty != null)
+            {
+                return _mapper.Map<PropertyResponseDto>(ResidentialProperty);
+            }
+            var CommercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(PropertyId);
+            if (CommercialProperty != null)
+            {
+                return _mapper.Map<PropertyResponseDto>(CommercialProperty);
+            }
+            return null;
         }
     }
 

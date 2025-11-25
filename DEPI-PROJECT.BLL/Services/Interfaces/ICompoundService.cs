@@ -1,6 +1,7 @@
 ﻿using DEPI_PROJECT.BLL.DTOs.Compound;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
         Task<ResponseDto<CompoundReadDto>> AddCompoundAsync(CompoundAddDto compoundDto);
         Task<ResponseDto<bool>> UpdateCompoundAsync(Guid id, CompoundUpdateDto compoundDto);
         Task<ResponseDto<bool>> DeleteCompoundAsync(Guid id);
+        Task<Compound> GetCompoundIfExistsAsync(Guid id);
     }
 }

@@ -1,6 +1,7 @@
 using AutoMapper;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.Role;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using Microsoft.AspNetCore.Identity;
@@ -30,7 +31,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                             .Select(r => new RoleResponseDto
                             {
                                 RoleId = r.Id,
-                                RoleName = r.Name
+                                RoleName = r.Name!
                             }
                             )
                             .ToListAsync();
@@ -54,14 +55,10 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         
         public async Task<ResponseDto<RoleResponseDto>> GetByName(string RoleName)
         {
-            Role role = await _roleManager.FindByNameAsync(RoleName);
+            Role? role = await _roleManager.FindByNameAsync(RoleName);
             if (role == null)
             {
-                return new ResponseDto<RoleResponseDto>
-                {
-                    Message = $"No role found with name {RoleName}",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No role found with name {RoleName}");
             }
 
             RoleResponseDto roleResponseDto = _mapper.Map<Role, RoleResponseDto>(role);
@@ -81,11 +78,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var identityResult = await _roleManager.CreateAsync(role);
             if (!identityResult.Succeeded)
             {
-                return new ResponseDto<RoleResponseDto>
-                {
-                    Message = "An error occurred while creating the role, please try again",
-                    IsSuccess = false
-                };
+                throw new BadRequestException(identityResult.Errors.ElementAt(0).Description
+                        ?? "An error occurred while creating the role, please try again");
             }
 
             var roleResponseDto = _mapper.Map<Role, RoleResponseDto>(role);
@@ -105,11 +99,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             if (role == null)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = "No response with the specified ID",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No role found with Id {roleUpdateDto.RoleId}");
             }
 
             _mapper.Map<RoleUpdateDto, Role>(roleUpdateDto, role);
@@ -118,12 +108,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             
             if (!identityResult.Succeeded)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = identityResult.Errors.ElementAt(0).Description 
-                                ?? "An error occurred while updating the role, please try again",
-                    IsSuccess = false
-                };
+                throw new BadRequestException(identityResult.Errors.ElementAt(0).Description 
+                        ?? "An error occurred while updating the role, please try again");
             }
 
             return new ResponseDto<bool>
@@ -139,21 +125,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             if (role == null)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = $"No role found with Id: {RoleId}",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No role found with Id {RoleId}");
+
             }
             
             var identityResult = await _roleManager.DeleteAsync(role);
             if (!identityResult.Succeeded)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = "An error occurred while deleting the role, please try again",
-                    IsSuccess = false
-                };
+                throw new BadRequestException(identityResult.Errors.ElementAt(0).Description
+                        ?? "An error occurred while deleting the role, please try again");
             }
 
             return new ResponseDto<bool>

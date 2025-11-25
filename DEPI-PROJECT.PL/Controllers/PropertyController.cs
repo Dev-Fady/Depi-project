@@ -5,6 +5,7 @@ using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Services.Implements;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.PL.Helper_Function;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,18 +15,17 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class PropertyController : ControllerBase
     {
-        private readonly PropertyService _propertyService;
+        private readonly IPropertyService _propertyService;
 
-        public PropertyController(PropertyService propertyService)
+        public PropertyController(IPropertyService propertyService)
         {
             _propertyService = propertyService;
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ResponseDto<PagedResultDto<PropertyReadDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<PagedResultDto<AllPropertyReadDto>>), StatusCodes.Status200OK)]
         
         public async Task<IActionResult> GetAll([FromQuery] PropertyQueryDto propertyQueryDto)
         {

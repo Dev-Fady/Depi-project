@@ -8,10 +8,10 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
     public interface IBrokerService
     {
         public Task<ResponseDto<PagedResultDto<BrokerResponseDto>>> GetAllAsync(BrokerQueryDto BrokerQueryDto);
-        public Task<ResponseDto<BrokerResponseDto>> GetByIdAsync(Guid BrokerId);
+        public Task<ResponseDto<BrokerResponseDto>> GetByIdAsync(Guid UserId);
         public Task<ResponseDto<BrokerResponseDto>> CreateAsync(BrokerCreateDto roleCreateDto);
         public Task<ResponseDto<bool>> UpdateAsync(BrokerUpdateDto roleUpdateDto);
-        public Task<ResponseDto<bool>> DeleteAsync(Guid BrokerId);
+        public Task<ResponseDto<bool>> DeleteAsync(Guid UserId);
 
     }
 }

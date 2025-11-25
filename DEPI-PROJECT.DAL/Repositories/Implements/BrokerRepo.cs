@@ -27,11 +27,11 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                             .AsQueryable();
         }
 
-        public async Task<Broker?> GetByIdAsync(Guid BrokerId)
+        public async Task<Broker?> GetByIdAsync(Guid UserId)
         {
             return await _context.Brokers
                             .Include(a => a.User)
-                            .FirstOrDefaultAsync(a => a.Id == BrokerId);
+                            .FirstOrDefaultAsync(a => a.UserId == UserId);
                             
         }
 
@@ -53,9 +53,9 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> DeleteAsync(Guid BrokerId)
+        public async Task<bool> DeleteAsync(Guid UserId)
         {
-            var Broker = await _context.Brokers.FirstOrDefaultAsync(a => a.Id == BrokerId);
+            var Broker = await _context.Brokers.FirstOrDefaultAsync(a => a.UserId == UserId);
             if (Broker == null)
             {
                 return false;

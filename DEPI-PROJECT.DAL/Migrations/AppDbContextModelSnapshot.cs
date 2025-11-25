@@ -283,6 +283,11 @@ namespace DEPI_PROJECT.DAL.Migrations
                     b.Property<float>("Square")
                         .HasColumnType("real");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.HasKey("PropertyId");
 
                     b.HasIndex("AgentId");

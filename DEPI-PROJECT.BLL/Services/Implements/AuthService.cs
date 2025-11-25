@@ -9,6 +9,7 @@ using DEPI_PROJECT.BLL.DTOs.Authentication;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.Role;
 using DEPI_PROJECT.BLL.DTOs.UserRole;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Models.Enums;
@@ -44,11 +45,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var roleResult = await _roleService.GetByName(authRegisterDto.RoleDiscriminator.ToString());
             if (!roleResult.IsSuccess)
             {
-                return new ResponseDto<AuthResponseDto>
-                {
-                    Message = $"No Role exist with name {authRegisterDto.RoleDiscriminator}",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No Role exist with name {authRegisterDto.RoleDiscriminator}");
             }
 
             // Register the new user
@@ -59,41 +56,35 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             if (!identityResult.Succeeded)
             {
-                return new ResponseDto<AuthResponseDto>
-                {
-                    Message = "An error occured while registering the user. Please try again",
-                    IsSuccess = false
-                };
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
+                        ?? "An error occured while registering the user. Please try again");
             }
 
             //Create Claims
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Name, user.UserName!),
                 new Claim(ClaimTypes.Version, "0"),
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
             };
 
-            await _userManager.AddClaimsAsync(user, claims);
-
-            // Assignning user to their role
-            var result = await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = user.UserId, RoleId = roleResult.Data.RoleId });
-
-            if (!result.IsSuccess)
+            identityResult = await _userManager.AddClaimsAsync(user, claims);
+            if (!identityResult.Succeeded)
             {
-                return new ResponseDto<AuthResponseDto>
-                {
-                    Message = result.Message,
-                    IsSuccess = false
-                };
+                throw new Exception(identityResult.Errors.ElementAt(0).Description
+                        ?? "An error occured while adding user claims. Please try again");
             }
+            
+            // Assignning user to their role
+            await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = user.UserId, RoleId = roleResult.Data!.RoleId });
 
-            string ToeknGenerated = _jwtService.GenerateToken(claims);
+            var allClaims = await _userManager.GetClaimsAsync(user);
+            string TokenGenerated = _jwtService.GenerateToken(allClaims.ToList());
 
             var authResponseDto = new AuthResponseDto
             {
                 UserId = user.UserId,
-                JwtToken = ToeknGenerated
+                JwtToken = TokenGenerated
             };
 
             return new ResponseDto<AuthResponseDto>
@@ -110,21 +101,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             if (user == null)
             {
-                return new ResponseDto<AuthResponseDto>
-                {
-                    Message = "No username match, please try another one",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No user found with the username {authLoginDto.UserName}");
             }
 
             bool VALID = await _userManager.CheckPasswordAsync(user, authLoginDto.Password);
             if(!VALID)
             {
-                return new ResponseDto<AuthResponseDto>
-                {
-                    Message = "Password doesn't match the current username",
-                    IsSuccess = false
-                };
+                throw new BadRequestException("Password doesn't match the current username");
             }
 
             var claims = await _userManager.GetClaimsAsync(user);
@@ -147,26 +130,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> LogoutAsync(Guid userId)
         {
-            User user = await _userManager.FindByIdAsync(userId.ToString());
+            User? user = await _userManager.FindByIdAsync(userId.ToString());
             if (user == null)
             {
-                return new ResponseDto<bool>
-                {
-                    Message = "No userId match found",
-                    IsSuccess = false
-                };
+                throw new NotFoundException($"No user found with user Id {userId}");
             }
 
-            var result = await _jwtService.InvalidateToken(user);
-
-            if (!result.IsSuccess)
-            {
-                return new ResponseDto<bool>
-                {
-                    Message = "An error occurred while logging out, please try again",
-                    IsSuccess = false
-                };
-            }
+            await _jwtService.InvalidateToken(user);
 
             return new ResponseDto<bool>
             {

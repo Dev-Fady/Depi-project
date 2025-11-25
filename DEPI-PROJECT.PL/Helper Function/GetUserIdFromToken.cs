@@ -15,7 +15,7 @@ namespace DEPI_PROJECT.PL.Helper_Function
                 return userId;
             }
 
-            throw new InvalidOperationException("Authenticated User ID (NameIdentifier) not found or invalid.");
+            return Guid.Empty;
         }
     }
 }

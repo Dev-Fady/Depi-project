@@ -14,6 +14,8 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
         public Task<int> CountLikesByCommentId(Guid commentId);
         public Task<LikeComment?> GetLikeCommentByUserAndCommentId(Guid userId, Guid commentId);
 
-        public IQueryable<LikeComment>? GetAllLikesByCommentId();
+        public IQueryable<LikeComment> GetAllLikesByCommentId(Guid CommentId);
+        public IQueryable<LikeComment> GetAllLikesByCommentsId(List<Guid> CommentIds);
+
     }
 }

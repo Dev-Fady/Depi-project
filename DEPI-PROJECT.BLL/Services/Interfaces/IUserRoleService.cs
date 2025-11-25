@@ -12,7 +12,6 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
         public Task<ResponseDto<UserRolesDto>> GetRolesFromUser(Guid UserId);
         public Task<ResponseDto<bool>> AssignUserToRole(UserRoleDto userRoleDto);
         public Task<ResponseDto<bool>> RemoveUserFromRole(UserRoleDto userRoleDto);
-
-
+        public Task<ResponseDto<bool>> RemoveUserFromRoleByRoleName(UserRoleByRoleNameDto userRoleDto);
     }
 }

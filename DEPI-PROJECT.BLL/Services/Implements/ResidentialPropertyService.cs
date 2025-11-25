@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
 using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Extensions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
@@ -24,19 +26,29 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly IResidentialPropertyRepo _repo;
         private readonly IMapper _mapper;
         private readonly ILikePropertyRepo _likePropertyRepo;
-        public ResidentialPropertyService(IMapper mapper, IResidentialPropertyRepo repo , ILikePropertyRepo likePropertyRepo)
+        private readonly IAgentService _agentService;
+        private readonly ICompoundService _compoundService;
+
+        public ResidentialPropertyService(IMapper mapper, 
+                                          IResidentialPropertyRepo repo, 
+                                          ILikePropertyRepo likePropertyRepo,
+                                          IAgentService agentService,
+                                          ICompoundService compoundService)
         {
             _mapper = mapper;
             _repo = repo;
             _likePropertyRepo = likePropertyRepo;
+            _agentService = agentService;
+            _compoundService = compoundService;
         }
-        public async Task<ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>> GetAllResidentialPropertyAsync(Guid CurrentUserId, ResidentialPropertyQueryDto queryDto)
+        public async Task<ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>> GetAllResidentialPropertyAsync(Guid UserId, ResidentialPropertyQueryDto queryDto)
         {
             var query = _repo.GetAllResidentialProperty();
 
             var result = await query.IF(queryDto.Bedrooms != null, a => a.Bedrooms == queryDto.Bedrooms)
                                     .IF(queryDto.Bathrooms != null, a => a.Bathrooms == queryDto.Bathrooms)
                                     .IF(queryDto.Floors != null, a => a.Floors == queryDto.Floors)
+                                    .IF(queryDto.UserId != null, a => a.Agent.UserId == queryDto.UserId)
                                     .IF(queryDto.KitchenType != null, a => a.KitchenType == queryDto.KitchenType)
                                     .Paginate(new PagedQueryDto { PageNumber = queryDto.PageNumber, PageSize = queryDto.PageSize })
                                     .ToListAsync();
@@ -47,8 +59,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             //Add Islike , count for each comment
             var PropertiesIds = mappedData.Select(p => p.PropertyId).ToList();
-            var CountPropertyDic = await _likePropertyRepo.GetAllLikesByPropertyId()
-                                    .Where(lc => PropertiesIds.Contains(lc.PropertyId))
+            var CountPropertyDic = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
                                     .GroupBy(lc => lc.PropertyId)
                                     .Select(n => new
                                     {
@@ -57,8 +68,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                     })
                                     .ToDictionaryAsync(n => n.PropertyId, n => n.Count);
 
-            var IsLikedHash = await _likePropertyRepo.GetAllLikesByPropertyId()
-                                    .Where(lc => lc.UserID == CurrentUserId && PropertiesIds.Contains(lc.PropertyId))
+            var IsLikedHash = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
+                                    .Where(lc => lc.UserID == UserId)
                                     .Select(n => n.PropertyId)
                                     .ToHashSetAsync();
 
@@ -94,16 +105,12 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<ResidentialPropertyReadDto>> GetResidentialPropertyByIdAsync(Guid CurrentUserId, Guid id)
+        public async Task<ResponseDto<ResidentialPropertyReadDto>> GetResidentialPropertyByIdAsync(Guid UserId, Guid id)
         {
             var property = await _repo.GetResidentialPropertyByIdAsync(id);
             if (property == null)
             {
-                return new ResponseDto<ResidentialPropertyReadDto>
-                {
-                    IsSuccess = false,
-                    Message = "Residential property not found."
-                };
+                throw new NotFoundException($"No property found with ID {id}");
             }
 
             var mapped = _mapper.Map<ResidentialPropertyReadDto>(property);
@@ -112,7 +119,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             //count likes --> call likeCommentRepo
             mapped.LikesCount = await _likePropertyRepo.CountLikesByPropertyId(mapped.PropertyId);
             //check is liked by Current user
-            mapped.IsLiked = await _likePropertyRepo.GetLikePropertyByUserAndPropertyId(CurrentUserId, mapped.PropertyId) != null; 
+            mapped.IsLiked = await _likePropertyRepo.GetLikePropertyByUserAndPropertyId(UserId, mapped.PropertyId) != null; 
             #endregion
 
             return new ResponseDto<ResidentialPropertyReadDto>
@@ -123,9 +130,23 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<ResidentialPropertyReadDto>> AddResidentialPropertyAsync(ResidentialPropertyAddDto propertyDto)
+        public async Task<ResponseDto<ResidentialPropertyReadDto>> AddResidentialPropertyAsync(Guid UserId, ResidentialPropertyAddDto propertyDto)
         {
-            var property = _mapper.Map<EntityResidentialProperty>(propertyDto);
+            if(propertyDto.UserId != UserId)
+            {
+                throw new UnauthorizedAccessException($"Current user unauthorized to do such action, mismatch Ids: Current ID {UserId}, givenId {propertyDto.UserId}");
+            }
+
+            // check if compound exists in request body and database
+            if(propertyDto.CompoundId.HasValue){
+                await _compoundService.GetCompoundIfExistsAsync(propertyDto.CompoundId.Value);
+            }
+
+            var property = _mapper.Map<ResidentialProperty>(propertyDto);
+            
+            // find if agent exist
+            var agent = await _agentService.GetByIdAsync(UserId);
+            property.AgentId = agent.Data!.Id;
             await _repo.AddResidentialPropertyAsync(property);
 
             if (propertyDto.Amenity != null)
@@ -135,26 +156,27 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 await _repo.AddAmenityAsync(amenity);
             }
 
+            var PropertyResponseDto = _mapper.Map<ResidentialPropertyReadDto>(property);
+
+            PropertyResponseDto.UserId = propertyDto.UserId;
+
             return new ResponseDto<ResidentialPropertyReadDto>
             {
                 IsSuccess = true,
                 Message = "Residential property added successfully.",
-                Data = _mapper.Map<ResidentialPropertyReadDto>(property)
+                Data = PropertyResponseDto
             };
         }
 
-        public async Task<ResponseDto<bool>> UpdateResidentialPropertyAsync(Guid id, ResidentialPropertyUpdateDto propertyDto)
+        public async Task<ResponseDto<bool>> UpdateResidentialPropertyAsync(Guid UserId, Guid id, ResidentialPropertyUpdateDto propertyDto)
         {
             var existing = await _repo.GetResidentialPropertyByIdAsync(id);
             if (existing == null)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Residential property not found.",
-                    Data = false
-                };
+                throw new NotFoundException($"No property found with ID {id} for UserId {UserId}");
             }
+
+            CommonFunctions.EnsureAuthorized(existing.Agent.UserId);
 
             _mapper.Map(propertyDto, existing);
             if (propertyDto.Amenity != null)
@@ -182,18 +204,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<bool>> DeleteResidentialPropertyAsync(Guid id)
+        public async Task<ResponseDto<bool>> DeleteResidentialPropertyAsync(Guid UserId, Guid id)
         {
             var existing = await _repo.GetResidentialPropertyByIdAsync(id);
             if (existing == null)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = "Residential property not found.",
-                    Data = false
-                };
+                throw new NotFoundException($"No property found with ID {id}");
             }
+
+            CommonFunctions.EnsureAuthorized(existing.Agent.UserId);
 
             await _repo.DeleteResidentialPropertyAsync(id);
 

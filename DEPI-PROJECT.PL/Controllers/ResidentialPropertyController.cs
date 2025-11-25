@@ -13,7 +13,6 @@ namespace DEPI_PROJECT.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ResidentialPropertyController : ControllerBase
     {
         private readonly IResidentialPropertyService _residentialPropertyService;
@@ -57,10 +56,11 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ResponseDto<ResidentialPropertyReadDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "AGENT")]
         public async Task<IActionResult> AddResidentialProperty([FromBody] ResidentialPropertyAddDto propertyDto)
         {
-            var response = await _residentialPropertyService.AddResidentialPropertyAsync(propertyDto);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var response = await _residentialPropertyService.AddResidentialPropertyAsync(UserId, propertyDto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -71,10 +71,11 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN,AGENT")]
         public async Task<IActionResult> UpdateResidentialProperty(Guid id, [FromBody] ResidentialPropertyUpdateDto propertyDto)
         {
-            var response = await _residentialPropertyService.UpdateResidentialPropertyAsync(id, propertyDto);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var response = await _residentialPropertyService.UpdateResidentialPropertyAsync(UserId, id, propertyDto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);
@@ -85,10 +86,11 @@ namespace DEPI_PROJECT.PL.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-        
+        [Authorize(Roles = "ADMIN,AGENT")]
         public async Task<IActionResult> DeleteResidentialProperty(Guid id)
         {
-            var response = await _residentialPropertyService.DeleteResidentialPropertyAsync(id);
+            var UserId = GetUserIdFromToken.GetCurrentUserId(this);
+            var response = await _residentialPropertyService.DeleteResidentialPropertyAsync(UserId, id);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);

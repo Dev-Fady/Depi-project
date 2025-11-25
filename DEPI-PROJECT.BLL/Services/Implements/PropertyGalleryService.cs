@@ -1,6 +1,10 @@
-﻿using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
+﻿using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
+using DEPI_PROJECT.BLL.DTOs.PropertyGallery;
 using DEPI_PROJECT.BLL.DTOs.Response;
+using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
+using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using System.Threading.Tasks;
 using DataModel = DEPI_PROJECT.DAL.Models;
@@ -10,29 +14,38 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     public class PropertyGalleryService : IPropertyGalleryService
     {
         private readonly IPropertyGalleryRepo _repo;
+        private readonly IPropertyService _propertyService;
+        private readonly IMapper _mapper;
 
-        public PropertyGalleryService(IPropertyGalleryRepo repo)
+        public PropertyGalleryService(IPropertyGalleryRepo repo,
+                                      IPropertyService propertyService,
+                                      IMapper mapper)
         {
             _repo = repo;
+            _propertyService = propertyService;
+            _mapper = mapper;
         }
 
-        public async Task<ResponseDto<string>> AddAsync(PropertyGalleryAddDto dto)
+        public async Task<ResponseDto<string>> AddAsync(Guid UserId, PropertyGalleryAddDto dto)
         {
-            if (dto.MediaFiles == null || !dto.MediaFiles.Any())
+            if (await CheckAuthorizedAgent(UserId, dto.PropertyId) == false)
             {
                 return new ResponseDto<string>
                 {
                     IsSuccess = false,
-                    Message = "No media files uploaded.",
-                    Data = null
+                    Message = "Unauthorized upload"
                 };
+            }
+            if (dto.MediaFiles == null || !dto.MediaFiles.Any())
+            {
+                throw new BadRequestException("Expected media files");
             }
 
             var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
             if (!Directory.Exists(uploadDir))
                 Directory.CreateDirectory(uploadDir);
 
-            var galleryList = new List<DataModel.PropertyGallery>();
+            var galleryList = new List<PropertyGallery>();
 
             foreach (var file in dto.MediaFiles)
             {
@@ -45,7 +58,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
                 var fileUrl = $"/uploads/{fileName}";
 
-                var gallery = new DataModel.PropertyGallery
+                var gallery = new PropertyGallery
                 {
                     MediaId = Guid.NewGuid(),
                     PropertyId = dto.PropertyId,
@@ -70,18 +83,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<bool>> DeleteAsync(Guid id)
+        public async Task<ResponseDto<bool>> DeleteAsync(Guid UserId, Guid id)
         {
             var gallery = await _repo.GetByIdAsync(id);
             if (gallery == null)
             {
-                return new ResponseDto<bool>
-                {
-                    IsSuccess = false,
-                    Message = $"Gallery item with id {id} not found.",
-                    Data = false
-                };
+                throw new NotFoundException($"No media file found with Id {id}");
             }
+
+            CommonFunctions.EnsureAuthorized(gallery.Property.Agent.UserId);
 
             string? filePath = null;
             if (!string.IsNullOrEmpty(gallery.ImageUrl))
@@ -127,12 +137,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var g = await _repo.GetByIdAsync(id);
             if (g == null)
             {
-                return new ResponseDto<PropertyGalleryReadDto>
-                {
-                    IsSuccess = false,
-                    Message = $"Gallery item with id {id} not found.",
-                    Data = null
-                };
+                throw new NotFoundException($"No media file found with Id {id}");
             }
 
             return new ResponseDto<PropertyGalleryReadDto>
@@ -150,16 +155,25 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        public async Task<ResponseDto<IEnumerable<DataModel.PropertyGallery>>> GetByPropertyIdAsync(Guid propertyId)
+        public async Task<ResponseDto<IEnumerable<PropertyGalleryReadDto>>> GetByPropertyIdAsync(Guid propertyId)
         {
             var data = await _repo.GetByPropertyIdAsync(propertyId);
 
-            return new ResponseDto<IEnumerable<DataModel.PropertyGallery>>
+            return new ResponseDto<IEnumerable<PropertyGalleryReadDto>>
             {
                 IsSuccess = true,
                 Message = $"Gallery items for property {propertyId} retrieved successfully.",
-                Data = data
+                Data = _mapper.Map<IEnumerable<PropertyGalleryReadDto>>(data)
             };
+        }
+        private async Task<bool> CheckAuthorizedAgent(Guid UserId, Guid propertyId)
+        {
+            var property = await _propertyService.GetPropertyById(propertyId);
+            if (property == null)
+            {
+                throw new NotFoundException($"No property found with ID {propertyId}");
+            }
+            return property.UserId == UserId;
         }
     }
 

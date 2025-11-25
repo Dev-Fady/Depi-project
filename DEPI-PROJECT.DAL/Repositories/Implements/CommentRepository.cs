@@ -24,7 +24,9 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
 
         public async Task<int> CountAllComments(Guid propertyId)
         {
-            var result = await _appDbContext.Comments.Where(c => c.PropertyId == propertyId).CountAsync();
+            var result = await _appDbContext.Comments
+                                            .Where(c => c.PropertyId == propertyId)
+                                            .CountAsync();
             return result;
         }
 
@@ -34,9 +36,10 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             return await _appDbContext.SaveChangesAsync() > 0;
         }
 
-        public  IQueryable<Comment>? GetAllCommentsByPropertyId()
+        public  IQueryable<Comment> GetAllCommentsByPropertyId(Guid propertyId)
         {
-            var comments = _appDbContext.Comments;
+            var comments = _appDbContext.Comments
+                                        .Where(c => c.PropertyId == propertyId);
             return comments;
         }
 

@@ -57,6 +57,8 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
         public async Task<PropertyGallery?> GetByIdAsync(Guid id)
         {
             return await _context.PropertyGalleries
+                            .Include(g => g.Property)
+                                .ThenInclude(p => p.Agent)
                            //.AsNoTracking()
                            .FirstOrDefaultAsync(g => g.MediaId == id);
         }
