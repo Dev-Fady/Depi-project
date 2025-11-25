@@ -23,20 +23,28 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     {
         private readonly IMapper _mapper;
         private readonly ICommercialPropertyRepo _repo;
+        private readonly IAgentService _agentService;
+        private readonly ICompoundService _compoundService;
         private readonly ILikePropertyRepo _likePropertyRepo;
 
-        public CommercialPropertyService(IMapper mapper,ICommercialPropertyRepo repo , ILikePropertyRepo likePropertyRepo)
+        public CommercialPropertyService(IMapper mapper,
+                                        ICommercialPropertyRepo repo, 
+                                        ILikePropertyRepo likePropertyRepo,
+                                        IAgentService agentService,
+                                        ICompoundService compoundService)
         {
             _mapper = mapper;
             _repo = repo;
             _likePropertyRepo = likePropertyRepo;
+            _agentService = agentService; 
+            _compoundService = compoundService;
         }
 
         public async Task<ResponseDto<PagedResultDto<CommercialPropertyReadDto>>> GetAllPropertiesAsync(Guid UserId, CommercialPropertyQueryDto queryDto)
         {
             IQueryable<CommercialProperty> query = _repo.GetAllProperties();
             
-            var result = await query.IF(queryDto.BusinessType != null, a => a.BusinessType.Contains(queryDto.BusinessType))
+            var result = await query.IF(queryDto.BusinessType != null, a => a.BusinessType.Contains(queryDto.BusinessType ?? ""))
                                     .IF(queryDto.FloorNumber != null, a => a.FloorNumber == queryDto.FloorNumber)
                                     .IF(queryDto.HasStorage != null, a => a.HasStorage == queryDto.HasStorage)
                                     .IF(queryDto.UserId != null, a => a.Agent.UserId == queryDto.UserId)
@@ -151,14 +159,23 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 Data = true
             };
         }
-        public async Task<ResponseDto<CommercialPropertyReadDto>> AddPropertyAsync(Guid UserId, Guid AgentId, CommercialPropertyAddDto propertyDto)
+        public async Task<ResponseDto<CommercialPropertyReadDto>> AddPropertyAsync(Guid UserId, CommercialPropertyAddDto propertyDto)
         {
             if(propertyDto.UserId != UserId)
             {
                 throw new UnauthorizedAccessException($"Current user unauthorized to do such action, mismatch Ids: Current ID {UserId}, givenId {propertyDto.UserId}");
             }
+
+            // check if compound exists in request body and database
+            if(propertyDto.CompoundId.HasValue){
+                await _compoundService.GetCompoundIfExistsAsync(propertyDto.CompoundId.Value);
+            }
+
             var property = _mapper.Map<CommercialProperty>(propertyDto);
-            property.AgentId = AgentId;
+            
+            // find if agent exist
+            var agent = await _agentService.GetByIdAsync(UserId);
+            property.AgentId = agent.Data!.Id;
 
             await _repo.AddCommercialPropertyAsync(property);
             if (propertyDto.Amenity != null)

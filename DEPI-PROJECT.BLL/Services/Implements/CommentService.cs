@@ -119,7 +119,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         }
 
-        public async Task<ResponseDto<PagedResultDto<CommentGetDto?>>> GetAllCommentsByPropertyId(Guid CurrentUserId , Guid PropertyId, CommentQueryDto queryDto)
+        public async Task<ResponseDto<PagedResultDto<CommentGetDto>>> GetAllCommentsByPropertyId(Guid CurrentUserId , Guid PropertyId, CommentQueryDto queryDto)
         {
             //call all comments 
             var comments = _commentRepository.GetAllCommentsByPropertyId(PropertyId);
@@ -191,7 +191,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             //create paged result
             var pagedResult = new PagedResultDto<CommentGetDto>(mappedcomments , queryDto.PageNumber , totalComments , queryDto.PageSize);
             //return response 
-            return new ResponseDto<PagedResultDto<CommentGetDto?>>()
+            return new ResponseDto<PagedResultDto<CommentGetDto>>()
             {
                 IsSuccess = true,
                 Message = "Comments retrieved successfully",

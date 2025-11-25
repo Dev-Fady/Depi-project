@@ -63,7 +63,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             //Create Claims
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Name, user.UserName!),
                 new Claim(ClaimTypes.Version, "0"),
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
             };
@@ -76,7 +76,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
             
             // Assignning user to their role
-            await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = user.UserId, RoleId = roleResult.Data.RoleId });
+            await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = user.UserId, RoleId = roleResult.Data!.RoleId });
 
             var allClaims = await _userManager.GetClaimsAsync(user);
             string TokenGenerated = _jwtService.GenerateToken(allClaims.ToList());
@@ -130,7 +130,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> LogoutAsync(Guid userId)
         {
-            User user = await _userManager.FindByIdAsync(userId.ToString());
+            User? user = await _userManager.FindByIdAsync(userId.ToString());
             if (user == null)
             {
                 throw new NotFoundException($"No user found with user Id {userId}");

@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using AutoMapper;
-using DEPI_PROJECT.BLL.Constants;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.Role;
 using DEPI_PROJECT.BLL.DTOs.User;
@@ -10,6 +9,8 @@ using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Models.Enums;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace DEPI_PROJECT.BLL.Services.Implements
 {
@@ -17,22 +18,25 @@ namespace DEPI_PROJECT.BLL.Services.Implements
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
+        private readonly AppDbContext _context;
         private readonly IJwtService _jwtService;
         private readonly IMapper _mapper;
 
         public UserRoleService(UserManager<User> userManager,
                                RoleManager<Role> roleManager,
                                IJwtService jwtService,
-                               IMapper mapper)
+                               IMapper mapper,
+                               AppDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _jwtService = jwtService;
             _mapper = mapper;
+            _context = context;
         }
         public async Task<ResponseDto<List<UserResponseDto>>> GetUsersFromRole(Guid RoleId)
         {
-            Role role = await _roleManager.FindByIdAsync(RoleId.ToString());
+            Role? role = await _roleManager.FindByIdAsync(RoleId.ToString());
 
             if (role == null)
             {
@@ -40,7 +44,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
 
 
-            var users = await _userManager.GetUsersInRoleAsync(role.Name);
+            var users = await _userManager.GetUsersInRoleAsync(role.Name!);
 
             var userResponseDtos = _mapper.Map<IEnumerable<User>, IEnumerable<UserResponseDto>>(users);
 
@@ -60,12 +64,12 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 throw new NotFoundException($"No User associated with the given ID {UserId}");
             }
-            var Roles = await _userManager.GetRolesAsync(User);
+            var Roles = await _GetRolesFromUser(User);
 
             UserRolesDto userRolesDto = new UserRolesDto
             {
                 UserId = UserId,
-                Roles = (List<string>)Roles
+                Roles = Roles
             };
 
             return new ResponseDto<UserRolesDto>
@@ -80,7 +84,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             (User user, Role role) = await GetUserAndRole(userRoleDto);
 
-            var identityResult = await _userManager.AddToRoleAsync(user, role.Name);
+            var identityResult = await _userManager.AddToRoleAsync(user, role.Name!);
             if (!identityResult.Succeeded)
             {
                 throw new Exception(identityResult.Errors.ElementAt(0).Description
@@ -88,16 +92,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
 
             List<Claim> claims = new List<Claim>{
-                new Claim(ClaimTypes.Role, role.NormalizedName)
+                new Claim(ClaimTypes.Role, role.NormalizedName!)
             };
-
-            // Get agent/broker Id from claims if exists
-            var RoleIdClaim = GetAgentOrBrokerIdClaimIfExists(user, role.Name);
-
-            if (RoleIdClaim != null)
-            {
-                claims.Add(RoleIdClaim);
-            }
 
             identityResult = await _userManager.AddClaimsAsync(user, claims);
 
@@ -130,26 +126,27 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             (User user, Role role) = await GetUserAndRole(userRoleDto);
 
-            var identityResult = await _userManager.RemoveFromRoleAsync(user, role.Name);
+            var identityResult = await _userManager.RemoveFromRoleAsync(user, role.Name!);
             if (!identityResult.Succeeded)
             {
                 throw new Exception(identityResult.Errors.ElementAt(0).Description
                         ?? $"An error occurred while removing user from role {role.Name}");
             }
 
-            // List<Claim> claims = new List<Claim>
-            // {
-            //     new Claim(ClaimTypes.Role, role.NormalizedName)
-            // };
-
-            // Get agent/broker Id from claims if exists
             var claims = await _userManager.GetClaimsAsync(user);
 
-            List<Claim> claimsToDelete =
-            [
-                claims.FirstOrDefault(a => a.Type == ClaimTypes.Role),
-                claims.FirstOrDefault(a => a.Type == ClaimsConstants.AGENT_ID || a.Type == ClaimsConstants.BROKER_ID),
-            ];
+            var roleClaim = claims.FirstOrDefault(a => a.Type == ClaimTypes.Role);
+            if (roleClaim == null)
+            {
+                // User has no role claim to remove, but this might be OK
+                return new ResponseDto<bool>
+                {
+                    Message = $"User removed from role {role.Name} successfully (no role claim found)",
+                    IsSuccess = true
+                };
+            }
+
+            List<Claim> claimsToDelete = [roleClaim];
             
             identityResult = await _userManager.RemoveClaimsAsync(user, claimsToDelete);
             if (!identityResult.Succeeded)
@@ -183,32 +180,21 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             return new(user, role);
         }
-        
-        private Claim? GetAgentOrBrokerIdClaimIfExists(User user, string RoleName){
-            // Add agent/broker Id if exists
-            Claim RoleIdClaim = null;
 
-            if (Enum.TryParse<UserRoleOptions>(RoleName, true, out var roleOption))
-            {
-                if (roleOption == UserRoleOptions.Agent)
-                {
-                    if (user.Agent == null)
-                    {
-                        throw new NotFoundException($"there is no agent associated with ID {user.Id}");
-                    }
-                    RoleIdClaim = new Claim(ClaimsConstants.AGENT_ID, user.Agent.Id.ToString());
-                }
-                else if (roleOption == UserRoleOptions.Broker)
-                {
-                    if (user.Broker == null)
-                    {
-                        throw new NotFoundException($"there is no Broker associated with ID {user.Id}");
-                    }
-                    RoleIdClaim = new Claim(ClaimsConstants.BROKER_ID, user.Broker.Id.ToString());
-                }
-            }
-            return RoleIdClaim;
-
+        private async Task<List<RoleResponseDto>> _GetRolesFromUser(User user)
+        {
+            var Roles = await _context.UserRoles
+                    .Where(ur => ur.UserId == user.Id)
+                    .Join(_context.Roles,
+                          ur => ur.RoleId,
+                          r => r.Id,
+                          (ur, r) => new RoleResponseDto{
+                            RoleId = ur.RoleId,
+                            RoleName = r.Name!
+                          }
+                    )
+                    .ToListAsync();
+            return Roles;
         }
     }
 }

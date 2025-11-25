@@ -31,8 +31,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             var searchBy = userQueryDto.SearchText;
             var query = _userManager.Users
-                              .IF(searchBy != null, a => a.UserName.Contains(searchBy) ||
-                                                        a.Email.Contains(searchBy))
+                              .IF(searchBy != null, a => a.UserName!.Contains(searchBy ?? "") ||
+                                                        a.Email!.Contains(searchBy ?? ""))
                               .OrderByExtended(new List<Tuple<bool, Expression<Func<User, object>>>>
                               {
                                   new (userQueryDto.OrderByOption == OrderByUserOptions.DataJoind, a => a.DateJoined)

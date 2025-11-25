@@ -38,8 +38,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             var query = _BrokerRepo.GetAll();
 
-            var result = await query.IF(BrokerQueryDto.LicenseID != null, a => a.LicenseID.Contains(BrokerQueryDto.LicenseID))
-                                    .IF(BrokerQueryDto.NationalID != null, a => a.NationalID.Contains(BrokerQueryDto.NationalID))
+            var result = await query.IF(BrokerQueryDto.LicenseID != null, a => a.LicenseID.Contains(BrokerQueryDto.LicenseID ?? ""))
+                                    .IF(BrokerQueryDto.NationalID != null, a => a.NationalID.Contains(BrokerQueryDto.NationalID ?? ""))
                                     .Paginate(new PagedQueryDto { PageNumber = BrokerQueryDto.PageNumber, PageSize = BrokerQueryDto.PageSize })
                                     .OrderByExtended(new List<Tuple<bool, Expression<Func<Broker, object>>>>
                                                 {
@@ -91,7 +91,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             // Assignning user to role Broker
             var roleResponse = await _roleService.GetByName(UserRoleOptions.Broker.ToString());
-            var result = await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = Broker.UserId, RoleId = roleResponse.Data.RoleId });
+            var result = await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = Broker.UserId, RoleId = roleResponse.Data!.RoleId });
 
             
             var BrokerResponseDto = _mapper.Map<Broker, BrokerResponseDto>(Broker);

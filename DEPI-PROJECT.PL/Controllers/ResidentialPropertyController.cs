@@ -60,8 +60,7 @@ namespace DEPI_PROJECT.PL.Controllers
         public async Task<IActionResult> AddResidentialProperty([FromBody] ResidentialPropertyAddDto propertyDto)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);
-            var AgentId = GetAgentId.GetAgentIdFromUserId(this, UserId);
-            var response = await _residentialPropertyService.AddResidentialPropertyAsync(UserId, AgentId, propertyDto);
+            var response = await _residentialPropertyService.AddResidentialPropertyAsync(UserId, propertyDto);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);

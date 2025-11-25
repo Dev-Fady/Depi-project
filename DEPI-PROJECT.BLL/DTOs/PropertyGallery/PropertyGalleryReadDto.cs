@@ -2,9 +2,9 @@
 {
     public class PropertyGalleryReadDto
     {
-        public Guid MediaId { get; set; }
-        public Guid PropertyId { get; set; }
-        public string ImageUrl { get; set; }
+        public required Guid MediaId { get; set; }
+        public required Guid PropertyId { get; set; }
+        public required string ImageUrl { get; set; }
         public string? VideoUrl { get; set; }
         public DateTime UploadedAt { get; set; }
     }

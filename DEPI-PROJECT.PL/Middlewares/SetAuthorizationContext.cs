@@ -16,7 +16,7 @@ namespace DEPI_PROJECT.PL.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            if (context.User.Identity.IsAuthenticated)
+            if (context.User.Identity!.IsAuthenticated)
             {
 
                 var UserId = context.User.FindFirst(a => a.Type == ClaimTypes.NameIdentifier);

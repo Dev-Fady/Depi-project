@@ -12,7 +12,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
         public Task<bool> AddItemInWishList(Wishlist wishlist);
         public Task<bool> DeleteItemInWishList(Guid UserId, Guid ListingID);
 
-        public IQueryable<Wishlist>? GetAllWishList();
+        public IQueryable<Wishlist> GetAllWishList();
 
         public Task<Wishlist?> GetWishList(Guid UserId , Guid PropertyId);
 

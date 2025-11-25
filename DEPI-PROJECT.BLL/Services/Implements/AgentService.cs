@@ -38,7 +38,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         {
             var query = _agentRepo.GetAll();
 
-            var result = await query.IF(agentQueryDto.AgencyName != null, a => a.AgencyName.Contains(agentQueryDto.AgencyName))
+            var result = await query.IF(agentQueryDto.AgencyName != null, a => a.AgencyName.Contains(agentQueryDto.AgencyName ?? ""))
                                     .IF(agentQueryDto.MinRating != null, a => a.Rating >= agentQueryDto.MinRating)
                                     .IF(agentQueryDto.MinexperienceYears != null, a => a.ExperienceYears >= agentQueryDto.MinexperienceYears)
                                     .Paginate(new PagedQueryDto { PageNumber = agentQueryDto.PageNumber, PageSize = agentQueryDto.PageSize })
@@ -92,7 +92,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             // Assignning user to role Agent
             var roleResponse = await _roleService.GetByName(UserRoleOptions.Agent.ToString());
-            var result = await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = agent.UserId, RoleId = roleResponse.Data.RoleId });
+            var result = await _userRoleService.AssignUserToRole(new UserRoleDto { UserId = agent.UserId, RoleId = roleResponse.Data!.RoleId });
 
             var agentResponseDto = _mapper.Map<Agent, AgentResponseDto>(agent);
 

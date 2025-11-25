@@ -31,7 +31,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                             .Select(r => new RoleResponseDto
                             {
                                 RoleId = r.Id,
-                                RoleName = r.Name
+                                RoleName = r.Name!
                             }
                             )
                             .ToListAsync();
@@ -55,7 +55,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         
         public async Task<ResponseDto<RoleResponseDto>> GetByName(string RoleName)
         {
-            Role role = await _roleManager.FindByNameAsync(RoleName);
+            Role? role = await _roleManager.FindByNameAsync(RoleName);
             if (role == null)
             {
                 throw new NotFoundException($"No role found with name {RoleName}");

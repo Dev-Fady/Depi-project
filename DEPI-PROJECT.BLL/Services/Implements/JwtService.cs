@@ -28,15 +28,11 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         }
         public string GenerateToken(List<Claim> claims)
         {
+            string securityKey = _configuration.GetSection("JWT").GetSection("SecurityKey").Value 
+                                ?? throw new Exception("No Section Named \"SecurityKey\" in section \"JWT\", Check your appsettings.json");
 
-            string securityKey = _configuration.GetSection("JWT").GetSection("SecurityKey").Value;
-            if (securityKey == null)
-            {
-                throw new Exception("No Section Named \"SecurityKey\" in section \"JWT\", Check your appsettings.json");
-            }
-            double ExpirationTimeInMinutes;
 
-            if (!Double.TryParse(_configuration.GetSection("JWT").GetSection("ExpirationTimeInMinutes").Value, out ExpirationTimeInMinutes))
+            if (!Double.TryParse(_configuration.GetSection("JWT").GetSection("ExpirationTimeInMinutes").Value, out double ExpirationTimeInMinutes))
             {
                 throw new Exception("No Section Named \"ExpirationTimeInMinutes\" in section \"JWT\", Check your appsettings.json");
             }
