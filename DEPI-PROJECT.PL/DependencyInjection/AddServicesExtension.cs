@@ -3,6 +3,7 @@ using DEPI_PROJECT.BLL.Services.Implements;
 using DEPI_PROJECT.BLL.Mapper;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using DEPI_PROJECT.DAL.Repositories.Implements;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace DEPI_PROJECT.PL.DependencyInjection
 {
@@ -26,6 +27,8 @@ namespace DEPI_PROJECT.PL.DependencyInjection
             Services.AddScoped<ICommercialPropertyService, CommercialPropertyService>();
             Services.AddScoped<IPropertyGalleryService, PropertyGalleryService>();
             Services.AddScoped<ICompoundService, CompoundService>();
+            Services.AddScoped<ICacheService, CacheService>();
+            Services.AddSingleton<IMemoryCache, MemoryCache>();
             
             return Services;
         }
