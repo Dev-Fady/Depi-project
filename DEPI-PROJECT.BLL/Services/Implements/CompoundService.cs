@@ -40,7 +40,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                     .ToListAsync();
 
             var mappedData = _mapper.Map<List<CompoundReadDto>>(result);
-            var pagedResult = new PagedResultDto<CompoundReadDto>(mappedData, compoundQueryDto.PageNumber, query.Count(), compoundQueryDto.PageSize);
+            var pagedResult = new PagedResultDto<CompoundReadDto>(mappedData, compoundQueryDto.PageNumber, result.Count, compoundQueryDto.PageSize);
             
             return new ResponseDto<PagedResultDto<CompoundReadDto>>
             {

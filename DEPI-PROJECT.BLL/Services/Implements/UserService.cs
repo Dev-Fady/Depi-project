@@ -40,11 +40,13 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                               }, userQueryDto.IsDesc)
                               .AsQueryable();
 
-            var TotalCount = query.Count(); 
 
             var users = await query
                                 .Paginate(new PagedQueryDto {PageNumber = userQueryDto.PageNumber, PageSize = userQueryDto.PageSize})
                                 .ToListAsync();
+            
+            var TotalCount = users.Count;
+
             if (users.Count == 0)
             {
                 return new ResponseDto<PagedResultDto<UserResponseDto>>
@@ -56,7 +58,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             var userResponseDtos = _mapper.Map<List<User>, List<UserResponseDto>>(users);
 
-            var PagedResult = new PagedResultDto<UserResponseDto>(userResponseDtos, userQueryDto.PageNumber, query.Count(), userQueryDto.PageSize);
+            var PagedResult = new PagedResultDto<UserResponseDto>(userResponseDtos, userQueryDto.PageNumber, TotalCount, userQueryDto.PageSize);
 
             return new ResponseDto<PagedResultDto<UserResponseDto>>
             {

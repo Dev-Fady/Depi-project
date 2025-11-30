@@ -58,7 +58,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             await AddIsLikeAndCountOfLikes(UserId, mappedData);
 
 
-            var pagedResult = new PagedResultDto<ResidentialPropertyReadDto>(mappedData, queryDto.PageNumber, query.Count(), queryDto.PageSize);
+            var pagedResult = new PagedResultDto<ResidentialPropertyReadDto>(mappedData, queryDto.PageNumber, result.Count, queryDto.PageSize);
 
 
             return new ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>

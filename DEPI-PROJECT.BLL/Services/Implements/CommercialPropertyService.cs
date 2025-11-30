@@ -2,6 +2,7 @@
 using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
+using DEPI_PROJECT.BLL.DTOs.Property;
 using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Exceptions;
@@ -57,7 +58,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             //Add Islike , count for each comment
             await AddIsLikedAndCountOfLikes(UserId, mappedData);
 
-            var pagedResult = new PagedResultDto<CommercialPropertyReadDto>(mappedData, queryDto.PageNumber, query.Count(), queryDto.PageSize);
+            var pagedResult = new PagedResultDto<CommercialPropertyReadDto>(mappedData, queryDto.PageNumber, mappedData.Count, queryDto.PageSize);
 
             return new ResponseDto<PagedResultDto<CommercialPropertyReadDto>>
             {
