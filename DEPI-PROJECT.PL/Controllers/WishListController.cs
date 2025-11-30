@@ -21,6 +21,14 @@ namespace DEPI_PROJECT.PL.Controllers
         }
 
 
+        /// <summary>
+        /// Retrieves all items in the user's wishlist with pagination (Authenticated users only)
+        /// </summary>
+        /// <param name="queryDto">Query parameters for pagination</param>
+        /// <returns>Paginated list of user's wishlist items</returns>
+        /// <response code="200">Returns the user's wishlist items</response>
+        /// <response code="400">If the request parameters are invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
         [HttpGet]
         [ProducesResponseType(typeof(ResponseDto<PagedResultDto<WishListGetDto?>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -35,6 +43,14 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Adds a property to the user's wishlist (Authenticated users only)
+        /// </summary>
+        /// <param name="wishListAddDto">Wishlist item details including property ID</param>
+        /// <returns>Added wishlist item details</returns>
+        /// <response code="200">Returns the added wishlist item</response>
+        /// <response code="400">If the item data is invalid or property is already in wishlist</response>
+        /// <response code="401">If the user is not authenticated</response>
         [HttpPost]
         [ProducesResponseType(typeof(ResponseDto<WishListGetDto?>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -49,6 +65,14 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Removes a property from the user's wishlist (Authenticated users only)
+        /// </summary>
+        /// <param name="wishListDeleteDto">Wishlist item removal details including property ID</param>
+        /// <returns>Success status of the removal operation</returns>
+        /// <response code="200">Returns success if item is removed from wishlist</response>
+        /// <response code="400">If the item is not found in wishlist or request is invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
         [HttpDelete]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -63,6 +87,14 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Checks if a specific property is in the user's wishlist (Authenticated users only)
+        /// </summary>
+        /// <param name="PropertyId">The unique identifier of the property to check</param>
+        /// <returns>Wishlist item details if property is in user's wishlist</returns>
+        /// <response code="200">Returns wishlist item details or null if not in wishlist</response>
+        /// <response code="400">If the property is not found or request is invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
         [HttpGet("{PropertyId}")]
         [ProducesResponseType(typeof(ResponseDto<WishListGetDto?>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]

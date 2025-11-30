@@ -21,10 +21,16 @@ namespace DEPI_PROJECT.PL.Controllers
             _residentialPropertyService = residentialPropertyService;
         }
 
+        /// <summary>
+        /// Retrieves all residential properties with filtering, pagination, and like information for the current user
+        /// </summary>
+        /// <param name="queryDto">Query parameters for filtering by bedrooms, bathrooms, kitchen type, etc.</param>
+        /// <returns>Paginated list of residential properties with like counts and user's like status</returns>
+        /// <response code="200">Returns the paginated list of residential properties</response>
+        /// <response code="400">If the request parameters are invalid</response>
         [HttpGet]
         [ProducesResponseType(typeof(ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-
         public async Task<IActionResult> GetAllResidentialProperty([FromQuery] ResidentialPropertyQueryDto queryDto)
         {
             // Get Current User Id from Token-->new
@@ -38,10 +44,16 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Retrieves a specific residential property by its ID with like information for the current user
+        /// </summary>
+        /// <param name="id">The unique identifier of the residential property</param>
+        /// <returns>Residential property details with like count and user's like status</returns>
+        /// <response code="200">Returns the residential property details</response>
+        /// <response code="400">If the property is not found or request is invalid</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ResponseDto<ResidentialPropertyReadDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
-
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {
             var UserId = GetUserIdFromToken.GetCurrentUserId(this);
@@ -53,6 +65,15 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Creates a new residential property listing (Agent only)
+        /// </summary>
+        /// <param name="propertyDto">Residential property details including bedrooms, bathrooms, floors, and amenities</param>
+        /// <returns>Created residential property details</returns>
+        /// <response code="200">Returns the newly created residential property</response>
+        /// <response code="400">If the property data is invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Agent role required)</response>
         [HttpPost]
         [ProducesResponseType(typeof(ResponseDto<ResidentialPropertyReadDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -68,6 +89,16 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Updates an existing residential property's information (Admin or Property Owner Agent only)
+        /// </summary>
+        /// <param name="id">The unique identifier of the residential property to update</param>
+        /// <param name="propertyDto">Updated residential property details</param>
+        /// <returns>Success status of the update operation</returns>
+        /// <response code="200">Returns success if property is updated</response>
+        /// <response code="400">If the update data is invalid or user is not authorized to update</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin or Property Owner Agent role required)</response>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -83,6 +114,15 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Deletes a residential property listing (Admin or Property Owner Agent only)
+        /// </summary>
+        /// <param name="id">The unique identifier of the residential property to delete</param>
+        /// <returns>Success status of the delete operation</returns>
+        /// <response code="200">Returns success if property is deleted</response>
+        /// <response code="400">If the property is not found or user is not authorized to delete</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin or Property Owner Agent role required)</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
