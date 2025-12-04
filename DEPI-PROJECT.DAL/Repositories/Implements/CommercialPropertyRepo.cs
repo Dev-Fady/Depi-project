@@ -21,34 +21,105 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
         public IQueryable<CommercialProperty> GetAllProperties()
         {
             var query = _context.CommercialProperties
-                 .Include(x => x.Agent)
+                .Include(x => x.Agent)
                 .Include(x => x.Compound)
                 .Include(x => x.Amenity)
                 .Include(x => x.Comments)
-                .Include(x => x.PropertyGalleries);
-
+                .Include(x => x.PropertyGalleries)
+                .Select(property => new CommercialProperty
+                {
+                    // Copy all properties from the original entity
+                    PropertyId = property.PropertyId,
+                    Title = property.Title,
+                    City = property.City,
+                    Address = property.Address,
+                    GoogleMapsUrl = property.GoogleMapsUrl,
+                    PropertyType = property.PropertyType,
+                    PropertyPurpose = property.PropertyPurpose,
+                    PropertyStatus = property.PropertyStatus,
+                    Price = property.Price,
+                    Square = property.Square,
+                    Description = property.Description,
+                    DateListed = property.DateListed,
+                    AgentId = property.AgentId,
+                    Agent = property.Agent,
+                    CompoundId = property.CompoundId,
+                    Compound = property.Compound,
+                    
+                    // Collections
+                    Wishlists = property.Wishlists,
+                    Comments = property.Comments,
+                    Amenity = property.Amenity,
+                    PropertyGalleries = property.PropertyGalleries,
+                    LikeEntities = property.LikeEntities,
+                    
+                    // CommercialProperty specific properties
+                    HasStorage = property.HasStorage,
+                    FloorNumber = property.FloorNumber,
+                    
+                    // Likes data from view - use subqueries with automatic defaults
+                    LikesCount = _context.PropertyLikesWithUserViews
+                        .Where(v => v.PropertyId == property.PropertyId)
+                        .Select(v => v.LikesCount)
+                        .FirstOrDefault(), // Returns 0 if no match (int default)
+                        
+                    IsLiked = _context.LikeProperties
+                        .Any(v => v.PropertyId == property.PropertyId && v.UserID == property.Agent.UserId)
+                });
             return query;
         }
 
         public async Task<CommercialProperty?> GetPropertyByIdAsync(Guid id)
         {
             return await _context.CommercialProperties
-                                .Include(p => p.Amenity)
-                                .Include(p => p.PropertyGalleries)
-                                .Include(p => p.Agent)
-                                .Include(x => x.Comments)
-                                .Include(p => p.Compound)
-                                .FirstOrDefaultAsync(x => x.PropertyId == id);
-        }
-
-        public async Task UpdateAmenityAsync(Amenity amenity)
-        {
-            var existing =  await _context.CommercialProperties.FindAsync(amenity.PropertyId);
-            if (existing == null) {
-                return;
-            }
-            _context.Entry(existing).CurrentValues.SetValues(amenity);
-            await _context.SaveChangesAsync();
+                .Include(x => x.Agent)
+                .Include(x => x.Compound)
+                .Include(x => x.Amenity)
+                .Include(x => x.Comments)
+                .Include(x => x.PropertyGalleries)
+                .Select(property => new CommercialProperty
+                {
+                    // Copy all properties from the original entity
+                    PropertyId = property.PropertyId,
+                    Title = property.Title,
+                    City = property.City,
+                    Address = property.Address,
+                    GoogleMapsUrl = property.GoogleMapsUrl,
+                    PropertyType = property.PropertyType,
+                    PropertyPurpose = property.PropertyPurpose,
+                    PropertyStatus = property.PropertyStatus,
+                    Price = property.Price,
+                    Square = property.Square,
+                    Description = property.Description,
+                    DateListed = property.DateListed,
+                    AgentId = property.AgentId,
+                    Agent = property.Agent,
+                    CompoundId = property.CompoundId,
+                    Compound = property.Compound,
+                    
+                    // Collections
+                    Wishlists = property.Wishlists,
+                    Comments = property.Comments,
+                    Amenity = property.Amenity,
+                    PropertyGalleries = property.PropertyGalleries,
+                    LikeEntities = property.LikeEntities,
+                    
+                    // CommercialProperty specific properties
+                    HasStorage = property.HasStorage,
+                    FloorNumber = property.FloorNumber,
+                    
+                    // Likes data from view - use subqueries with automatic defaults
+                    LikesCount = _context.PropertyLikesWithUserViews
+                        .Where(v => v.PropertyId == property.PropertyId)
+                        .Select(v => v.LikesCount)
+                        .FirstOrDefault(), // Returns 0 if no match (int default)
+                        
+                    IsLiked = _context.PropertyLikesWithUserViews
+                        .Where(v => v.PropertyId == property.PropertyId)
+                        .Select(v => v.IsLiked)
+                        .FirstOrDefault() // Returns false if no match (bool default)
+                })
+                .FirstOrDefaultAsync(x => x.PropertyId == id);
         }
 
         public async Task UpdateCommercialPropertyAsync(Guid id, CommercialProperty property)
@@ -64,12 +135,6 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             _context.Entry(existing).Property(e => e.PropertyId).IsModified = false;
             await _context.SaveChangesAsync();
         }
-        public async Task AddAmenityAsync(Amenity amenity)
-        {
-            _context.Amenities.Add(amenity);
-            await _context.SaveChangesAsync();
-        }
-
         public async Task AddCommercialPropertyAsync(CommercialProperty property)
         {
             _context.CommercialProperties.Add(property);

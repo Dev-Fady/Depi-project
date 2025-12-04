@@ -34,7 +34,8 @@ namespace DEPI_PROJECT.DAL.Models
         public Guid? CompoundId { get; set; }
         public Compound? Compound { get; set; }
 
-        //public CommercialProperty CommercialProperty { get; set; }
+        public int LikesCount { get; set; }
+        public bool IsLiked { get; set; }
 
 
     }

@@ -28,37 +28,46 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly ILikePropertyRepo _likePropertyRepo;
         private readonly IAgentService _agentService;
         private readonly ICompoundService _compoundService;
+        private readonly ICacheService _cacheService;
 
         public ResidentialPropertyService(IMapper mapper, 
                                           IResidentialPropertyRepo repo, 
                                           ILikePropertyRepo likePropertyRepo,
                                           IAgentService agentService,
-                                          ICompoundService compoundService)
+                                          ICompoundService compoundService,
+                                          ICacheService cacheService)
         {
             _mapper = mapper;
             _repo = repo;
             _likePropertyRepo = likePropertyRepo;
             _agentService = agentService;
             _compoundService = compoundService;
+            _cacheService = cacheService;
         }
         public async Task<ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>> GetAllResidentialPropertyAsync(Guid UserId, ResidentialPropertyQueryDto queryDto)
         {
-            var query = _repo.GetAllResidentialProperty();
-
-            var result = await query.IF(queryDto.Bedrooms != null, a => a.Bedrooms == queryDto.Bedrooms)
-                                    .IF(queryDto.Bathrooms != null, a => a.Bathrooms == queryDto.Bathrooms)
-                                    .IF(queryDto.Floors != null, a => a.Floors == queryDto.Floors)
-                                    .IF(queryDto.UserId != null, a => a.Agent.UserId == queryDto.UserId)
-                                    .IF(queryDto.KitchenType != null, a => a.KitchenType == queryDto.KitchenType)
-                                    .Paginate(new PagedQueryDto { PageNumber = queryDto.PageNumber, PageSize = queryDto.PageSize })
+            var result = _cacheService.GetCached<List<ResidentialProperty>>(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
+            if(result == null)
+            {
+                result = await _repo.GetAllResidentialProperty()
                                     .ToListAsync();
+                _cacheService.CreateCached<List<ResidentialProperty>>(CacheConstants.RESIDENTIAL_PROPERTY_CACHE, result);
+            }
 
-            var mappedData = _mapper.Map<List<ResidentialPropertyReadDto>>(result);
+            var filterResult = result
+                                .IF(queryDto.Bedrooms != null, a => a.Bedrooms == queryDto.Bedrooms)
+                                .IF(queryDto.Bathrooms != null, a => a.Bathrooms == queryDto.Bathrooms)
+                                .IF(queryDto.Floors != null, a => a.Floors == queryDto.Floors)
+                                .IF(queryDto.UserId != null, a => a.Agent.UserId == queryDto.UserId)
+                                .IF(queryDto.KitchenType != null, a => a.KitchenType == queryDto.KitchenType)
+                                .Paginate(new PagedQueryDto { PageNumber = queryDto.PageNumber, PageSize = queryDto.PageSize });
+                                
+            var mappedData = _mapper.Map<List<ResidentialPropertyReadDto>>(filterResult);
 
-            await AddIsLikeAndCountOfLikes(UserId, mappedData);
+            // await AddIsLikeAndCountOfLikes(UserId, mappedData);
 
 
-            var pagedResult = new PagedResultDto<ResidentialPropertyReadDto>(mappedData, queryDto.PageNumber, result.Count, queryDto.PageSize);
+            var pagedResult = new PagedResultDto<ResidentialPropertyReadDto>(mappedData, queryDto.PageNumber, mappedData.Count, queryDto.PageSize);
 
 
             return new ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>
@@ -79,12 +88,6 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
 
             var mapped = _mapper.Map<ResidentialPropertyReadDto>(property);
-
-
-            //count likes --> call likeCommentRepo
-            mapped.LikesCount = await _likePropertyRepo.CountLikesByPropertyId(mapped.PropertyId);
-            //check is liked by Current user
-            mapped.IsLiked = await _likePropertyRepo.GetLikePropertyByUserAndPropertyId(UserId, mapped.PropertyId) != null; 
 
             return new ResponseDto<ResidentialPropertyReadDto>
             {
@@ -113,16 +116,12 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             property.AgentId = agent.Data!.Id;
             await _repo.AddResidentialPropertyAsync(property);
 
-            if (propertyDto.Amenity != null)
-            {
-                var amenity = _mapper.Map<Amenity>(propertyDto.Amenity);
-                amenity.PropertyId = property.PropertyId;
-                await _repo.AddAmenityAsync(amenity);
-            }
 
             var PropertyResponseDto = _mapper.Map<ResidentialPropertyReadDto>(property);
 
             PropertyResponseDto.UserId = propertyDto.UserId;
+            
+            _cacheService.InvalidateCache(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
 
             return new ResponseDto<ResidentialPropertyReadDto>
             {
@@ -143,22 +142,10 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             CommonFunctions.EnsureAuthorized(existing.Agent.UserId);
 
             _mapper.Map(propertyDto, existing);
-            if (propertyDto.Amenity != null)
-            {
-                if (existing.Amenity == null)
-                {
-                    existing.Amenity = _mapper.Map<Amenity>(propertyDto.Amenity);
-                    existing.Amenity.PropertyId = existing.PropertyId;
-                    await _repo.AddAmenityAsync(existing.Amenity);
-                }
-                else
-                {
-                    _mapper.Map(propertyDto.Amenity, existing.Amenity);
-                    await _repo.UpdateAmenityAsync(existing.Amenity);
-                }
-            }
 
             await _repo.UpdateResidentialPropertyAsync(id, existing);
+
+            _cacheService.InvalidateCache(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
 
             return new ResponseDto<bool>
             {
@@ -179,6 +166,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             CommonFunctions.EnsureAuthorized(existing.Agent.UserId);
 
             await _repo.DeleteResidentialPropertyAsync(id);
+
+            _cacheService.InvalidateCache(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
 
             return new ResponseDto<bool>
             {

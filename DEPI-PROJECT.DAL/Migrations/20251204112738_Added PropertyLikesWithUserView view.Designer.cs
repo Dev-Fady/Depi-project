@@ -4,6 +4,7 @@ using DEPI_PROJECT.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEPI_PROJECT.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251204112738_Added PropertyLikesWithUserView view")]
+    partial class AddedPropertyLikesWithUserViewview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -340,8 +343,8 @@ namespace DEPI_PROJECT.DAL.Migrations
                         .HasColumnType("int")
                         .HasColumnName("LikesCount");
 
-                    b.Property<Guid>("PropertyId")
-                        .HasColumnType("uniqueidentifier")
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int")
                         .HasColumnName("PropertyId");
 
                     b.ToTable((string)null);

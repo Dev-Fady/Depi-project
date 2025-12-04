@@ -40,21 +40,22 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         }
         public async Task<ResponseDto<PagedResultDto<AllPropertyReadDto>>> GetAll(PropertyQueryDto propertyQueryDto)
         {
-            var result = _cacheService.GetCached<AllPropertyReadDto>(CacheConstants.PROPERTY_CACHE);
-            if (result == null)
+            var commercialResult = _cacheService.GetCached<List<CommercialProperty>>(CacheConstants.COMMERCIAL_PROPERTY_CACHE);
+            if (commercialResult == null)
             {
-                var query1 = await _commercialPropertyRepo.GetAllProperties().ToListAsync();
-                var query2 = await _residentialPropertyRepo.GetAllResidentialProperty().ToListAsync();
-                result = new AllPropertyReadDto
-                {
-                    CommercialProperties = _mapper.Map<List<CommercialPropertyReadDto>>(query1),
-                    ResidentialProperties = _mapper.Map<List<ResidentialPropertyReadDto>>(query2)
-                };
-
-                _cacheService.CreateCached(CacheConstants.PROPERTY_CACHE, result);
+                commercialResult = await _commercialPropertyRepo.GetAllProperties().ToListAsync();
+                _cacheService.CreateCached(CacheConstants.COMMERCIAL_PROPERTY_CACHE, commercialResult);
             }
 
-            var filteredCommercialProperties = result.CommercialProperties 
+            var residentialResult = _cacheService.GetCached<List<ResidentialProperty>>(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
+            if (residentialResult == null)
+            {
+                residentialResult = await _residentialPropertyRepo.GetAllResidentialProperty().ToListAsync();
+                _cacheService.CreateCached(CacheConstants.RESIDENTIAL_PROPERTY_CACHE, residentialResult);
+            }
+
+
+            var filteredCommercialProperties = commercialResult 
                     .IF(propertyQueryDto.City != null, a => a.City == propertyQueryDto.City)
                     .IF(propertyQueryDto.PropertyType != null, a => a.PropertyType == propertyQueryDto.PropertyType)
                     .IF(propertyQueryDto.PropertyStatus != null, a => a.PropertyStatus == propertyQueryDto.PropertyStatus)
@@ -75,7 +76,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                             propertyQueryDto.IsDesc
                     );  
 
-            var filteredResidentialProperties = result.ResidentialProperties
+            var filteredResidentialProperties = residentialResult
                     .IF(propertyQueryDto.City != null, a => a.City == propertyQueryDto.City)
                     .IF(propertyQueryDto.PropertyType != null, a => a.PropertyType == propertyQueryDto.PropertyType)
                     .IF(propertyQueryDto.PropertyStatus != null, a => a.PropertyStatus == propertyQueryDto.PropertyStatus)
@@ -99,8 +100,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             int totalCount = filteredCommercialProperties.Count() + filteredCommercialProperties.Count();
             
             var resultAsList = new List<AllPropertyReadDto>{new() {
-                    ResidentialProperties = filteredResidentialProperties,
-                    CommercialProperties = filteredCommercialProperties
+                    ResidentialProperties = _mapper.Map<List<ResidentialPropertyReadDto>>(filteredResidentialProperties),
+                    CommercialProperties = _mapper.Map<List<CommercialPropertyReadDto>>(filteredCommercialProperties)
                 }
             };
             

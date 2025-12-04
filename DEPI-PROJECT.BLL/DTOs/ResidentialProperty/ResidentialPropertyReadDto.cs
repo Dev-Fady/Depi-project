@@ -13,8 +13,5 @@ namespace DEPI_PROJECT.BLL.DTOs.ResidentialProperty
         public int? Floors { get; set; }
         public KitchenType KitchenType { get; set; }
 
-        //this part is new --> count of likes and is liked by user
-        public int LikesCount { get; set; }
-        public bool IsLiked { get; set; }
     }
 }

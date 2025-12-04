@@ -1,4 +1,5 @@
-﻿using DEPI_PROJECT.BLL.Dtos.Like;
+﻿using DEPI_PROJECT.BLL.Common;
+using DEPI_PROJECT.BLL.Dtos.Like;
 using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Exceptions;
@@ -21,11 +22,17 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly ILikePropertyRepo _LikePropertyRepo;
         private readonly IResidentialPropertyRepo _ResidentialPropertyRepo;
         private readonly ICommercialPropertyRepo _commercialPropertyRepo;
-        public LikePropertyService(ILikePropertyRepo LikePropertyRepo, IResidentialPropertyRepo ResidentialPropertyRepo , ICommercialPropertyRepo commercialPropertyRepo)
+        private readonly ICacheService _cacheService;
+
+        public LikePropertyService(ILikePropertyRepo LikePropertyRepo, 
+                                   IResidentialPropertyRepo ResidentialPropertyRepo, 
+                                   ICommercialPropertyRepo commercialPropertyRepo,
+                                   ICacheService cacheService)
         {
             _LikePropertyRepo = LikePropertyRepo;
             _ResidentialPropertyRepo = ResidentialPropertyRepo;
             _commercialPropertyRepo = commercialPropertyRepo;
+            _cacheService = cacheService;
         }
         public async Task<ResponseDto<ToggleResult>> ToggleLikeProperty(Guid userId, Guid propertyId)
         {
@@ -68,6 +75,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 throw new Exception("An error occured while disliking the property, please try again");
 
+            }
+
+            if(ResidentialProperty == null)
+            {
+                _cacheService.InvalidateCache(CacheConstants.COMMERCIAL_PROPERTY_CACHE);
+            }
+            else
+            {
+                _cacheService.InvalidateCache(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
             }
             return new ResponseDto<ToggleResult>()
             {

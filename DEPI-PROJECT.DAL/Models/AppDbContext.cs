@@ -21,6 +21,7 @@ namespace DEPI_PROJECT.DAL.Models
         public DbSet<ResidentialProperty> ResidentialProperties {  get; set; }
         public DbSet<LikeProperty> LikeProperties { get; set; }
         public DbSet<LikeComment> LikeComments { get; set; }
+        public DbSet<PropertyLikesWithUserView> PropertyLikesWithUserViews { get; set; }
 
         public AppDbContext() : base() { }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
@@ -56,6 +57,7 @@ namespace DEPI_PROJECT.DAL.Models
             modelBuilder.Entity<Comment>().ToTable("Comments", "interactions");
             modelBuilder.Entity<LikeComment>().ToTable("LikeComments", "interactions");
             modelBuilder.Entity<LikeProperty>().ToTable("LikeProperties", "interactions");
+            modelBuilder.Entity<PropertyLikesWithUserView>().ToView("PropertyLikesWithUser", "interactions");
 
 
 
