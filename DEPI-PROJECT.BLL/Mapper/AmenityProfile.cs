@@ -12,7 +12,7 @@ namespace DEPI_PROJECT.BLL.Mapper
             CreateMap<Amenity, AmenityReadDto>();
 
             CreateMap<AmenityAddDto, Amenity>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));    
         }
     }
 }

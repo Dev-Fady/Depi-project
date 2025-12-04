@@ -5,6 +5,7 @@ using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
+using DEPI_PROJECT.DAL.Models.Enums;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using System.Threading.Tasks;
 using DataModel = DEPI_PROJECT.DAL.Models;
@@ -16,14 +17,17 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly IPropertyGalleryRepo _repo;
         private readonly IPropertyService _propertyService;
         private readonly IMapper _mapper;
+        private readonly ICacheService _cacheService;
 
         public PropertyGalleryService(IPropertyGalleryRepo repo,
                                       IPropertyService propertyService,
-                                      IMapper mapper)
+                                      IMapper mapper,
+                                      ICacheService cacheService)
         {
             _repo = repo;
             _propertyService = propertyService;
             _mapper = mapper;
+            _cacheService = cacheService;
         }
 
         public async Task<ResponseDto<string>> AddAsync(Guid UserId, PropertyGalleryAddDto dto)
@@ -39,6 +43,12 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             if (dto.MediaFiles == null || !dto.MediaFiles.Any())
             {
                 throw new BadRequestException("Expected media files");
+            }
+
+            var existing = await _propertyService.GetPropertyById(dto.PropertyId);
+            if(existing == null)
+            {
+                throw new NotFoundException($"No property found with ID {dto.PropertyId}");
             }
 
             var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
@@ -75,6 +85,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             await _repo.AddRangeAsync(galleryList);
 
+            if(existing.PropertyType == PropertyType.Commercial)
+            {
+                _cacheService.InvalidateCache(CacheConstants.COMMERCIAL_PROPERTY_CACHE);
+            }
+            else
+            {
+                _cacheService.InvalidateCache(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
+            }
+
             return new ResponseDto<string>
             {
                 IsSuccess = true,
@@ -103,6 +122,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 File.Delete(filePath);
 
             await _repo.DeleteAsync(id);
+
+            if(gallery.Property.PropertyType == PropertyType.Residential)
+            {
+                _cacheService.InvalidateCache(CacheConstants.COMMERCIAL_PROPERTY_CACHE);
+            }
+            else
+            {
+                _cacheService.InvalidateCache(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
+            }
 
             return new ResponseDto<bool>
             {

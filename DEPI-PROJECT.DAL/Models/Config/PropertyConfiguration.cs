@@ -54,6 +54,12 @@ namespace DEPI_PROJECT.DAL.Models.Config
 
                      builder.Property(p => p.PropertyStatus)
                             .HasConversion<string>();
+                     
+                     // Configure LikesCount and IsLiked as NotMapped - used only for data retrieval
+                     builder.Ignore(p => p.LikesCount);
+                     builder.Ignore(p => p.IsLiked);
+                     
+                     
               }
        }
 }

@@ -42,6 +42,13 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Retrieves a specific commercial property by its ID with like information for the current user
+        /// </summary>
+        /// <param name="id">The unique identifier of the commercial property</param>
+        /// <returns>Commercial property details with like count and user's like status</returns>
+        /// <response code="200">Returns the commercial property details</response>
+        /// <response code="400">If the property is not found or request is invalid</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ResponseDto<CommercialPropertyReadDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -56,6 +63,15 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Creates a new commercial property listing (Agent only)
+        /// </summary>
+        /// <param name="propertyDto">Commercial property details including business type, floor number, and amenities</param>
+        /// <returns>Created commercial property details</returns>
+        /// <response code="200">Returns the newly created commercial property</response>
+        /// <response code="400">If the property data is invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Agent role required)</response>
         [HttpPost("")]
         [ProducesResponseType(typeof(ResponseDto<CommercialPropertyReadDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -71,6 +87,15 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Deletes a commercial property listing (Admin or Property Owner Agent only)
+        /// </summary>
+        /// <param name="id">The unique identifier of the commercial property to delete</param>
+        /// <returns>Success status of the delete operation</returns>
+        /// <response code="200">Returns success if property is deleted</response>
+        /// <response code="400">If the property is not found or user is not authorized to delete</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin or Property Owner Agent role required)</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
@@ -86,6 +111,16 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Updates an existing commercial property's information (Admin or Property Owner Agent only)
+        /// </summary>
+        /// <param name="id">The unique identifier of the commercial property to update</param>
+        /// <param name="propertyDto">Updated commercial property details</param>
+        /// <returns>Success status of the update operation</returns>
+        /// <response code="200">Returns success if property is updated</response>
+        /// <response code="400">If the update data is invalid or user is not authorized to update</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin or Property Owner Agent role required)</response>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]

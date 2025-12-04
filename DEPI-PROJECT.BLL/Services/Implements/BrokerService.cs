@@ -51,7 +51,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                     .ToListAsync();
             var BrokerResponseDto = _mapper.Map<IEnumerable<Broker>, IEnumerable<BrokerResponseDto>>(result);
 
-            var PagedResult = new PagedResultDto<BrokerResponseDto>(BrokerResponseDto, BrokerQueryDto.PageNumber, query.Count(), BrokerQueryDto.PageSize);
+            var PagedResult = new PagedResultDto<BrokerResponseDto>(BrokerResponseDto, BrokerQueryDto.PageNumber, result.Count, BrokerQueryDto.PageSize);
 
             return new ResponseDto<PagedResultDto<BrokerResponseDto>>
             {

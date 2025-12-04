@@ -52,7 +52,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                     .ToListAsync();
             var AgentResponseDto = _mapper.Map<IEnumerable<Agent>, IEnumerable<AgentResponseDto>>(result);
 
-            var PagedResult = new PagedResultDto<AgentResponseDto>(AgentResponseDto, agentQueryDto.PageNumber, query.Count(), agentQueryDto.PageSize);
+            var PagedResult = new PagedResultDto<AgentResponseDto>(AgentResponseDto, agentQueryDto.PageNumber, result.Count, agentQueryDto.PageSize);
 
             return new ResponseDto<PagedResultDto<AgentResponseDto>>
             {

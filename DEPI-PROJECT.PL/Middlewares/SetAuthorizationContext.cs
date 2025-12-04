@@ -16,6 +16,12 @@ namespace DEPI_PROJECT.PL.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
+            var authContext = new AuthorizationContext
+            {
+                UserId = Guid.Empty,
+                IsAdmin = false
+            };
+
             if (context.User.Identity!.IsAuthenticated)
             {
 
@@ -29,14 +35,11 @@ namespace DEPI_PROJECT.PL.Middlewares
 
                 if (Guid.TryParse(UserId.Value, out var result))
                 {
-                    var authContext = new AuthorizationContext
-                    {
-                        UserId = result,
-                        IsAdmin = Roles.Contains("ADMIN")
-                    };
-                    AuthorizationStore.Set(authContext);
+                    authContext.UserId = result;
+                    authContext.IsAdmin = Roles.Contains("ADMIN");
                 }
             }
+            AuthorizationStore.Set(authContext);
 
             try
             {

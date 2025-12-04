@@ -10,7 +10,20 @@ namespace DEPI_PROJECT.PL.DependencyInjection
             Services.AddOpenApi();
             Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DEPI Real Estate API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo 
+                { 
+                    Title = "DEPI Real Estate API", 
+                    Version = "v1",
+                    Description = "A comprehensive API for managing real estate properties, agents, users, and related services."
+                });
+
+                // Include XML comments for better Swagger documentation
+                var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                if (File.Exists(xmlPath))
+                {
+                    c.IncludeXmlComments(xmlPath);
+                }
 
                 // Add JWT Bearer Authentication to Swagger
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

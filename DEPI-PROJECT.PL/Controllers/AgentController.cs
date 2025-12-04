@@ -24,6 +24,13 @@ namespace DEPI_PROJECT.PL.Controllers
             _agentService = agentService;
         }
 
+        /// <summary>
+        /// Retrieves all agents with pagination and filtering options
+        /// </summary>
+        /// <param name="agentQueryDto">Query parameters for filtering and pagination</param>
+        /// <returns>Paginated list of agents</returns>
+        /// <response code="200">Returns the paginated list of agents</response>
+        /// <response code="400">If the request is invalid</response>
         [HttpGet]
         [ProducesResponseType(typeof(ResponseDto<PagedResultDto<AgentResponseDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
@@ -37,6 +44,13 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Retrieves a specific agent by their user ID
+        /// </summary>
+        /// <param name="UserId">The unique identifier of the user associated with the agent</param>
+        /// <returns>Agent details if found</returns>
+        /// <response code="200">Returns the agent details</response>
+        /// <response code="400">If the agent is not found or request is invalid</response>
         [HttpGet("{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<AgentResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
@@ -50,6 +64,15 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Creates a new agent record (Admin only)
+        /// </summary>
+        /// <param name="agentCreateDto">Agent details for creation</param>
+        /// <returns>Created agent details</returns>
+        /// <response code="200">Returns the newly created agent</response>
+        /// <response code="400">If the agent data is invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin role required)</response>
         [HttpPost]
         [ProducesResponseType(typeof(ResponseDto<AgentResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
@@ -64,6 +87,15 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Updates an existing agent's information (Admin or Agent only)
+        /// </summary>
+        /// <param name="agentUpdateDto">Updated agent details</param>
+        /// <returns>Success status of the update operation</returns>
+        /// <response code="200">Returns success if agent is updated</response>
+        /// <response code="400">If the update data is invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin or Agent role required)</response>
         [HttpPut]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]
@@ -78,6 +110,15 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Deletes an agent record (Admin or Agent only)
+        /// </summary>
+        /// <param name="UserId">The unique identifier of the user associated with the agent to delete</param>
+        /// <returns>Success status of the delete operation</returns>
+        /// <response code="200">Returns success if agent is deleted</response>
+        /// <response code="400">If the agent is not found or request is invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin or Agent role required)</response>
         [HttpDelete("{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status400BadRequest)]

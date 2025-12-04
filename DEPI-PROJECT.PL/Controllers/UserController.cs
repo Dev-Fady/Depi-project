@@ -20,11 +20,19 @@ namespace DEPI_PROJECT.PL.Controllers
             _userService = userService;
         }
 
+        /// <summary>
+        /// Retrieves all users with pagination and filtering options (Admin only)
+        /// </summary>
+        /// <param name="userQueryDto">Query parameters for filtering and pagination</param>
+        /// <returns>Paginated list of users</returns>
+        /// <response code="200">Returns the paginated list of users</response>
+        /// <response code="400">If the request parameters are invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin role required)</response>
         [HttpGet]
         [ProducesResponseType(typeof(ResponseDto<PagedResultDto<UserResponseDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
         [Authorize(Roles = "ADMIN")]
-
         public async Task<IActionResult> GetAllAsync([FromQuery] UserQueryDto userQueryDto)
         {
             var response = await _userService.GetAllUsersAsync(userQueryDto);
@@ -35,6 +43,14 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Retrieves a specific user by their ID (Authenticated users only)
+        /// </summary>
+        /// <param name="UserId">The unique identifier of the user</param>
+        /// <returns>User details if found</returns>
+        /// <response code="200">Returns the user details</response>
+        /// <response code="400">If the user is not found or request is invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
         [HttpGet("{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<UserResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -49,6 +65,14 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Updates an existing user's information (Authenticated users can update their own profile)
+        /// </summary>
+        /// <param name="userUpdateDto">Updated user details</param>
+        /// <returns>Success status of the update operation</returns>
+        /// <response code="200">Returns success if user is updated</response>
+        /// <response code="400">If the update data is invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
         [HttpPut]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -63,6 +87,14 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Deletes a user account (User can delete their own account or Admin can delete any account)
+        /// </summary>
+        /// <param name="UserId">The unique identifier of the user to delete</param>
+        /// <returns>Success status of the delete operation</returns>
+        /// <response code="200">Returns success if user is deleted</response>
+        /// <response code="400">If the user is not found or request is invalid</response>
+        /// <response code="401">If the user is not authenticated</response>
         [HttpDelete("{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]

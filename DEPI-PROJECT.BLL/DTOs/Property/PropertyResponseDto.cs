@@ -33,5 +33,9 @@ namespace DEPI_PROJECT.BLL.DTOs.Property
         public required ICollection<PropertyGalleryReadDto> Galleries { get; set; } = new List<PropertyGalleryReadDto>();
         public CompoundReadDto? Compound { get; set; }
 
+        //this part is new --> count of likes and is liked by user
+        public int LikesCount { get; set; }
+        public bool IsLiked { get; set; }
+
     }
 }

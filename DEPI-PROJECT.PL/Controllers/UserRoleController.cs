@@ -20,6 +20,15 @@ namespace DEPI_PROJECT.PL.Controllers
             _userRoleService = userRoleService;
         }
 
+        /// <summary>
+        /// Retrieves all users assigned to a specific role (Admin only)
+        /// </summary>
+        /// <param name="RoleId">The unique identifier of the role</param>
+        /// <returns>List of users with the specified role</returns>
+        /// <response code="200">Returns the list of users in the role</response>
+        /// <response code="400">If the role is not found</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin role required)</response>
         [HttpGet("users-role/{RoleId}")]
         [ProducesResponseType(typeof(ResponseDto<List<UserResponseDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -34,6 +43,14 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Retrieves all roles assigned to a specific user (Authenticated users only)
+        /// </summary>
+        /// <param name="UserId">The unique identifier of the user</param>
+        /// <returns>List of roles assigned to the user</returns>
+        /// <response code="200">Returns the user's roles</response>
+        /// <response code="400">If the user is not found</response>
+        /// <response code="401">If the user is not authenticated</response>
         [HttpGet("user-roles/{UserId}")]
         [ProducesResponseType(typeof(ResponseDto<UserRolesDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -48,6 +65,15 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Assigns a user to a specific role (Admin only)
+        /// </summary>
+        /// <param name="userRoleDto">User and role assignment details</param>
+        /// <returns>Success status of the role assignment</returns>
+        /// <response code="200">Returns success if user is assigned to role</response>
+        /// <response code="400">If the assignment data is invalid or assignment fails</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin role required)</response>
         [HttpPost("assign-user-to-role")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
@@ -62,6 +88,15 @@ namespace DEPI_PROJECT.PL.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Removes a user from a specific role (Admin only)
+        /// </summary>
+        /// <param name="userRoleDto">User and role removal details</param>
+        /// <returns>Success status of the role removal</returns>
+        /// <response code="200">Returns success if user is removed from role</response>
+        /// <response code="400">If the removal data is invalid or removal fails</response>
+        /// <response code="401">If the user is not authenticated</response>
+        /// <response code="403">If the user is not authorized (Admin role required)</response>
         [HttpDelete("remove-user-from-role")]
         [ProducesResponseType(typeof(ResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]

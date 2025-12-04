@@ -15,8 +15,6 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
         Task AddResidentialPropertyAsync(ResidentialProperty property);
         Task UpdateResidentialPropertyAsync(Guid id,ResidentialProperty property);
         Task DeleteResidentialPropertyAsync(Guid id);
-        Task AddAmenityAsync(Amenity amenity);
-        Task UpdateAmenityAsync(Amenity amenity);
 
     }
 }

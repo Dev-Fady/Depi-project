@@ -15,8 +15,6 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
         Task AddCommercialPropertyAsync(CommercialProperty property);
         Task UpdateCommercialPropertyAsync(Guid id, CommercialProperty property);
         Task DeleteCommercialPropertyAsync(Guid id);
-        Task AddAmenityAsync(Amenity amenity);
-        Task UpdateAmenityAsync(Amenity amenity);
 
     }
 }
