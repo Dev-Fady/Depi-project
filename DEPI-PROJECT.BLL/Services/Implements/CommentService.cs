@@ -143,7 +143,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             //Add Islike , count for each comment
             await AddIsLikeAndCountOfLikes(CurrentUserId, mappedcomments);
-
+               
 
             //create paged result
             var pagedResult = new PagedResultDto<CommentGetDto>(mappedcomments, queryDto.PageNumber, totalComments, queryDto.PageSize);

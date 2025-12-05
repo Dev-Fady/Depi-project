@@ -28,6 +28,11 @@ namespace DEPI_PROJECT.DAL.Models.Config
                    .WithMany(p => p.Comments)
                    .HasForeignKey(c => c.PropertyId)
                    .OnDelete(DeleteBehavior.Cascade);
+
+
+            // Configure LikesCount and IsLiked as NotMapped - used only for data retrieval
+            builder.Ignore(p => p.LikesCount);
+            builder.Ignore(p => p.IsLiked);
         }
     }
 }

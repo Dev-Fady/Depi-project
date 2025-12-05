@@ -12,5 +12,8 @@
         public Property Property { get; set; }
         public ICollection<LikeComment> LikeComments { get; set; } = new List<LikeComment>(); //new added
 
+        public int LikesCount { get; set; }
+        public bool IsLiked { get; set; }
+
     }
 }
