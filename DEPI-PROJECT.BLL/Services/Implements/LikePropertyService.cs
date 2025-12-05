@@ -41,8 +41,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 throw new BadRequestException("User id and property Id both cannot be null");
 
             }
-            var ResidentialProperty = await _ResidentialPropertyRepo.GetResidentialPropertyByIdAsync(propertyId);
-            var commercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(propertyId);
+            var ResidentialProperty = await _ResidentialPropertyRepo.GetResidentialPropertyByIdAsync(userId, propertyId);
+            var commercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(userId, propertyId);
             if (ResidentialProperty == null && commercialProperty == null)
             {
                 throw new NotFoundException($"No property found with Id {propertyId}");
