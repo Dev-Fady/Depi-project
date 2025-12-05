@@ -36,7 +36,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             return await _appDbContext.SaveChangesAsync() > 0;
         }
 
-        public IQueryable<Comment> GetAllCommentsByPropertyId(Guid propertyId)
+        public IQueryable<Comment> GetAllCommentsByPropertyId(Guid CurrentUserid ,Guid propertyId)
         {
             var comments = _appDbContext.Comments
                             .Where(c => c.PropertyId == propertyId)
@@ -57,20 +57,14 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                                                 .Select(c => c.LikesCount)
                                                 .FirstOrDefault(),
 
-
-
-                               IsLiked = _appDbContext.CommrentLikesWithUserViews
-                                            .Where(c => c.CommentId == C.CommentId)
-                                            .Select(c => c.IsLiked)
-                                            .FirstOrDefault()
-
-
+                                IsLiked = _appDbContext.LikeComments
+                                            .Any(c => c.CommentId == C.CommentId && c.UserID == CurrentUserid)
                             });
         
             return comments;
         }
 
-        public async Task<Comment?> GetCommentById(Guid commentId)
+        public async Task<Comment?> GetCommentById(Guid CurrentUserid, Guid commentId)
         {
             var comment = await _appDbContext.Comments
                                 .Select(C => new Comment
@@ -92,10 +86,8 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
 
 
 
-                                    IsLiked = _appDbContext.CommrentLikesWithUserViews
-                                            .Where(c => c.CommentId == C.CommentId)
-                                            .Select(c => c.IsLiked)
-                                            .FirstOrDefault()
+                                    IsLiked = _appDbContext.LikeComments
+                                            .Any(c => c.CommentId == C.CommentId && c.UserID == CurrentUserid)
 
 
                                 }).FirstOrDefaultAsync(c => c.CommentId == commentId);

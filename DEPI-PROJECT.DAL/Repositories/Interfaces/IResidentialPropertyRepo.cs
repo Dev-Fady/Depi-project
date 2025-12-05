@@ -9,8 +9,8 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
 {
     public interface IResidentialPropertyRepo
     {
-        IQueryable<ResidentialProperty> GetAllResidentialProperty();
-        Task<ResidentialProperty?> GetResidentialPropertyByIdAsync(Guid id);
+        IQueryable<ResidentialProperty> GetAllResidentialProperty(Guid CurrentUserid);
+        Task<ResidentialProperty?> GetResidentialPropertyByIdAsync(Guid CurrentUserid, Guid id);
 
         Task AddResidentialPropertyAsync(ResidentialProperty property);
         Task UpdateResidentialPropertyAsync(Guid id,ResidentialProperty property);

@@ -19,7 +19,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             this.context = context;
         }
 
-        public IQueryable<ResidentialProperty> GetAllResidentialProperty()
+        public IQueryable<ResidentialProperty> GetAllResidentialProperty(Guid CurrentUserid)
         {
             // Use separate subqueries for likes data - most reliable approach
             var query = context.ResidentialProperties
@@ -66,18 +66,16 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                         .Where(v => v.PropertyId == property.PropertyId)
                         .Select(v => v.LikesCount)
                         .FirstOrDefault(), // Returns 0 if no match (int default)
-                        
-                    IsLiked = context.PropertyLikesWithUserViews
-                        .Where(v => v.PropertyId == property.PropertyId)
-                        .Select(v => v.IsLiked)
-                        .FirstOrDefault() // Returns false if no match (bool default)
+
+                    IsLiked = context.LikeProperties
+                        .Any(v => v.PropertyId == property.PropertyId && v.UserID == CurrentUserid)
                 });
 
             return query;
         }
 
 
-        public async Task<ResidentialProperty?> GetResidentialPropertyByIdAsync(Guid id)
+        public async Task<ResidentialProperty?> GetResidentialPropertyByIdAsync(Guid CurrentUserid , Guid id)
         {
             return await context.ResidentialProperties
                 .Include(x=>x.Amenity)
@@ -123,11 +121,9 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                         .Where(v => v.PropertyId == property.PropertyId)
                         .Select(v => v.LikesCount)
                         .FirstOrDefault(), // Returns 0 if no match (int default)
-                        
-                    IsLiked = context.PropertyLikesWithUserViews
-                        .Where(v => v.PropertyId == property.PropertyId)
-                        .Select(v => v.IsLiked)
-                        .FirstOrDefault() // Returns false if no match (bool default)
+
+                    IsLiked = context.LikeProperties
+                        .Any(v => v.PropertyId == property.PropertyId && v.UserID == CurrentUserid)
                 })
                 .FirstOrDefaultAsync(rp => rp.PropertyId == id);
         }

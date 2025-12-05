@@ -97,7 +97,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 throw new BadRequestException("User Id or comment Id cannot be null");
             }
-            var comment = await _commentRepository.GetCommentById(CommentId);
+            var comment = await _commentRepository.GetCommentById(UserId ,CommentId);
             if (comment == null)
             {
                 throw new NotFoundException($"No comment found with ID {CommentId}");
@@ -122,7 +122,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         public async Task<ResponseDto<PagedResultDto<CommentGetDto>>> GetAllCommentsByPropertyId(Guid CurrentUserId , Guid PropertyId, CommentQueryDto queryDto)
         {
             //call all comments 
-            var comments = _commentRepository.GetAllCommentsByPropertyId(PropertyId);
+            var comments = _commentRepository.GetAllCommentsByPropertyId(CurrentUserId ,PropertyId);
 
             //count total comments after filter
             var totalComments = await comments.CountAsync();
@@ -142,7 +142,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var mappedcomments = _mapper.Map<IEnumerable<CommentGetDto>>(Result);
 
             //Add Islike , count for each comment
-            await AddIsLikeAndCountOfLikes(CurrentUserId, mappedcomments);
+            //await AddIsLikeAndCountOfLikes(CurrentUserId, mappedcomments);
                
 
             //create paged result
@@ -164,17 +164,17 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 throw new BadRequestException("Comment Id cannot be null");
             }
-            var comment = await _commentRepository.GetCommentById(commentId);
+            var comment = await _commentRepository.GetCommentById(CurrentUserId ,commentId);
             if (comment == null)
             {
                 throw new NotFoundException($"No comment found with Id {commentId}");
             }
             var mappedComment = _mapper.Map<CommentGetDto>(comment);
 
-            //count likes --> call likeCommentRepo
-            mappedComment.LikesCount = await _likeCommentRepo.CountLikesByCommentId(mappedComment.CommentId);
-            //check is liked by Current user
-            mappedComment.IsLiked = await _likeCommentRepo.GetLikeCommentByUserAndCommentId(CurrentUserId, mappedComment.CommentId) != null;
+            ////count likes --> call likeCommentRepo
+            //mappedComment.LikesCount = await _likeCommentRepo.CountLikesByCommentId(mappedComment.CommentId);
+            ////check is liked by Current user
+            //mappedComment.IsLiked = await _likeCommentRepo.GetLikeCommentByUserAndCommentId(CurrentUserId, mappedComment.CommentId) != null;
 
             return new ResponseDto<CommentGetDto?>()
             {
@@ -191,7 +191,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 throw new BadRequestException("User id, commentId cannot be null");
             }
-            var existingComment = await _commentRepository.GetCommentById(CommentId);
+            var existingComment = await _commentRepository.GetCommentById(UserId , CommentId);
             if (existingComment == null)
             {
                 throw new NotFoundException($"No comment found with Id {CommentId}");
