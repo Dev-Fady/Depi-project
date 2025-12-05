@@ -3,6 +3,7 @@ using DEPI_PROJECT.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
         {
             _context = context;
         }
-        public IQueryable<CommercialProperty> GetAllProperties()
+        public IQueryable<CommercialProperty> GetAllProperties(Guid CurrentUserid)
         {
             var query = _context.CommercialProperties
                 .Include(x => x.Agent)
@@ -64,12 +65,12 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                         .FirstOrDefault(), // Returns 0 if no match (int default)
                         
                     IsLiked = _context.LikeProperties
-                        .Any(v => v.PropertyId == property.PropertyId && v.UserID == property.Agent.UserId)
+                        .Any(v => v.PropertyId == property.PropertyId && v.UserID == CurrentUserid)
                 });
             return query;
         }
 
-        public async Task<CommercialProperty?> GetPropertyByIdAsync(Guid id)
+        public async Task<CommercialProperty?> GetPropertyByIdAsync(Guid CurrentUserid ,Guid id)
         {
             return await _context.CommercialProperties
                 .Include(x => x.Agent)
@@ -113,11 +114,9 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                         .Where(v => v.PropertyId == property.PropertyId)
                         .Select(v => v.LikesCount)
                         .FirstOrDefault(), // Returns 0 if no match (int default)
-                        
-                    IsLiked = _context.PropertyLikesWithUserViews
-                        .Where(v => v.PropertyId == property.PropertyId)
-                        .Select(v => v.IsLiked)
-                        .FirstOrDefault() // Returns false if no match (bool default)
+
+                    IsLiked = _context.LikeProperties
+                        .Any(v => v.PropertyId == property.PropertyId && v.UserID == CurrentUserid)
                 })
                 .FirstOrDefaultAsync(x => x.PropertyId == id);
         }

@@ -12,8 +12,8 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
         public Task<bool> AddComment(Comment comment);
         public Task<bool> DeleteComment(Comment comment);
         public Task<bool> UpdateComment(Comment comment);
-        public IQueryable<Comment> GetAllCommentsByPropertyId(Guid propertyId);
-        public Task<Comment?> GetCommentById(Guid commentId);
+        public IQueryable<Comment> GetAllCommentsByPropertyId(Guid CurrentUserid ,Guid propertyId);
+        public Task<Comment?> GetCommentById(Guid CurrentUserid,Guid commentId);
         public Task<int> CountAllComments(Guid propertyId);
     }
 }

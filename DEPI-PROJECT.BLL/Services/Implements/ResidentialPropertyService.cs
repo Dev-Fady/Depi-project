@@ -49,7 +49,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var result = _cacheService.GetCached<List<ResidentialProperty>>(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
             if(result == null)
             {
-                result = await _repo.GetAllResidentialProperty()
+                result = await _repo.GetAllResidentialProperty(UserId)
                                     .ToListAsync();
                 _cacheService.CreateCached<List<ResidentialProperty>>(CacheConstants.RESIDENTIAL_PROPERTY_CACHE, result);
             }
@@ -81,7 +81,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<ResidentialPropertyReadDto>> GetResidentialPropertyByIdAsync(Guid UserId, Guid id)
         {
-            var property = await _repo.GetResidentialPropertyByIdAsync(id);
+            var property = await _repo.GetResidentialPropertyByIdAsync(UserId , id);
             if (property == null)
             {
                 throw new NotFoundException($"No property found with ID {id}");
@@ -133,7 +133,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> UpdateResidentialPropertyAsync(Guid UserId, Guid id, ResidentialPropertyUpdateDto propertyDto)
         {
-            var existing = await _repo.GetResidentialPropertyByIdAsync(id);
+            var existing = await _repo.GetResidentialPropertyByIdAsync(UserId, id);
             if (existing == null)
             {
                 throw new NotFoundException($"No property found with ID {id} for UserId {UserId}");
@@ -157,7 +157,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> DeleteResidentialPropertyAsync(Guid UserId, Guid id)
         {
-            var existing = await _repo.GetResidentialPropertyByIdAsync(id);
+            var existing = await _repo.GetResidentialPropertyByIdAsync(UserId, id);
             if (existing == null)
             {
                 throw new NotFoundException($"No property found with ID {id}");

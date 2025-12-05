@@ -49,7 +49,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var result = _cacheService.GetCached<List<CommercialProperty>>(CacheConstants.COMMERCIAL_PROPERTY_CACHE);
             if(result == null)
             {
-                result = await _repo.GetAllProperties()
+                result = await _repo.GetAllProperties(UserId)
                                     .ToListAsync();
                 _cacheService.CreateCached<List<CommercialProperty>>(CacheConstants.COMMERCIAL_PROPERTY_CACHE, result);
             }
@@ -81,7 +81,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<CommercialPropertyReadDto>> GetPropertyByIdAsync(Guid UserId, Guid id)
         {
-            var property = await _repo.GetPropertyByIdAsync(id);
+            var property = await _repo.GetPropertyByIdAsync(UserId ,id);
             if (property == null)
             {
                 throw new NotFoundException($"No property found with ID {id}");
@@ -98,7 +98,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> UpdateCommercialPropertyAsync(Guid UserId, Guid id, CommercialPropertyUpdateDto propertyDto)
         {
-            var existing = await _repo.GetPropertyByIdAsync(id);
+            var existing = await _repo.GetPropertyByIdAsync(UserId, id);
             if (existing == null)
             {
                 throw new NotFoundException($"No property found with ID {id} for UserId {UserId}");
@@ -153,7 +153,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<ResponseDto<bool>> DeleteCommercialPropertyAsync(Guid UserId, Guid id)
         {
-            var existing = await _repo.GetPropertyByIdAsync(id);
+            var existing = await _repo.GetPropertyByIdAsync(UserId , id);
             if (existing == null)
             {
                 throw new NotFoundException($"No property found with ID {id} for userId {UserId}");

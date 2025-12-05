@@ -25,7 +25,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly ICommercialPropertyRepo _commercialPropertyRepo;
         private readonly IResidentialPropertyRepo _residentialPropertyRepo;
         private readonly ICacheService _cacheService;
-        
+        private readonly Guid _currentUserId = AuthorizationStore.Current.UserId;
         private readonly IMapper _mapper;
 
         public PropertyService( ICommercialPropertyRepo commercialPropertyRepo,
@@ -43,14 +43,14 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             var commercialResult = _cacheService.GetCached<List<CommercialProperty>>(CacheConstants.COMMERCIAL_PROPERTY_CACHE);
             if (commercialResult == null)
             {
-                commercialResult = await _commercialPropertyRepo.GetAllProperties().ToListAsync();
+                commercialResult = await _commercialPropertyRepo.GetAllProperties(_currentUserId).ToListAsync();
                 _cacheService.CreateCached(CacheConstants.COMMERCIAL_PROPERTY_CACHE, commercialResult);
             }
 
             var residentialResult = _cacheService.GetCached<List<ResidentialProperty>>(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
             if (residentialResult == null)
             {
-                residentialResult = await _residentialPropertyRepo.GetAllResidentialProperty().ToListAsync();
+                residentialResult = await _residentialPropertyRepo.GetAllResidentialProperty(_currentUserId).ToListAsync();
                 _cacheService.CreateCached(CacheConstants.RESIDENTIAL_PROPERTY_CACHE, residentialResult);
             }
 
@@ -117,8 +117,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         public async Task<bool> CheckPropertyExist(Guid PropertyId)
         {
-            var ResidentialProperty = await _residentialPropertyRepo.GetResidentialPropertyByIdAsync(PropertyId);
-            var commercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(PropertyId);
+            var ResidentialProperty = await _residentialPropertyRepo.GetResidentialPropertyByIdAsync(_currentUserId, PropertyId);
+            var commercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(_currentUserId, PropertyId);
             if (ResidentialProperty == null && commercialProperty == null)
             {
                 return false;
@@ -127,12 +127,12 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         }
         public async Task<PropertyResponseDto?> GetPropertyById(Guid PropertyId)
         {
-            var ResidentialProperty = await _residentialPropertyRepo.GetResidentialPropertyByIdAsync(PropertyId);
+            var ResidentialProperty = await _residentialPropertyRepo.GetResidentialPropertyByIdAsync(_currentUserId, PropertyId);
             if (ResidentialProperty != null)
             {
                 return _mapper.Map<PropertyResponseDto>(ResidentialProperty);
             }
-            var CommercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(PropertyId);
+            var CommercialProperty = await _commercialPropertyRepo.GetPropertyByIdAsync(_currentUserId, PropertyId);
             if (CommercialProperty != null)
             {
                 return _mapper.Map<PropertyResponseDto>(CommercialProperty);

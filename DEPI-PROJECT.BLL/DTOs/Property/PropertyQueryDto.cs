@@ -17,6 +17,7 @@ namespace DEPI_PROJECT.BLL.DTOs.Property
         public bool IsDesc { get; set; }
 
         // Filtering
+        public Guid? UserId { get; set; } 
         public string? Title { get; set; }
         public string? City { get; set; }
         public string? Address { get; set; }

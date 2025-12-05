@@ -36,16 +36,61 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
             return await _appDbContext.SaveChangesAsync() > 0;
         }
 
-        public  IQueryable<Comment> GetAllCommentsByPropertyId(Guid propertyId)
+        public IQueryable<Comment> GetAllCommentsByPropertyId(Guid CurrentUserid ,Guid propertyId)
         {
             var comments = _appDbContext.Comments
-                                        .Where(c => c.PropertyId == propertyId);
+                            .Where(c => c.PropertyId == propertyId)
+                            .Select(C => new Comment
+                            {
+                                CommentId = C.CommentId,
+                                UserID = C.UserID,
+                                CommentText = C.CommentText,
+                                DateComment = C.DateComment,
+                                PropertyId = C.PropertyId,
+
+                                Property = C.Property,
+                                User = C.User,
+                                LikeComments = C.LikeComments,
+
+                                LikesCount = _appDbContext.CommrentLikesWithUserViews
+                                                .Where(c => c.CommentId == C.CommentId)
+                                                .Select(c => c.LikesCount)
+                                                .FirstOrDefault(),
+
+                                IsLiked = _appDbContext.LikeComments
+                                            .Any(c => c.CommentId == C.CommentId && c.UserID == CurrentUserid)
+                            });
+        
             return comments;
         }
 
-        public async Task<Comment?> GetCommentById(Guid commentId)
+        public async Task<Comment?> GetCommentById(Guid CurrentUserid, Guid commentId)
         {
-            var comment = await _appDbContext.Comments.FindAsync(commentId);
+            var comment = await _appDbContext.Comments
+                                .Select(C => new Comment
+                                {
+                                    CommentId = C.CommentId,
+                                    UserID = C.UserID,
+                                    CommentText = C.CommentText,
+                                    DateComment = C.DateComment,
+                                    PropertyId = C.PropertyId,
+
+                                    Property = C.Property,
+                                    User = C.User,
+                                    LikeComments = C.LikeComments,
+
+                                    LikesCount = _appDbContext.CommrentLikesWithUserViews
+                                            .Where(c => c.CommentId == C.CommentId)
+                                            .Select(c => c.LikesCount)
+                                            .FirstOrDefault(),
+
+
+
+                                    IsLiked = _appDbContext.LikeComments
+                                            .Any(c => c.CommentId == C.CommentId && c.UserID == CurrentUserid)
+
+
+                                }).FirstOrDefaultAsync(c => c.CommentId == commentId);
             return comment;
         }
 

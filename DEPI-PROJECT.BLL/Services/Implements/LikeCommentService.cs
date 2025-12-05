@@ -27,7 +27,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 throw new BadRequestException("User id and comment Id both cannot be null");
             }
-            var comment = await _commentRepo.GetCommentById(commentId);
+            var comment = await _commentRepo.GetCommentById(userId, commentId);
             if (comment == null)
             {
                 throw new NotFoundException($"No comment found with Id {commentId}");
