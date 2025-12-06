@@ -40,25 +40,27 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
         {
             var comments = _appDbContext.Comments
                             .Where(c => c.PropertyId == propertyId)
-                            .Select(C => new Comment
+                            .GroupJoin(
+                                _appDbContext.CommrentLikesWithUserViews,
+                                c => c.CommentId,
+                                v => v.CommentId,
+                                (comments, likes) => new {comments, likes = likes.DefaultIfEmpty().FirstOrDefault()}
+                            )
+                            .Select(x => new Comment
                             {
-                                CommentId = C.CommentId,
-                                UserID = C.UserID,
-                                CommentText = C.CommentText,
-                                DateComment = C.DateComment,
-                                PropertyId = C.PropertyId,
+                                CommentId = x.comments.CommentId,
+                                UserID = x.comments.UserID,
+                                CommentText = x.comments.CommentText,
+                                DateComment = x.comments.DateComment,
+                                PropertyId = x.comments.PropertyId,
 
-                                Property = C.Property,
-                                User = C.User,
-                                LikeComments = C.LikeComments,
+                                Property = x.comments.Property,
+                                User = x.comments.User,
+                                LikeComments = x.comments.LikeComments,
 
-                                LikesCount = _appDbContext.CommrentLikesWithUserViews
-                                                .Where(c => c.CommentId == C.CommentId)
-                                                .Select(c => c.LikesCount)
-                                                .FirstOrDefault(),
+                                LikesCount = x.likes.LikesCount ?? 0,
 
-                                IsLiked = _appDbContext.LikeComments
-                                            .Any(c => c.CommentId == C.CommentId && c.UserID == CurrentUserid)
+                                IsLiked = false
                             });
         
             return comments;
@@ -67,30 +69,29 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
         public async Task<Comment?> GetCommentById(Guid CurrentUserid, Guid commentId)
         {
             var comment = await _appDbContext.Comments
-                                .Select(C => new Comment
-                                {
-                                    CommentId = C.CommentId,
-                                    UserID = C.UserID,
-                                    CommentText = C.CommentText,
-                                    DateComment = C.DateComment,
-                                    PropertyId = C.PropertyId,
+                            .GroupJoin(
+                                _appDbContext.CommrentLikesWithUserViews,
+                                c => c.CommentId,
+                                v => v.CommentId,
+                                (comments, likes) => new {comments, likes = likes.DefaultIfEmpty().FirstOrDefault()}
+                            )
+                            .Select(x => new Comment
+                            {
+                                CommentId = x.comments.CommentId,
+                                UserID = x.comments.UserID,
+                                CommentText = x.comments.CommentText,
+                                DateComment = x.comments.DateComment,
+                                PropertyId = x.comments.PropertyId,
 
-                                    Property = C.Property,
-                                    User = C.User,
-                                    LikeComments = C.LikeComments,
+                                Property = x.comments.Property,
+                                User = x.comments.User,
+                                LikeComments = x.comments.LikeComments,
 
-                                    LikesCount = _appDbContext.CommrentLikesWithUserViews
-                                            .Where(c => c.CommentId == C.CommentId)
-                                            .Select(c => c.LikesCount)
-                                            .FirstOrDefault(),
+                                LikesCount = x.likes.LikesCount ?? 0,
 
-
-
-                                    IsLiked = _appDbContext.LikeComments
-                                            .Any(c => c.CommentId == C.CommentId && c.UserID == CurrentUserid)
-
-
-                                }).FirstOrDefaultAsync(c => c.CommentId == commentId);
+                                IsLiked = false
+                            })
+                            .FirstOrDefaultAsync(c => c.CommentId == commentId);
             return comment;
         }
 

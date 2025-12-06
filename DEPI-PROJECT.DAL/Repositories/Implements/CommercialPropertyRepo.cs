@@ -27,45 +27,46 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                 .Include(x => x.Amenity)
                 .Include(x => x.Comments)
                 .Include(x => x.PropertyGalleries)
-                .Select(property => new CommercialProperty
+                .GroupJoin(
+                    _context.PropertyLikesWithUserViews,
+                    p => p.PropertyId,
+                    lk => lk.PropertyId,
+                    (property, likes) => new { property, likesData = likes.DefaultIfEmpty().FirstOrDefault() }
+                )
+                .Select(x => new CommercialProperty
                 {
                     // Copy all properties from the original entity
-                    PropertyId = property.PropertyId,
-                    Title = property.Title,
-                    City = property.City,
-                    Address = property.Address,
-                    GoogleMapsUrl = property.GoogleMapsUrl,
-                    PropertyType = property.PropertyType,
-                    PropertyPurpose = property.PropertyPurpose,
-                    PropertyStatus = property.PropertyStatus,
-                    Price = property.Price,
-                    Square = property.Square,
-                    Description = property.Description,
-                    DateListed = property.DateListed,
-                    AgentId = property.AgentId,
-                    Agent = property.Agent,
-                    CompoundId = property.CompoundId,
-                    Compound = property.Compound,
+                    PropertyId = x.property.PropertyId,
+                    Title = x.property.Title,
+                    City = x.property.City,
+                    Address = x.property.Address,
+                    GoogleMapsUrl = x.property.GoogleMapsUrl,
+                    PropertyType = x.property.PropertyType,
+                    PropertyPurpose = x.property.PropertyPurpose,
+                    PropertyStatus = x.property.PropertyStatus,
+                    Price = x.property.Price,
+                    Square = x.property.Square,
+                    Description = x.property.Description,
+                    DateListed = x.property.DateListed,
+                    AgentId = x.property.AgentId,
+                    Agent = x.property.Agent,
+                    CompoundId = x.property.CompoundId,
+                    Compound = x.property.Compound,
                     
                     // Collections
-                    Wishlists = property.Wishlists,
-                    Comments = property.Comments,
-                    Amenity = property.Amenity,
-                    PropertyGalleries = property.PropertyGalleries,
-                    LikeEntities = property.LikeEntities,
+                    Wishlists = x.property.Wishlists,
+                    Comments = x.property.Comments,
+                    Amenity = x.property.Amenity,
+                    PropertyGalleries = x.property.PropertyGalleries,
+                    LikeEntities = x.property.LikeEntities,
                     
                     // CommercialProperty specific properties
-                    HasStorage = property.HasStorage,
-                    FloorNumber = property.FloorNumber,
+                    HasStorage = x.property.HasStorage,
+                    FloorNumber = x.property.FloorNumber,
                     
-                    // Likes data from view - use subqueries with automatic defaults
-                    LikesCount = _context.PropertyLikesWithUserViews
-                        .Where(v => v.PropertyId == property.PropertyId)
-                        .Select(v => v.LikesCount)
-                        .FirstOrDefault(), // Returns 0 if no match (int default)
-                        
-                    IsLiked = _context.LikeProperties
-                        .Any(v => v.PropertyId == property.PropertyId && v.UserID == CurrentUserid)
+                    // Likes data from view - check PropertyId instead of entity for null
+                    LikesCount = x.likesData.LikesCount ?? 0,
+                    IsLiked = false // will be set in the service
                 });
             return query;
         }
@@ -78,45 +79,46 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                 .Include(x => x.Amenity)
                 .Include(x => x.Comments)
                 .Include(x => x.PropertyGalleries)
-                .Select(property => new CommercialProperty
+                .GroupJoin(
+                    _context.PropertyLikesWithUserViews,
+                    p => p.PropertyId,
+                    lk => lk.PropertyId,
+                    (property, likes) => new { property, likesData = likes.DefaultIfEmpty().FirstOrDefault() }
+                )
+                .Select(x => new CommercialProperty
                 {
                     // Copy all properties from the original entity
-                    PropertyId = property.PropertyId,
-                    Title = property.Title,
-                    City = property.City,
-                    Address = property.Address,
-                    GoogleMapsUrl = property.GoogleMapsUrl,
-                    PropertyType = property.PropertyType,
-                    PropertyPurpose = property.PropertyPurpose,
-                    PropertyStatus = property.PropertyStatus,
-                    Price = property.Price,
-                    Square = property.Square,
-                    Description = property.Description,
-                    DateListed = property.DateListed,
-                    AgentId = property.AgentId,
-                    Agent = property.Agent,
-                    CompoundId = property.CompoundId,
-                    Compound = property.Compound,
+                    PropertyId = x.property.PropertyId,
+                    Title = x.property.Title,
+                    City = x.property.City,
+                    Address = x.property.Address,
+                    GoogleMapsUrl = x.property.GoogleMapsUrl,
+                    PropertyType = x.property.PropertyType,
+                    PropertyPurpose = x.property.PropertyPurpose,
+                    PropertyStatus = x.property.PropertyStatus,
+                    Price = x.property.Price,
+                    Square = x.property.Square,
+                    Description = x.property.Description,
+                    DateListed = x.property.DateListed,
+                    AgentId = x.property.AgentId,
+                    Agent = x.property.Agent,
+                    CompoundId = x.property.CompoundId,
+                    Compound = x.property.Compound,
                     
                     // Collections
-                    Wishlists = property.Wishlists,
-                    Comments = property.Comments,
-                    Amenity = property.Amenity,
-                    PropertyGalleries = property.PropertyGalleries,
-                    LikeEntities = property.LikeEntities,
+                    Wishlists = x.property.Wishlists,
+                    Comments = x.property.Comments,
+                    Amenity = x.property.Amenity,
+                    PropertyGalleries = x.property.PropertyGalleries,
+                    LikeEntities = x.property.LikeEntities,
                     
                     // CommercialProperty specific properties
-                    HasStorage = property.HasStorage,
-                    FloorNumber = property.FloorNumber,
+                    HasStorage = x.property.HasStorage,
+                    FloorNumber = x.property.FloorNumber,
                     
-                    // Likes data from view - use subqueries with automatic defaults
-                    LikesCount = _context.PropertyLikesWithUserViews
-                        .Where(v => v.PropertyId == property.PropertyId)
-                        .Select(v => v.LikesCount)
-                        .FirstOrDefault(), // Returns 0 if no match (int default)
-
-                    IsLiked = _context.LikeProperties
-                        .Any(v => v.PropertyId == property.PropertyId && v.UserID == CurrentUserid)
+                    // Likes data from view - check PropertyId instead of entity for null
+                    LikesCount = x.likesData.LikesCount ?? 0,
+                    IsLiked = false // will be set in the service
                 })
                 .FirstOrDefaultAsync(x => x.PropertyId == id);
         }

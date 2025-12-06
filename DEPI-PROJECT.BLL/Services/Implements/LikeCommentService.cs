@@ -1,9 +1,11 @@
-﻿using DEPI_PROJECT.BLL.Dtos.Like;
+﻿using DEPI_PROJECT.BLL.Dtos.Comment;
+using DEPI_PROJECT.BLL.Dtos.Like;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
 using DEPI_PROJECT.DAL.Models;
 using DEPI_PROJECT.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +68,26 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 Message = "Comment disliked successfully",
                 Data = ToggleResult.Deleted
             };
+        }
+        public async Task AddLikesCountAndIsLike(Guid UserId, List<CommentGetDto> mappedData)
+        {
+            var CommentIds = mappedData.Select(p => p.CommentId).ToList();
+            var CountPropertyDic = await _LikeCommentRepo.GetAllLikesByCommentsId(CommentIds)
+                                    .GroupBy(lc => lc.CommentId)
+                                    .Select(n => new
+                                    {
+                                        CommentId = n.Key,
+                                        Count = n.Count()
+                                    })
+                                    .ToDictionaryAsync(n => n.CommentId, n => n.Count);
+
+            var IsLikedHash = await _LikeCommentRepo.GetAllLikesByCommentsId(CommentIds)
+                                    .Where(lc => lc.UserID == UserId)
+                                    .Select(n => n.CommentId)
+                                    .ToHashSetAsync();
+
+            mappedData.ForEach(p => p.IsLiked = IsLikedHash.Contains(p.CommentId));
+            mappedData.ForEach(p => p.LikesCount = CountPropertyDic.GetValueOrDefault(p.CommentId));
         }
              
     }

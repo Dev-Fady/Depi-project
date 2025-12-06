@@ -52,6 +52,13 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                                     .Where(lp => PropertyIds.Contains(lp.PropertyId));
             return likes;
         }
+
+        public async Task<bool> CheckPropertyLikedByUser(Guid userId, Guid propertyId)
+        {
+            var IsLiked = await _appDbContext.LikeProperties
+                                    .AnyAsync(LP => LP.PropertyId == propertyId && LP.UserID == userId);
+            return IsLiked;
+        }
         
     }
 }

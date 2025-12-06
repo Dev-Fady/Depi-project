@@ -53,5 +53,12 @@ namespace DEPI_PROJECT.DAL.Repositories.Implements
                                     .Where(lc => CommentIds.Contains(lc.CommentId));
             return likes;
         }
+        public async Task<bool> CheckCommentLikedByUser(Guid userId, Guid commentId)
+        {
+            var IsLiked = await _appDbContext.LikeComments
+                                    .AnyAsync(lc => lc.CommentId == commentId && lc.UserID == userId);
+            return IsLiked;
+        }
+        
     }
 }

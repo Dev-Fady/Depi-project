@@ -29,13 +29,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly IAgentService _agentService;
         private readonly ICompoundService _compoundService;
         private readonly ICacheService _cacheService;
+        private readonly ILikeCommentService _likeCommentService;
 
         public ResidentialPropertyService(IMapper mapper, 
                                           IResidentialPropertyRepo repo, 
                                           ILikePropertyRepo likePropertyRepo,
                                           IAgentService agentService,
                                           ICompoundService compoundService,
-                                          ICacheService cacheService)
+                                          ICacheService cacheService,
+                                          ILikeCommentService likeCommentService)
         {
             _mapper = mapper;
             _repo = repo;
@@ -43,6 +45,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             _agentService = agentService;
             _compoundService = compoundService;
             _cacheService = cacheService;
+            _likeCommentService = likeCommentService;
         }
         public async Task<ResponseDto<PagedResultDto<ResidentialPropertyReadDto>>> GetAllResidentialPropertyAsync(Guid UserId, ResidentialPropertyQueryDto queryDto)
         {
@@ -64,8 +67,11 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                 
             var mappedData = _mapper.Map<List<ResidentialPropertyReadDto>>(filterResult);
 
-            // await AddIsLikeAndCountOfLikes(UserId, mappedData);
+            // add user like interaction
+            await AddIsLike(UserId, mappedData);
 
+            // Add comments interactions
+            await _likeCommentService.AddLikesCountAndIsLike(UserId, mappedData.SelectMany(p => p.Comments).ToList());
 
             var pagedResult = new PagedResultDto<ResidentialPropertyReadDto>(mappedData, queryDto.PageNumber, mappedData.Count, queryDto.PageSize);
 
@@ -88,6 +94,11 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
 
             var mapped = _mapper.Map<ResidentialPropertyReadDto>(property);
+            
+            property.IsLiked = await _likePropertyRepo.CheckPropertyLikedByUser(UserId, property.PropertyId);
+
+            await _likeCommentService.AddLikesCountAndIsLike(UserId, mapped.Comments.ToList());
+
 
             return new ResponseDto<ResidentialPropertyReadDto>
             {
@@ -177,42 +188,44 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             };
         }
 
-        private async Task AddIsLikeAndCountOfLikes(Guid UserId, List<ResidentialPropertyReadDto> mappedData)
+        private async Task AddIsLike(Guid UserId, List<ResidentialPropertyReadDto> mappedData)
         {
             var PropertiesIds = mappedData.Select(p => p.PropertyId).ToList();
-            var CountPropertyDic = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
-                                    .GroupBy(lc => lc.PropertyId)
-                                    .Select(n => new
-                                    {
-                                        PropertyId = n.Key,
-                                        Count = n.Count()
-                                    })
-                                    .ToDictionaryAsync(n => n.PropertyId, n => n.Count);
+            // var CountPropertyDic = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
+            //                         .GroupBy(lc => lc.PropertyId)
+            //                         .Select(n => new
+            //                         {
+            //                             PropertyId = n.Key,
+            //                             Count = n.Count()
+            //                         })
+            //                         .ToDictionaryAsync(n => n.PropertyId, n => n.Count);
 
             var IsLikedHash = await _likePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
                                     .Where(lc => lc.UserID == UserId)
                                     .Select(n => n.PropertyId)
                                     .ToHashSetAsync();
 
-            foreach (var property in mappedData)
-            {
-                if (CountPropertyDic.TryGetValue(property.PropertyId, out var count))
-                {
-                    property.LikesCount = count;
-                }
-                else
-                {
-                    property.LikesCount = 0;
-                }
-                if (IsLikedHash.Contains(property.PropertyId))
-                {
-                    property.IsLiked = true;
-                }
-                else
-                {
-                    property.IsLiked = false;
-                }
-            }
+            mappedData.ForEach(p => p.IsLiked = IsLikedHash.Contains(p.PropertyId));
+
+            // foreach (var property in mappedData)
+            // {
+            //     if (CountPropertyDic.TryGetValue(property.PropertyId, out var count))
+            //     {
+            //         property.LikesCount = count;
+            //     }
+            //     else
+            //     {
+            //         property.LikesCount = 0;
+            //     }
+            //     if (IsLikedHash.Contains(property.PropertyId))
+            //     {
+            //         property.IsLiked = true;
+            //     }
+            //     else
+            //     {
+            //         property.IsLiked = false;
+            //     }
+            // }
         }
 
     }

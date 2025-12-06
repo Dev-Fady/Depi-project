@@ -3,6 +3,7 @@ using AutoMapper;
 using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.DTOs.Agent;
 using DEPI_PROJECT.BLL.DTOs.Pagination;
+using DEPI_PROJECT.BLL.DTOs.Property;
 using DEPI_PROJECT.BLL.DTOs.Query;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.DTOs.UserRole;
@@ -22,16 +23,19 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly IMapper _mapper;
         private readonly IUserRoleService _userRoleService;
         private readonly IRoleService _roleService;
+        private readonly ILikePropertyService _likePropertyService;
 
         public AgentService(IAgentRepo agentRepo,
                             IMapper mapper,
                             IUserRoleService userRoleService,
-                            IRoleService roleService)
+                            IRoleService roleService,
+                            ILikePropertyService likePropertyService)
         {
             _agentRepo = agentRepo;
             _mapper = mapper;
             _userRoleService = userRoleService;
             _roleService = roleService;
+            _likePropertyService = likePropertyService;
         }
 
         public async Task<ResponseDto<PagedResultDto<AgentResponseDto>>> GetAllAsync(AgentQueryDto agentQueryDto)
@@ -51,6 +55,10 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                                         )
                                     .ToListAsync();
             var AgentResponseDto = _mapper.Map<IEnumerable<Agent>, IEnumerable<AgentResponseDto>>(result);
+            
+            // Add proerties likes and isLiked to all agents in one single call
+            var properties = AgentResponseDto.SelectMany(a => a.Properties).ToList();
+            await _likePropertyService.AddLikesCountAndIsLike(AuthorizationStore.Current.UserId, properties);
 
             var PagedResult = new PagedResultDto<AgentResponseDto>(AgentResponseDto, agentQueryDto.PageNumber, result.Count, agentQueryDto.PageSize);
 
@@ -72,6 +80,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
 
             var AgentResponseDto = _mapper.Map<Agent, AgentResponseDto>(agent);
+            
+            await _likePropertyService.AddLikesCountAndIsLike(AuthorizationStore.Current.UserId, AgentResponseDto.Properties.ToList());
 
             return new ResponseDto<AgentResponseDto>
             {

@@ -139,10 +139,10 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
             //execute query
             var Result = await pagedComments.ToListAsync();
-            var mappedcomments = _mapper.Map<IEnumerable<CommentGetDto>>(Result);
+            var mappedcomments = _mapper.Map<List<CommentGetDto>>(Result);
 
-            //Add Islike , count for each comment
-            //await AddIsLikeAndCountOfLikes(CurrentUserId, mappedcomments);
+            //Add Islike for user
+            await AddIsLike(CurrentUserId, mappedcomments);
                
 
             //create paged result
@@ -174,7 +174,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             ////count likes --> call likeCommentRepo
             //mappedComment.LikesCount = await _likeCommentRepo.CountLikesByCommentId(mappedComment.CommentId);
             ////check is liked by Current user
-            //mappedComment.IsLiked = await _likeCommentRepo.GetLikeCommentByUserAndCommentId(CurrentUserId, mappedComment.CommentId) != null;
+            mappedComment.IsLiked = await _likeCommentRepo.CheckCommentLikedByUser(CurrentUserId, mappedComment.CommentId);
 
             return new ResponseDto<CommentGetDto?>()
             {
@@ -215,42 +215,44 @@ namespace DEPI_PROJECT.BLL.Services.Implements
 
         }
 
-        private async Task AddIsLikeAndCountOfLikes(Guid CurrentUserId, IEnumerable<CommentGetDto> mappedcomments)
+        private async Task AddIsLike(Guid CurrentUserId, List<CommentGetDto> mappedcomments)
         {
             var CommentIds = mappedcomments.Select(c => c.CommentId).ToList();
-            var CountCommentDic = await _likeCommentRepo.GetAllLikesByCommentsId(CommentIds)
-                                    .GroupBy(lc => lc.CommentId)
-                                    .Select(n => new
-                                    {
-                                        CommentId = n.Key,
-                                        Count = n.Count()
-                                    })
-                                    .ToDictionaryAsync(n => n.CommentId, n => n.Count);
+            // var CountCommentDic = await _likeCommentRepo.GetAllLikesByCommentsId(CommentIds)
+            //                         .GroupBy(lc => lc.CommentId)
+            //                         .Select(n => new
+            //                         {
+            //                             CommentId = n.Key,
+            //                             Count = n.Count()
+            //                         })
+            //                         .ToDictionaryAsync(n => n.CommentId, n => n.Count);
 
             var IsLikedHash = await _likeCommentRepo.GetAllLikesByCommentsId(CommentIds)
                                     .Where(lc => lc.UserID == CurrentUserId)
                                     .Select(n => n.CommentId)
                                     .ToHashSetAsync();
 
-            foreach (var comment in mappedcomments)
-            {
-                if (CountCommentDic.TryGetValue(comment.CommentId, out var count))
-                {
-                    comment.LikesCount = count;
-                }
-                else
-                {
-                    comment.LikesCount = 0;
-                }
-                if (IsLikedHash.Contains(comment.CommentId))
-                {
-                    comment.IsLiked = true;
-                }
-                else
-                {
-                    comment.IsLiked = false;
-                }
-            }
+            mappedcomments.ForEach(p => p.IsLiked = IsLikedHash.Contains(p.CommentId));
+
+            // foreach (var comment in mappedcomments)
+            // {
+            //     if (CountCommentDic.TryGetValue(comment.CommentId, out var count))
+            //     {
+            //         comment.LikesCount = count;
+            //     }
+            //     else
+            //     {
+            //         comment.LikesCount = 0;
+            //     }
+            //     if (IsLikedHash.Contains(comment.CommentId))
+            //     {
+            //         comment.IsLiked = true;
+            //     }
+            //     else
+            //     {
+            //         comment.IsLiked = false;
+            //     }
+            // }
         }
     }
 

@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using AutoMapper;
+using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.DTOs.Agent;
 using DEPI_PROJECT.BLL.DTOs.Authentication;
 using DEPI_PROJECT.BLL.DTOs.Response;
@@ -25,13 +26,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly IRoleService _roleService;
         private readonly IUserRoleService _userRoleService;
         private readonly IMapper _mapper;
+        private readonly ICacheService _cacheService;
 
         public AuthService(
             IJwtService jwtService,
             UserManager<User> userManager,
             IRoleService roleService,
             IUserRoleService userRoleService,
-            IMapper mapper
+            IMapper mapper,
+            ICacheService cacheService
             )
         {
             _userManager = userManager;
@@ -39,6 +42,7 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             _userRoleService = userRoleService;
             _jwtService = jwtService;
             _mapper = mapper;
+            _cacheService = cacheService;
         }
         public async Task<ResponseDto<AuthResponseDto>> RegisterAsync(AuthRegisterDto authRegisterDto)
         {
@@ -87,6 +91,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 JwtToken = TokenGenerated
             };
 
+            _cacheService.InvalidateCache(CacheConstants.COMMERCIAL_PROPERTY_CACHE);
+            _cacheService.InvalidateCache(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
+
             return new ResponseDto<AuthResponseDto>
             {
                 Data = authResponseDto,
@@ -120,6 +127,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                 JwtToken = token
             };
 
+            _cacheService.InvalidateCache(CacheConstants.COMMERCIAL_PROPERTY_CACHE);
+            _cacheService.InvalidateCache(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
+
             return new ResponseDto<AuthResponseDto>
             {
                 Data = authResponseDto,
@@ -137,6 +147,9 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
 
             await _jwtService.InvalidateToken(user);
+
+            _cacheService.InvalidateCache(CacheConstants.COMMERCIAL_PROPERTY_CACHE);
+            _cacheService.InvalidateCache(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
 
             return new ResponseDto<bool>
             {

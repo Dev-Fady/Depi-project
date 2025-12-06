@@ -9,7 +9,7 @@ namespace DEPI_PROJECT.DAL.Models
     public class CommentLikesWithUserView
     {
         public Guid CommentId { get; set; }
-       public int LikesCount { get; set; }
-       public bool IsLiked { get; set; }
+        public int? LikesCount { get; set; }
+        public bool? IsLiked { get; set; }
     }
 }
