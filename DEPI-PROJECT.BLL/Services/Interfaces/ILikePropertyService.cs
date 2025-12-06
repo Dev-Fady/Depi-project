@@ -1,4 +1,5 @@
 ﻿using DEPI_PROJECT.BLL.Dtos.Like;
+using DEPI_PROJECT.BLL.DTOs.Property;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,7 @@ namespace DEPI_PROJECT.BLL.Services.Interfaces
     public interface ILikePropertyService
     {
         public Task<ResponseDto<ToggleResult>> ToggleLikeProperty(Guid userId, Guid propertyId);
+        public Task AddLikesCountAndIsLike(Guid UserId, List<PropertyResponseDto> mappedData);
+
     }
 }

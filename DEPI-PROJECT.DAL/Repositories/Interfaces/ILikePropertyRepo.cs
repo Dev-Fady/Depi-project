@@ -15,5 +15,6 @@ namespace DEPI_PROJECT.DAL.Repositories.Interfaces
         public Task<LikeProperty?> GetLikePropertyByUserAndPropertyId(Guid userId, Guid propertyId);
         public IQueryable<LikeProperty> GetAllLikesByPropertyId(Guid PropertyId);
         public IQueryable<LikeProperty> GetAllLikesByPropertyIds(List<Guid> PropertyIds);
+        public Task<bool> CheckPropertyLikedByUser(Guid userId, Guid propertyId);
     }
 }

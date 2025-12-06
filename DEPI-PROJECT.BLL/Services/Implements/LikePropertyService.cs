@@ -1,6 +1,8 @@
 ﻿using DEPI_PROJECT.BLL.Common;
 using DEPI_PROJECT.BLL.Dtos.Like;
 using DEPI_PROJECT.BLL.DTOs.CommercialProperty;
+using DEPI_PROJECT.BLL.DTOs.Property;
+using DEPI_PROJECT.BLL.DTOs.ResidentialProperty;
 using DEPI_PROJECT.BLL.DTOs.Response;
 using DEPI_PROJECT.BLL.Exceptions;
 using DEPI_PROJECT.BLL.Services.Interfaces;
@@ -24,8 +26,8 @@ namespace DEPI_PROJECT.BLL.Services.Implements
         private readonly ICommercialPropertyRepo _commercialPropertyRepo;
         private readonly ICacheService _cacheService;
 
-        public LikePropertyService(ILikePropertyRepo LikePropertyRepo, 
-                                   IResidentialPropertyRepo ResidentialPropertyRepo, 
+        public LikePropertyService(ILikePropertyRepo LikePropertyRepo,
+                                   IResidentialPropertyRepo ResidentialPropertyRepo,
                                    ICommercialPropertyRepo commercialPropertyRepo,
                                    ICacheService cacheService)
         {
@@ -49,6 +51,15 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             }
 
             var existingLike = await _LikePropertyRepo.GetLikePropertyByUserAndPropertyId(userId, propertyId);
+
+            // defualt response
+            var response = new ResponseDto<ToggleResult>()
+            {
+                IsSuccess = true,
+                Message = "Property liked successfully",
+                Data = ToggleResult.Added
+            };
+
             if (existingLike == null)
             {
                 var newLike = new LikeProperty
@@ -63,20 +74,24 @@ namespace DEPI_PROJECT.BLL.Services.Implements
                     throw new Exception("An error occured while liking the property, please try again");
 
                 }
-                return new ResponseDto<ToggleResult>()
+            }
+            else
+            {
+                var statusDelete = await _LikePropertyRepo.DeleteLikeProperty(existingLike);
+                if (!statusDelete)
+                {
+                    throw new Exception("An error occured while disliking the property, please try again");
+
+                }
+                response = new ResponseDto<ToggleResult>()
                 {
                     IsSuccess = true,
-                    Message = "Property liked successfully",
-                    Data = ToggleResult.Added
+                    Message = "Property disliked successfully",
+                    Data = ToggleResult.Deleted
                 };
             }
-            var statusDelete = await _LikePropertyRepo.DeleteLikeProperty(existingLike);
-            if (!statusDelete)
-            {
-                throw new Exception("An error occured while disliking the property, please try again");
 
-            }
-
+            // invalidate cache in the end
             if(ResidentialProperty == null)
             {
                 _cacheService.InvalidateCache(CacheConstants.COMMERCIAL_PROPERTY_CACHE);
@@ -85,12 +100,28 @@ namespace DEPI_PROJECT.BLL.Services.Implements
             {
                 _cacheService.InvalidateCache(CacheConstants.RESIDENTIAL_PROPERTY_CACHE);
             }
-            return new ResponseDto<ToggleResult>()
-            {
-                IsSuccess = true,
-                Message = "Property disliked successfully",
-                Data = ToggleResult.Deleted
-            };
+
+            return response; 
+        }
+        public async Task AddLikesCountAndIsLike(Guid UserId, List<PropertyResponseDto> mappedData)
+        {
+            var PropertiesIds = mappedData.Select(p => p.PropertyId).ToList();
+            var CountPropertyDic = await _LikePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
+                                    .GroupBy(lc => lc.PropertyId)
+                                    .Select(n => new
+                                    {
+                                        PropertyId = n.Key,
+                                        Count = n.Count()
+                                    })
+                                    .ToDictionaryAsync(n => n.PropertyId, n => n.Count);
+
+            var IsLikedHash = await _LikePropertyRepo.GetAllLikesByPropertyIds(PropertiesIds)
+                                    .Where(lc => lc.UserID == UserId)
+                                    .Select(n => n.PropertyId)
+                                    .ToHashSetAsync();
+
+            mappedData.ForEach(p => p.IsLiked = IsLikedHash.Contains(p.PropertyId));
+            mappedData.ForEach(p => p.LikesCount = CountPropertyDic.GetValueOrDefault(p.PropertyId));
         }
     }
 }
